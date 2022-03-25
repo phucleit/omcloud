@@ -9,11 +9,11 @@ export default makeStyles(theme => ({
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
-    width: `calc(100vw - 240px)`,
+    width: `calc(100vw - 360px)`,
     minHeight: "100vh",
   },
   contentShift: {
-    width: `calc(100vw - ${240 + theme.spacing(6)}px)`,
+    width: `calc(100vw - ${360 + theme.spacing(6)}px)`,
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
