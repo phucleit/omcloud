@@ -16,7 +16,7 @@ import classnames from "classnames";
 import useStyles from "./styles";
 
 // logo
-import logo from './logo.png';
+import hcme from './hcme-logo.png';
 import google from "../../images/google.svg";
 
 // context
@@ -38,7 +38,7 @@ function Login(props) {
   return (
     <Grid container className={classes.container}>
       <div className={classes.logotypeContainer}>
-        <img src={logo} alt="logo" className={classes.logotypeImage} />
+        <img src={hcme} alt="hcme" className={classes.logotypeImage} />
         <Typography className={classes.logotypeText}>HICON M&E</Typography>
       </div>
       <div className={classes.formContainer}>
