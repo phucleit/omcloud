@@ -1,3 +1,8 @@
+# neu loi 
+"start": "react-scripts --openssl-legacy-provider start",
+
+"start": "set PORT=4000 && react-scripts start",
+
 # React Material Admin — Material-UI Dashboard Template
 
 Built with [React](https://facebook.github.io/react/), [Material-UI](https://material-ui.com), [React Router](https://reacttraining.com/react-router/).
