@@ -21,7 +21,7 @@ import PageTitle from "../../components/PageTitle/PageTitle";
 // icons sets
 import "font-awesome/css/font-awesome.min.css";
 
-export default function IconsPage () {
+export default function ServicesPage () {
   const [anchorEl, setAnchorEl] = React.useState(null)
 
   const handleClick = (e) => {

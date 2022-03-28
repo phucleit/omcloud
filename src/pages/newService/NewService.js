@@ -73,7 +73,7 @@ const pieChartData = [
   { name: "Group D", value: 200 },
 ];
 
-export default function Charts(props) {
+export default function NewService(props) {
   var theme = useTheme();
 
   // local
