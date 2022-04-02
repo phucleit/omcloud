@@ -44,11 +44,11 @@ const structure = [
   {
     id: 3,
     label: "Quản lý công trình",
-    link: "/app/ui",
+    link: "/app",
     icon: <AppsIcon />,
     children: [
-      { label: "Danh sách công trình", link: "/app/ui/icons" },
-      { label: "Thêm công trình mới", link: "/app/ui/charts" },
+      { label: "Danh sách công trình", link: "/app/constructions" },
+      { label: "Thêm công trình mới", link: "/app/new-construction" },
     ],
   },
   { id: 4, label: "Tạo báo cáo", link: "", icon: <ListAltIcon /> },

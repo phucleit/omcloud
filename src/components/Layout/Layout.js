@@ -19,9 +19,10 @@ import Sidebar from "../Sidebar";
 import Dashboard from "../../pages/dashboard";
 import Typography from "../../pages/typography";
 import Notifications from "../../pages/notifications";
-import Maps from "../../pages/maps";
 import Services from "../../pages/services";
 import NewService from "../../pages/newService";
+import Constructions from "../../pages/constructions";
+import NewConstruction from "../../pages/newConstruction";
 
 // context
 import { useLayoutState } from "../../context/LayoutContext";
@@ -47,13 +48,15 @@ function Layout(props) {
               <Route path="/app/dashboard" component={Dashboard} />
               <Route path="/app/typography" component={Typography} />
               <Route path="/app/notifications" component={Notifications} />
-              <Route
+              {/* <Route
                 exact
                 path="/app"
                 render={() => <Redirect to="/app/services" />}
-              />
+              /> */}
               <Route path="/app/services" component={Services} />
               <Route path="/app/new-service" component={NewService} />
+              <Route path="/app/constructions" component={Constructions} />
+              <Route path="/app/new-construction" component={NewConstruction} />
             </Switch>
             <Box
               mt={5}
