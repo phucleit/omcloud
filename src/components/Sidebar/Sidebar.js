@@ -43,7 +43,7 @@ const structure = [
   {
     id: 2,
     label: "Quản lý dịch vụ",
-    link: "/app",
+    link: "/app/services",
     icon: <SettingsIcon />,
     children: [
       { label: "Danh sách dịch vụ", link: "/app/services" },
@@ -53,7 +53,7 @@ const structure = [
   {
     id: 3,
     label: "Quản lý công trình",
-    link: "/app",
+    link: "/app/constructions",
     icon: <AppsIcon />,
     children: [
       { label: "Danh sách công trình", link: "/app/constructions" },
