@@ -1,6 +1,6 @@
 {
-  "name": "Maps",
+  "name": "Users",
   "version": "0.0.0",
-  "main": "Maps.js",
+  "main": "Users.js",
   "private": true
 }

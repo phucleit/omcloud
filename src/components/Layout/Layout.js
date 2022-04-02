@@ -17,8 +17,10 @@ import Sidebar from "../Sidebar";
 
 // pages
 import Dashboard from "../../pages/dashboard";
-import Typography from "../../pages/typography";
-import Notifications from "../../pages/notifications";
+import Users from '../../pages/management/users';
+import NewUser from '../../pages/management/newUser';
+import Roles from '../../pages/management/roles';
+import NewRole from '../../pages/management/newRole';
 import Services from "../../pages/services";
 import NewService from "../../pages/newService";
 import Constructions from "../../pages/constructions";
@@ -46,8 +48,10 @@ function Layout(props) {
             <div className={classes.fakeToolbar} />
             <Switch>
               <Route path="/app/dashboard" component={Dashboard} />
-              <Route path="/app/typography" component={Typography} />
-              <Route path="/app/notifications" component={Notifications} />
+              <Route path="/app/users" component={Users} />
+              <Route path="/app/new-user" component={NewUser} />
+              <Route path="/app/roles" component={Roles} />
+              <Route path="/app/new-role" component={NewRole} />
               {/* <Route
                 exact
                 path="/app"

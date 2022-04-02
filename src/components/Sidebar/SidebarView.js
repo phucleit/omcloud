@@ -22,13 +22,13 @@ const structure = [
   {
     id: 1,
     label: "Tài khoản",
-    link: "/users",
+    link: "/app/users",
     icon: <PersonAddIcon />,
     children: [
-      { label: "Danh sách tài khoản", link: "/app/ui/icons" },
-      { label: "Thêm tài khoản", link: "/app/ui/charts" },
-      { label: "Nhóm người dùng", link: "/app/ui/maps" },
-      { label: "Thêm nhóm người dùng", link: "/app/ui/maps" },
+      { label: "Danh sách tài khoản", link: "/app/users" },
+      { label: "Thêm tài khoản", link: "/app/new-user" },
+      { label: "Nhóm người dùng", link: "/app/roles" },
+      { label: "Thêm nhóm người dùng", link: "/app/new-role" },
     ],
   },
   {
