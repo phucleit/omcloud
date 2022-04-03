@@ -16,7 +16,7 @@ import useStyles from "./styles";
 // icons sets
 import "font-awesome/css/font-awesome.min.css";
 
-const url = `https://backend.omcloud.vn/api/service/`;
+const url_service = `https://backend.omcloud.vn/api/service/`;
 
 export default function ServicesPage () {
   var classes = useStyles();
@@ -32,7 +32,13 @@ export default function ServicesPage () {
   };
 
   const handleDelete = (id) => {
-
+    if(window.confirm('Bạn có muốn xóa không?')) {
+      axios.delete(url_service + id)
+      .then(res => {
+        setData(data.filter((item) => item.id !== id));
+      })
+      .catch(error => console.log(error));
+    }
   }
 
   const columns = [
