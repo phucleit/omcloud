@@ -4,7 +4,7 @@ import {
 } from "@material-ui/core";
 import axios from 'axios';
 import { DataGrid } from '@mui/x-data-grid';
-import { DeleteOutline, Add } from '@mui/icons-material';
+import { DeleteOutline } from '@mui/icons-material';
 import {
   Link,
 } from "react-router-dom";
