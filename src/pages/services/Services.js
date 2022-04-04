@@ -13,9 +13,6 @@ import {
 import PageTitle from "../../components/PageTitle/PageTitle";
 import useStyles from "./styles";
 
-// icons sets
-import "font-awesome/css/font-awesome.min.css";
-
 const url_service = `https://backend.omcloud.vn/api/service/`;
 
 export default function ServicesPage () {
