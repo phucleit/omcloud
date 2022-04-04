@@ -1,32 +1,43 @@
 import { makeStyles } from "@material-ui/styles";
 
 export default makeStyles(theme => ({
-  titleBold: {
-    fontWeight: 600,
+  newRolesForm: {
+      background: '#fff',
+      marginTop: '40px',
+      border: '1px solid rgba(224, 224, 224, 1)',
+      borderRadius: '4px',
+      padding: '15px',
   },
-  iconsBar: {
-    marginBottom: theme.spacing(4),
-    borderBottom: "1px solid",
-    borderBottomColor: theme.palette.text.hint + "80",
+  newRolesItem: {
+      width: '40%',
+      display: 'flex',
+      flexDirection: 'column',
+      marginTop: '10px',
+      marginRight: '20px',
   },
-  tab: {
-    color: theme.palette.primary.light + "CC",
+  label: {
+      marginBottom: '10px',
+      fontSize: '18px',
+      fontWeight: 'bold',
   },
-  materailIcon: {
+  inputName: {
+      padding: '10px',
+      border: '1px solid gray',
+      borderRadius: '5px',
+      fontSize: '15px',
+  },
+  newRolesType: {
+      height: '40px',
+      borderRadius: '5px',
+      fontSize: '15px',
+  },
+  newRoleBtn: {
+      marginTop: '20px',
+  },
+  listPermission: {
     display: "flex",
-    paddingLeft: `${theme.spacing(4)}px !important`,
-    paddingRight: `${theme.spacing(4)}px !important`,
-    color: theme.palette.text.secondary,
-    fontSize: 24,
-    overflowX: "hidden",
   },
-  materialIconText: {
-    marginLeft: theme.spacing(2),
-    fontSize: 14,
-  },
-  iconsContainer: {
-    boxShadow: theme.customShadows.widget,
-    overflow: "hidden",
-    paddingBottom: theme.spacing(2),
-  },
+  itemPermisstion: {
+    marginRight: '40px',
+  }
 }));
