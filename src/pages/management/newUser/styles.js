@@ -1,32 +1,37 @@
 import { makeStyles } from "@material-ui/styles";
 
 export default makeStyles(theme => ({
-  titleBold: {
-    fontWeight: 600,
+  newUserForm: {
+      background: '#fff',
+      marginTop: '40px',
+      border: '1px solid rgba(224, 224, 224, 1)',
+      borderRadius: '4px',
+      padding: '15px',
   },
-  iconsBar: {
-    marginBottom: theme.spacing(4),
-    borderBottom: "1px solid",
-    borderBottomColor: theme.palette.text.hint + "80",
+  newUserItem: {
+      width: '40%',
+      display: 'flex',
+      flexDirection: 'column',
+      marginTop: '10px',
+      marginRight: '20px',
   },
-  tab: {
-    color: theme.palette.primary.light + "CC",
+  label: {
+      marginBottom: '10px',
+      fontSize: '18px',
+      fontWeight: 'bold',
   },
-  materailIcon: {
-    display: "flex",
-    paddingLeft: `${theme.spacing(4)}px !important`,
-    paddingRight: `${theme.spacing(4)}px !important`,
-    color: theme.palette.text.secondary,
-    fontSize: 24,
-    overflowX: "hidden",
+  inputName: {
+      padding: '10px',
+      border: '1px solid gray',
+      borderRadius: '5px',
+      fontSize: '15px',
   },
-  materialIconText: {
-    marginLeft: theme.spacing(2),
-    fontSize: 14,
+  newUserType: {
+      height: '40px',
+      borderRadius: '5px',
+      fontSize: '15px',
   },
-  iconsContainer: {
-    boxShadow: theme.customShadows.widget,
-    overflow: "hidden",
-    paddingBottom: theme.spacing(2),
-  },
+  newUserBtn: {
+      marginTop: '20px',
+  }
 }));
