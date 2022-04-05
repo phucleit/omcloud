@@ -61,7 +61,7 @@ export default function ConstructionsPage () {
       renderCell: (params) => {
         return (
           <div className={classes.buttonAction}>
-            <Link to={"/constructions/"+params.row.id}>
+          <Link to={"/app/edit-construction/"+params.row.id}>
               <button className={classes.constructionListEdit}>Edit</button>
             </Link>
             <DeleteOutline className={classes.constructionListDelete} onClick={() => handleDelete(params.row.id)} />

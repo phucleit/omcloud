@@ -25,6 +25,7 @@ import NewService from "../../pages/newService";
 import EditService from "../../pages/editService";
 import Constructions from "../../pages/constructions";
 import NewConstruction from "../../pages/newConstruction";
+import EditConstruction from "../../pages/editConstruction";
 
 // context
 import { useLayoutState } from "../../context/LayoutContext";
@@ -59,9 +60,10 @@ function Layout(props) {
               /> */}
               <Route path="/app/services" component={Services} />
               <Route path="/app/new-service" component={NewService} />
-              <Route path="/app/edit-services/:id" component={EditService} />
+              <Route path="/app/edit-service/:id" component={EditService} />
               <Route path="/app/constructions" component={Constructions} />
               <Route path="/app/new-construction" component={NewConstruction} />
+              <Route path="/app/edit-construction/:id" component={EditConstruction} />
             </Switch>
             <Box
               mt={5}
