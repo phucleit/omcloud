@@ -22,6 +22,7 @@ import Roles from '../../pages/management/roles';
 import NewRole from '../../pages/management/newRole';
 import Services from "../../pages/services";
 import NewService from "../../pages/newService";
+import EditService from "../../pages/editService";
 import Constructions from "../../pages/constructions";
 import NewConstruction from "../../pages/newConstruction";
 
@@ -58,6 +59,7 @@ function Layout(props) {
               /> */}
               <Route path="/app/services" component={Services} />
               <Route path="/app/new-service" component={NewService} />
+              <Route path="/app/edit-services/:id" component={EditService} />
               <Route path="/app/constructions" component={Constructions} />
               <Route path="/app/new-construction" component={NewConstruction} />
             </Switch>

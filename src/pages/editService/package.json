@@ -1,0 +1,6 @@
+{
+  "name": "EditService",
+  "version": "1.0.0",
+  "private": true,
+  "main": "EditService.js"
+}
