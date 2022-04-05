@@ -18,6 +18,7 @@ import Sidebar from "../Sidebar";
 import Dashboard from "../../pages/dashboard";
 import Users from '../../pages/management/users';
 import NewUser from '../../pages/management/newUser';
+import EditUser from '../../pages/management/editUser';
 import Roles from '../../pages/management/roles';
 import NewRole from '../../pages/management/newRole';
 import Services from "../../pages/services";
@@ -51,6 +52,7 @@ function Layout(props) {
               <Route path="/app/dashboard" component={Dashboard} />
               <Route path="/app/users" component={Users} />
               <Route path="/app/new-user" component={NewUser} />
+              <Route path="/app/edit-user/:id" component={EditUser} />
               <Route path="/app/roles" component={Roles} />
               <Route path="/app/new-role" component={NewRole} />
               {/* <Route

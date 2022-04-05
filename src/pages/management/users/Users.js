@@ -55,7 +55,7 @@ export default function UsersPage () {
       renderCell: (params) => {
         return (
           <div className={classes.buttonAction}>
-            <Link to={"/app/users/" + params.row.id}>
+            <Link to={"/app/edit-user/" + params.row.id}>
               <button className={classes.userListEdit}>Edit</button>
             </Link>
             <DeleteOutline className={classes.userListDelete} onClick={() => handleDelete(params.row.id)} />
