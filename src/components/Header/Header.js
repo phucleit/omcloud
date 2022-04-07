@@ -71,6 +71,7 @@ export default function Header(props) {
         <Typography variant="h6" weight="medium" className={classes.logotype}>
           HICON M&E
         </Typography>
+
         <div className={classes.grow} />
         <IconButton
           aria-haspopup="true"
@@ -81,6 +82,13 @@ export default function Header(props) {
         >
           <AccountIcon classes={{ root: classes.headerIcon }} />
         </IconButton>
+
+        <select id="language" onChange={(e) => handleClick(e.target.value)}>
+          <option value='en'>English</option>
+          <option value='vn'>Vietnamese</option>
+
+        </select>
+
         <Menu
           id="profile-menu"
           open={Boolean(profileMenu)}
@@ -105,7 +113,9 @@ export default function Header(props) {
             </Typography>
           </div>
         </Menu>
+
       </Toolbar>
+
     </AppBar>
   );
 }
