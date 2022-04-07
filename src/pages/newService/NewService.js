@@ -3,6 +3,7 @@ import { Button } from "@material-ui/core";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import useStyles from "./styles";
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 import {
   useHistory,
 } from "react-router-dom";
@@ -12,11 +13,11 @@ const URL_ADD_SERVICE = 'https://backend.omcloud.vn/api/service';
 
 export default function NewService() {
   var classes = useStyles();
-  let history  = useHistory();
-
-  const [ serviceType, setServiceType ] = useState([]);
-  const [ serviceTypeID, setServiceTypeID ] = useState('');
-  const [ serviceName, setServiceName ] = useState('');
+  let history = useHistory();
+  const { t } = useTranslation()
+  const [serviceType, setServiceType] = useState([]);
+  const [serviceTypeID, setServiceTypeID] = useState('');
+  const [serviceName, setServiceName] = useState('');
 
   useEffect(() => {
     loadServicesType();
@@ -46,23 +47,23 @@ export default function NewService() {
     }
 
     axios.post(URL_ADD_SERVICE, newService)
-    .then(res => {
-      alert('Thêm dịch vụ thành công!');
-      history.push('/app/services');
-    })
-    .catch(error => console.log(error));
+      .then(res => {
+        alert('Thêm dịch vụ thành công!');
+        history.push('/app/services');
+      })
+      .catch(error => console.log(error));
   }
 
   return (
     <>
-      <PageTitle title="Thêm dịch vụ mới" />
+      <PageTitle title={t('Services-Add')} />
       <div className={classes.newServiceForm}>
         <div className={classes.newServiceItem}>
-            <label className={classes.label}>Tên dịch vụ</label>
-            <input type="text" name="tendichvu" placeholder='Nhập tên dịch vụ...' className={classes.inputName} value={serviceName} onChange={(e) => setServiceName(e.target.value)} />
+          <label className={classes.label}>{t('service-name')}</label>
+          <input type="text" name="tendichvu" placeholder={t('service-name-enter')} className={classes.inputName} value={serviceName} onChange={(e) => setServiceName(e.target.value)} />
         </div>
         <div className={classes.newServiceItem}>
-          <label className={classes.label}>Loại dịch vụ</label>
+          <label className={classes.label}>{t('service-type')}</label>
           <select
             onChange={e => handleTypeChange(e)}
             className={classes.newServiceType}
@@ -81,7 +82,7 @@ export default function NewService() {
           className={classes.newServiceBtn}
           onClick={handleAddService}
         >
-          Thêm mới
+          {t('Add')}
         </Button>
       </div>
     </>

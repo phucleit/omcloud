@@ -43,23 +43,23 @@ export default function ConstructionsPage() {
 
   const columns = [
     { field: 'id', headerName: 'ID', width: 70 },
-    { field: 'name', headerName: 'Tên công trình', width: 250 },
+    { field: 'name', headerName: t('construction-name'), width: 250 },
     {
       field: 'service_id',
-      headerName: 'Dịch vụ',
+      headerName: t('Services'),
       width: 200,
       valueGetter: (params) => `${params.row.service.name}`
     },
-    { field: 'address', headerName: 'Địa điểm', width: 300 },
+    { field: 'address', headerName: t('construction-address'), width: 300 },
     {
       field: 'service_type',
-      headerName: 'Loại dịch vụ',
+      headerName: t('service-type'),
       width: 150,
       valueGetter: (params) => `${params.row.service_type.name}`
     },
     {
       field: 'hanhDong',
-      headerName: 'Hành động',
+      headerName: t('Action'),
       width: 150,
       renderCell: (params) => {
         return (
