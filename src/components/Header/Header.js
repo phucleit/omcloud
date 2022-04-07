@@ -17,7 +17,7 @@ import useStyles from "./styles";
 
 // components
 import { Typography } from "../Wrappers"
-
+import { useTranslation } from 'react-i18next';
 // context
 import {
   useLayoutState,
@@ -36,7 +36,10 @@ export default function Header(props) {
 
   // local
   var [profileMenu, setProfileMenu] = useState(null);
-
+  const { t, i18n } = useTranslation()
+  const handleClick = (lang) => {
+    i18n.changeLanguage(lang)
+  }
   return (
     <AppBar position="fixed" className={classes.appBar}>
       <Toolbar className={classes.toolbar}>
@@ -71,6 +74,7 @@ export default function Header(props) {
         <Typography variant="h6" weight="medium" className={classes.logotype}>
           HICON M&E
         </Typography>
+
         <div className={classes.grow} />
         <IconButton
           aria-haspopup="true"
@@ -81,6 +85,15 @@ export default function Header(props) {
         >
           <AccountIcon classes={{ root: classes.headerIcon }} />
         </IconButton>
+
+        <select id="language" onChange={(e) => handleClick(e.target.value)}>
+          <option value='vn'>Vietnamese</option>
+          <option value='en'>English</option>
+
+
+
+        </select>
+
         <Menu
           id="profile-menu"
           open={Boolean(profileMenu)}
@@ -105,7 +118,9 @@ export default function Header(props) {
             </Typography>
           </div>
         </Menu>
+
       </Toolbar>
+
     </AppBar>
   );
 }

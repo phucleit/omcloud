@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Drawer, IconButton, List } from "@material-ui/core";
+import { useTranslation } from 'react-i18next';
+
 import {
   Home as HomeIcon,
   ArrowBack as ArrowBackIcon,
@@ -26,43 +28,7 @@ import {
   toggleSidebar,
 } from "../../context/LayoutContext";
 
-const structure = [
-  { id: 0, label: "Trang chủ", link: "/app/dashboard", icon: <HomeIcon /> },
-  {
-    id: 1,
-    label: "Tài khoản",
-    link: "/app/users",
-    icon: <PersonAddIcon />,
-    children: [
-      { label: "Danh sách tài khoản", link: "/app/users" },
-      { label: "Thêm tài khoản", link: "/app/new-user" },
-      { label: "Nhóm người dùng", link: "/app/roles" },
-      { label: "Thêm nhóm người dùng", link: "/app/new-role" },
-    ],
-  },
-  {
-    id: 2,
-    label: "Quản lý dịch vụ",
-    link: "/app/services",
-    icon: <SettingsIcon />,
-    children: [
-      { label: "Danh sách dịch vụ", link: "/app/services" },
-      { label: "Thêm dịch vụ mới", link: "/app/new-service" },
-    ],
-  },
-  {
-    id: 3,
-    label: "Quản lý công trình",
-    link: "/app/constructions",
-    icon: <AppsIcon />,
-    children: [
-      { label: "Danh sách công trình", link: "/app/constructions" },
-      { label: "Thêm công trình mới", link: "/app/new-construction" },
-    ],
-  },
-  { id: 4, label: "Tạo báo cáo", link: "", icon: <ListAltIcon /> },
-  { id: 5, label: "Cấu hình hệ thống", link: "", icon: <BackupIcon /> },
-];
+
 
 function Sidebar({ location }) {
   var classes = useStyles();
@@ -74,8 +40,45 @@ function Sidebar({ location }) {
 
   // local
   var [isPermanent, setPermanent] = useState(true);
-
-  useEffect(function() {
+  const { t } = useTranslation()
+  const structure = [
+    { id: 0, label: t("Home"), link: "/app/dashboard", icon: <HomeIcon /> },
+    {
+      id: 1,
+      label: t("Account"),
+      link: "/app/users",
+      icon: <PersonAddIcon />,
+      children: [
+        { label: t("Account-List"), link: "/app/users" },
+        { label: t("Account-Add"), link: "/app/new-user" },
+        { label: t("Account-Group"), link: "/app/roles" },
+        { label: t("Account-Add-Group"), link: "/app/new-role" },
+      ],
+    },
+    {
+      id: 2,
+      label: t("Services"),
+      link: "/app/services",
+      icon: <SettingsIcon />,
+      children: [
+        { label: t("Services-List"), link: "/app/services" },
+        { label: t("Services-Add"), link: "/app/new-service" },
+      ],
+    },
+    {
+      id: 3,
+      label: t("Constructions"),
+      link: "/app/constructions",
+      icon: <AppsIcon />,
+      children: [
+        { label: t("Constructions-List"), link: "/app/constructions" },
+        { label: t("Constructions-Add"), link: "/app/new-construction" },
+      ],
+    },
+    { id: 4, label: t("Report-Add"), link: "", icon: <ListAltIcon /> },
+    { id: 5, label: t("System-config"), link: "", icon: <BackupIcon /> },
+  ];
+  useEffect(function () {
     window.addEventListener("resize", handleWindowWidthChange);
     handleWindowWidthChange();
     return function cleanup() {
