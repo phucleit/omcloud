@@ -14,7 +14,7 @@ import classNames from "classnames";
 
 // styles
 import useStyles from "./styles";
-
+import style from './header.module.css'
 // components
 import { Typography } from "../Wrappers"
 import { useTranslation } from 'react-i18next';
@@ -86,7 +86,7 @@ export default function Header(props) {
           <AccountIcon classes={{ root: classes.headerIcon }} />
         </IconButton>
 
-        <select id="language" onChange={(e) => handleClick(e.target.value)}>
+        <select id="language" className={style.comboBox} onChange={(e) => handleClick(e.target.value)}>
           <option value='vn'>Vietnamese</option>
           <option value='en'>English</option>
 
@@ -105,7 +105,7 @@ export default function Header(props) {
         >
           <div className={classes.profileMenuUser}>
             <Typography variant="h4" weight="medium">
-              Xin chào, Phúc
+              {t('hello')}, Phúc
             </Typography>
           </div>
           <div className={classes.profileMenuUser}>
@@ -114,7 +114,7 @@ export default function Header(props) {
               color="primary"
               onClick={() => signOut(userDispatch, props.history)}
             >
-              Sign Out
+              {t('signOut')}
             </Typography>
           </div>
         </Menu>

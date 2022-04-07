@@ -1,0 +1,10 @@
+.comboBox{
+    cursor: pointer;
+    margin-left: 20px;
+    width: 120px;
+    height: 25px;
+    border: none;
+    border-radius: 15px;
+    font-family: "Roboto";
+    outline: none;
+}

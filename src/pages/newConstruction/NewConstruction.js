@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Button } from "@material-ui/core";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import useStyles from "./styles";
+import { useTranslation } from 'react-i18next';
+
 import {
   useHistory,
 } from "react-router-dom";
@@ -9,20 +11,20 @@ import axios from 'axios';
 
 export default function NewConstruction() {
   var classes = useStyles();
-  let history  = useHistory();
+  let history = useHistory();
+  const { t } = useTranslation()
+  const [name, setName] = useState('');
+  const [address, setAddress] = useState('');
+  const [representative, setRepresentative] = useState('');
+  const [representative_tel, setRepresentativeTel] = useState('');
+  const [representative_mail, setRepresentativeMail] = useState('');
+  const [person_in_charge, setPersonInCharge] = useState('');
 
-  const [ name, setName ] = useState('');
-  const [ address, setAddress ] = useState('');
-  const [ representative, setRepresentative ] = useState('');
-  const [ representative_tel, setRepresentativeTel ] = useState('');
-  const [ representative_mail, setRepresentativeMail ] = useState('');
-  const [ person_in_charge, setPersonInCharge ] = useState('');
+  const [service, setService] = useState([]);
+  const [serviceID, setServiceID] = useState();
 
-  const [ service, setService ] = useState([]);
-  const [ serviceID, setServiceID ] = useState();
-
-  const [ serviceType, setServiceType ] = useState([]);
-  const [ serviceTypeID, setServiceTypeID ] = useState('');
+  const [serviceType, setServiceType] = useState([]);
+  const [serviceTypeID, setServiceTypeID] = useState('');
 
   useEffect(() => {
     loadServicesType();
@@ -85,47 +87,47 @@ export default function NewConstruction() {
       };
 
       axios.post('https://backend.omcloud.vn/api/construction', newConstruction)
-      .then(res => {
-        alert('Thêm công trình thành công!');
-        history.push('/app/constructions');
-      })
-      .catch(error => console.log(error));
+        .then(res => {
+          alert('Thêm công trình thành công!');
+          history.push('/app/constructions');
+        })
+        .catch(error => console.log(error));
     }
   }
 
   return (
     <>
-      <PageTitle title="Thêm công trình mới" />
+      <PageTitle title={t('Constructions-Add')} />
       <div className={classes.newConstructionForm}>
         <div className={classes.newConstructionItem}>
-            <label className={classes.label}>Tên công trình</label>
-            <input type="text" name="tencongtrinh" className={classes.inputName} value={name} onChange={(e) => setName(e.target.value)} placeholder='Nhập tên công trình...' />
+          <label className={classes.label}>{t('construction-name')}</label>
+          <input type="text" name="tencongtrinh" className={classes.inputName} value={name} onChange={(e) => setName(e.target.value)} placeholder={t('construction-name-enter')} />
         </div>
         <div className={classes.newConstructionItem}>
-            <label className={classes.label}>Địa điểm</label>
-            <input type="text" name="diadiem" className={classes.inputName} value={address} onChange={(e) => setAddress(e.target.value)} placeholder='Nhập địa điểm...' />
+          <label className={classes.label}>{t('construction-address')}</label>
+          <input type="text" name="diadiem" className={classes.inputName} value={address} onChange={(e) => setAddress(e.target.value)} placeholder={t('construction-address-enter')} />
         </div>
         <div className={classes.newConstructionItem}>
-            <label className={classes.label}>Họ tên đại diện</label>
-            <input type="text" name="hotendaidien" className={classes.inputName} value={representative} onChange={(e) => setRepresentative(e.target.value)} placeholder='Nhập họ tên đại diện...' />
+          <label className={classes.label}>{t('client-name')}</label>
+          <input type="text" name="hotendaidien" className={classes.inputName} value={representative} onChange={(e) => setRepresentative(e.target.value)} placeholder={t('client-name-enter')} />
         </div>
         <div className={classes.newConstructionItem}>
-            <label className={classes.label}>Điện thoại đại diện</label>
-            <input type="tel" name="dienthoaidaidien" className={classes.inputName} value={representative_tel} onChange={(e) => setRepresentativeTel(e.target.value)} placeholder='Nhập điện thoại đại diện...' />
+          <label className={classes.label}>{t('client-phone')}</label>
+          <input type="tel" name="dienthoaidaidien" className={classes.inputName} value={representative_tel} onChange={(e) => setRepresentativeTel(e.target.value)} placeholder={t('client-phone-enter')} />
         </div>
         <div className={classes.newConstructionItem}>
-            <label className={classes.label}>Email đại diện</label>
-            <input type="email" name="emaildaidien" className={classes.inputName} value={representative_mail} onChange={(e) => setRepresentativeMail(e.target.value)} placeholder='Nhập email đại diện...' />
+          <label className={classes.label}>{t('client-email')}</label>
+          <input type="email" name="emaildaidien" className={classes.inputName} value={representative_mail} onChange={(e) => setRepresentativeMail(e.target.value)} placeholder={t('client-email-enter')} />
         </div>
         <div className={classes.newConstructionItem}>
-            <label className={classes.label}>Nhân sự phụ trách</label>
-            <input type="text" name="nhansuphutrach" className={classes.inputName} value={person_in_charge} onChange={(e) => setPersonInCharge(e.target.value)} placeholder='Nhập nhân sự phụ trách...' />
+          <label className={classes.label}>{t('in-charge')}</label>
+          <input type="text" name="nhansuphutrach" className={classes.inputName} value={person_in_charge} onChange={(e) => setPersonInCharge(e.target.value)} placeholder={t('in-charge-enter')} />
         </div>
         <div className={classes.newConstructionItem}>
-          <label className={classes.label}>Dịch vụ cung cấp</label>
+          <label className={classes.label}>{t('Services')}</label>
           <select
             onChange={e => handleServiceChange(e)}
-            className={classes.newConstructionType} 
+            className={classes.newConstructionType}
             id="newConstructionType"
           >
             <option>-----</option>

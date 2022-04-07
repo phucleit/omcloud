@@ -83,17 +83,17 @@ export default function NewRole() {
       <div className={classes.newRolesForm}>
         <div className={classes.newRolesItem}>
           <label className={classes.label}>{t("GroupName")}</label>
-          <input type="text" name="tennhom" className={classes.inputName} value={title} onChange={(e) => setTitle(e.target.value)} placeholder='Nhập tên nhóm...' />
+          <input type="text" name="tennhom" className={classes.inputName} value={title} onChange={(e) => setTitle(e.target.value)} placeholder={t("GroupName-enter")} />
         </div>
         <div className={classes.newRolesItem}>
           <label className={classes.label}>{t("Desc")}</label>
-          <textarea rows="4" name="motanhom" className={classes.inputName} value={description} onChange={(e) => setDescription(e.target.value)} placeholder='Nhập mô tả nhóm...'></textarea>
+          <textarea rows="4" name="motanhom" className={classes.inputName} value={description} onChange={(e) => setDescription(e.target.value)} placeholder={t("Desc-enter")}></textarea>
         </div>
         <div className={classes.newRolesItem}>
-          <label className={classes.label}>Phân quyền</label>
+          <label className={classes.label}>{t('Decentralize')}</label>
           <div className={classes.listPermission}>
             <div className={classes.itemPermisstion}>
-              <label>Tài khoản</label>
+              <label>{t('Account')}</label>
               {
                 Object.entries(listPermission).slice(1, 2).map(role_1 =>
                   role_1[1].map(
@@ -106,7 +106,7 @@ export default function NewRole() {
               }
             </div>
             <div className={classes.itemPermisstion}>
-              <label>Quản trị dịch vụ</label>
+              <label>{t('Services')}</label>
               {
                 Object.entries(listPermission).slice(2, 3).map(role_2 =>
                   role_2[1].map(
@@ -119,7 +119,7 @@ export default function NewRole() {
               }
             </div>
             <div className={classes.itemPermisstion}>
-              <label>Công trình</label>
+              <label>{t('Constructions')}</label>
               {
                 Object.entries(listPermission).slice(3, 4).map(role_3 =>
                   role_3[1].map(
@@ -140,7 +140,7 @@ export default function NewRole() {
           className={classes.newRoleBtn}
           onClick={handleAddRole}
         >
-          Tạo nhóm
+          {t('add-group')}
         </Button>
       </div>
     </>
