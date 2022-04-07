@@ -17,7 +17,7 @@ import useStyles from "./styles";
 
 // components
 import { Typography } from "../Wrappers"
-
+import { useTranslation } from 'react-i18next';
 // context
 import {
   useLayoutState,
@@ -36,7 +36,10 @@ export default function Header(props) {
 
   // local
   var [profileMenu, setProfileMenu] = useState(null);
-
+  const { t, i18n } = useTranslation()
+  const handleClick = (lang) => {
+    i18n.changeLanguage(lang)
+  }
   return (
     <AppBar position="fixed" className={classes.appBar}>
       <Toolbar className={classes.toolbar}>
@@ -84,8 +87,10 @@ export default function Header(props) {
         </IconButton>
 
         <select id="language" onChange={(e) => handleClick(e.target.value)}>
-          <option value='en'>English</option>
           <option value='vn'>Vietnamese</option>
+          <option value='en'>English</option>
+
+
 
         </select>
 

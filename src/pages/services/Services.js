@@ -12,10 +12,12 @@ import {
 // components
 import PageTitle from "../../components/PageTitle/PageTitle";
 import useStyles from "./styles";
+import { useTranslation } from 'react-i18next';
+
 
 const url_service = `https://backend.omcloud.vn/api/service/`;
 
-export default function ServicesPage () {
+export default function ServicesPage() {
   var classes = useStyles();
   const [data, setData] = useState([]);
 
@@ -29,33 +31,33 @@ export default function ServicesPage () {
   };
 
   const handleDelete = (id) => {
-    if(window.confirm('Bạn có muốn xóa không?')) {
+    if (window.confirm('Bạn có muốn xóa không?')) {
       axios.delete(url_service + id)
-      .then(res => {
-        setData(data.filter((item) => item.id !== id));
-      })
-      .catch(error => console.log(error));
+        .then(res => {
+          setData(data.filter((item) => item.id !== id));
+        })
+        .catch(error => console.log(error));
     }
   }
 
   const columns = [
     { field: 'id', headerName: 'ID', width: 70 },
     { field: 'name', headerName: 'Tên dịch vụ', width: 250 },
-    { 
-      field: 'service_type', 
-      headerName: 'Loại dịch vụ', 
-      width: 250, 
-      valueGetter: (params) => `${params.row.service_type.name}` 
+    {
+      field: 'service_type',
+      headerName: 'Loại dịch vụ',
+      width: 250,
+      valueGetter: (params) => `${params.row.service_type.name}`
     },
     { field: 'construction_count', headerName: 'Số lượng công trình', width: 200 },
-    { 
-      field: 'hanhDong', 
-      headerName: 'Hành động', 
+    {
+      field: 'hanhDong',
+      headerName: 'Hành động',
       width: 150,
       renderCell: (params) => {
         return (
           <div className={classes.buttonAction}>
-            <Link to={"/app/edit-service/"+params.row.id}>
+            <Link to={"/app/edit-service/" + params.row.id}>
               <button className={classes.serviceListEdit}>Edit</button>
             </Link>
             <DeleteOutline className={classes.serviceListDelete} onClick={() => handleDelete(params.row.id)} />
@@ -64,17 +66,17 @@ export default function ServicesPage () {
       }
     },
   ];
-
+  const { t } = useTranslation()
   return (
     <>
-      <PageTitle title="Danh sách dịch vụ" button={(
+      <PageTitle title={t("Services-List")} button={(
         <Link to="/app/new-service">
           <Button
             variant="contained"
             size="medium"
             color="secondary"
           >
-            Thêm mới
+            {t("Add")}
           </Button>
         </Link>
       )} />

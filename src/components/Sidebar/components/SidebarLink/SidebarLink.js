@@ -17,7 +17,7 @@ import useStyles from "./styles";
 
 // components
 import Dot from "../Dot";
-
+import { useTranslation } from 'react-i18next';
 export default function SidebarLink({
   link,
   icon,
@@ -28,6 +28,7 @@ export default function SidebarLink({
   nested,
   type,
 }) {
+  const { t } = useTranslation()
   var classes = useStyles();
 
   // local
@@ -62,22 +63,22 @@ export default function SidebarLink({
         disableRipple
       >
         <a className={classes.externalLink} href={link}>
-        <ListItemIcon
-          className={classnames(classes.linkIcon, {
-            [classes.linkIconActive]: isLinkActive,
-          })}
-        >
-          {nested ? <Dot color={isLinkActive && "primary"} /> : icon}
-        </ListItemIcon>
-        <ListItemText
-          classes={{
-            primary: classnames(classes.linkText, {
-              [classes.linkTextActive]: isLinkActive,
-              [classes.linkTextHidden]: !isSidebarOpened,
-            }),
-          }}
-          primary={label}
-        />
+          <ListItemIcon
+            className={classnames(classes.linkIcon, {
+              [classes.linkIconActive]: isLinkActive,
+            })}
+          >
+            {nested ? <Dot color={isLinkActive && "primary"} /> : icon}
+          </ListItemIcon>
+          <ListItemText
+            classes={{
+              primary: classnames(classes.linkText, {
+                [classes.linkTextActive]: isLinkActive,
+                [classes.linkTextHidden]: !isSidebarOpened,
+              }),
+            }}
+            primary={label}
+          />
         </a>
       </ListItem>
     )
@@ -117,6 +118,7 @@ export default function SidebarLink({
     );
 
   return (
+
     <>
       <ListItem
         button
@@ -140,7 +142,7 @@ export default function SidebarLink({
               [classes.linkTextHidden]: !isSidebarOpened,
             }),
           }}
-          primary={label}
+          primary={label}  /* t('label')} */
         />
       </ListItem>
       {children && (

@@ -1,0 +1,19 @@
+{
+    "Home": "Home",
+    "Dashboard": "Dashboard",
+    "Copyright": "Copyright © 2021 HICON M&E",
+    "Account": "Account",
+    "Account-List": "Account List",
+    "Account-Add": "New Account",
+    "Account-Group": "Account Group",
+    "Account-Add-Group": "New Account Group",
+    "Services": "Services",
+    "Services-List": "Services List",
+    "Services-Add": "New Service",
+    "Constructions": "Constructions",
+    "Constructions-List": "Constructions List",
+    "Constructions-Add": "New Construction",
+    "Report-Add": "Add New Report",
+    "System-config": "System Configuration",
+    "Add": "Add"
+}

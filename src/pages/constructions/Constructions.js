@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useTranslation } from 'react-i18next';
+
 import {
   Button
 } from "@material-ui/core";
@@ -15,8 +17,9 @@ import useStyles from "./styles";
 
 const url_construction = `https://backend.omcloud.vn/api/construction/`;
 
-export default function ConstructionsPage () {
+export default function ConstructionsPage() {
   var classes = useStyles();
+  const { t } = useTranslation()
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -29,39 +32,39 @@ export default function ConstructionsPage () {
   };
 
   const handleDelete = (id) => {
-    if(window.confirm('Bạn có muốn xóa không?')) {
+    if (window.confirm('Bạn có muốn xóa không?')) {
       axios.delete(url_construction + id)
-      .then(res => {
-        setData(data.filter((item) => item.id !== id));
-      })
-      .catch(error => console.log(error));
+        .then(res => {
+          setData(data.filter((item) => item.id !== id));
+        })
+        .catch(error => console.log(error));
     }
   }
 
   const columns = [
     { field: 'id', headerName: 'ID', width: 70 },
     { field: 'name', headerName: 'Tên công trình', width: 250 },
-    { 
-      field: 'service_id', 
-      headerName: 'Dịch vụ', 
-      width: 200, 
-      valueGetter: (params) => `${params.row.service.name}` 
+    {
+      field: 'service_id',
+      headerName: 'Dịch vụ',
+      width: 200,
+      valueGetter: (params) => `${params.row.service.name}`
     },
     { field: 'address', headerName: 'Địa điểm', width: 300 },
-    { 
-        field: 'service_type', 
-        headerName: 'Loại dịch vụ', 
-        width: 150,
-        valueGetter: (params) => `${params.row.service_type.name}` 
+    {
+      field: 'service_type',
+      headerName: 'Loại dịch vụ',
+      width: 150,
+      valueGetter: (params) => `${params.row.service_type.name}`
     },
-    { 
-      field: 'hanhDong', 
-      headerName: 'Hành động', 
+    {
+      field: 'hanhDong',
+      headerName: 'Hành động',
       width: 150,
       renderCell: (params) => {
         return (
           <div className={classes.buttonAction}>
-          <Link to={"/app/edit-construction/"+params.row.id}>
+            <Link to={"/app/edit-construction/" + params.row.id}>
               <button className={classes.constructionListEdit}>Edit</button>
             </Link>
             <DeleteOutline className={classes.constructionListDelete} onClick={() => handleDelete(params.row.id)} />
@@ -73,14 +76,14 @@ export default function ConstructionsPage () {
 
   return (
     <>
-      <PageTitle title="Danh sách công trình" button={(
+      <PageTitle title={t("Constructions-List")} button={(
         <Link to="/app/new-construction">
           <Button
             variant="contained"
             size="medium"
             color="secondary"
           >
-            Thêm mới
+            {t("Add")}
           </Button>
         </Link>
       )} />
