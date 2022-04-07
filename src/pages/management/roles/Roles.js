@@ -30,8 +30,8 @@ export default function RolesPage() {
 
   const columns = [
     { field: 'id', headerName: 'ID', width: 70 },
-    { field: 'title', headerName: 'Tên nhóm', width: 250 },
-    { field: 'description', headerName: 'Mô tả', width: 650 },
+    { field: 'title', headerName: t("GroupName"), width: 250 },
+    { field: 'description', headerName: t("Desc"), width: 650 },
   ];
 
   return (
