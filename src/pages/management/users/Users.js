@@ -9,13 +9,17 @@ import {
   Link,
 } from "react-router-dom";
 import useStyles from "./styles";
+import { useTranslation } from 'react-i18next';
+
 
 // components
 import PageTitle from "../../../components/PageTitle/PageTitle";
 
 const url_user = `https://backend.omcloud.vn/api/user/`;
 
-export default function UsersPage () {
+
+export default function UsersPage() {
+  const { t } = useTranslation()
   var classes = useStyles();
   const [data, setData] = useState([]);
   useEffect(() => {
@@ -39,18 +43,18 @@ export default function UsersPage () {
 
   const columns = [
     { field: 'id', headerName: 'ID', width: 70 },
-    { field: 'name', headerName: 'Họ tên', width: 250 },
-    { field: 'username', headerName: 'Username', width: 250 },
+    { field: 'name', headerName: t('Fullname'), width: 250 },
+    { field: 'username', headerName: t('Username'), width: 250 },
     { field: 'email', headerName: 'Email', width: 250 },
     {
       field: 'role_id',
-      headerName: 'Nhóm quyền',
+      headerName: t('Role'),
       width: 250,
       valueGetter: (params) => `${params.row.role.title}`
     },
     {
       field: 'hanhDong',
-      headerName: 'Hành động',
+      headerName: t('Action'),
       width: 150,
       renderCell: (params) => {
         return (
@@ -67,14 +71,14 @@ export default function UsersPage () {
 
   return (
     <>
-      <PageTitle title="Danh sách tài khoản" button={(
+      <PageTitle title={t("Account-List")} button={(
         <Link to="/app/new-user">
           <Button
             variant="contained"
             size="medium"
             color="secondary"
           >
-            Thêm mới
+            {t("Add")}
           </Button>
         </Link>
       )} />

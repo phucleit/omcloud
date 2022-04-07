@@ -11,8 +11,11 @@ import {
 // components
 import PageTitle from "../../../components/PageTitle/PageTitle";
 import useStyles from "./styles";
+import { useTranslation } from 'react-i18next';
 
-export default function RolesPage () {
+
+export default function RolesPage() {
+  const { t } = useTranslation()
   var classes = useStyles();
 
   const [data, setData] = useState([]);
@@ -27,20 +30,20 @@ export default function RolesPage () {
 
   const columns = [
     { field: 'id', headerName: 'ID', width: 70 },
-    { field: 'title', headerName: 'Tên nhóm', width: 250 },
-    { field: 'description', headerName: 'Mô tả', width: 650 },
+    { field: 'title', headerName: t("GroupName"), width: 250 },
+    { field: 'description', headerName: t("Desc"), width: 650 },
   ];
 
   return (
     <>
-      <PageTitle title="Nhóm người dùng" button={(
+      <PageTitle title={t("Account-Group")} button={(
         <Link to="/app/new-role">
           <Button
             variant="contained"
             size="medium"
             color="secondary"
           >
-            Thêm mới
+            {t("Add")}
           </Button>
         </Link>
       )} />

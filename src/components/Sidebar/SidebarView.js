@@ -3,7 +3,8 @@ import {
   Drawer,
   IconButton,
   List,
-  withStyles } from "@material-ui/core";
+  withStyles
+} from "@material-ui/core";
 import {
   Home as HomeIcon,
   ArrowBack as ArrowBackIcon,
@@ -53,6 +54,7 @@ const structure = [
   },
   { id: 4, label: "Tạo báo cáo", link: "", icon: <ListAltIcon /> },
   { id: 5, label: "Cấu hình hệ thống", link: "", icon: <BackupIcon /> },
+
 ];
 
 const SidebarView = ({ classes, theme, toggleSidebar, isSidebarOpened, isPermanent, location }) => {
