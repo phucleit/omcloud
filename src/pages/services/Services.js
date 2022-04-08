@@ -19,6 +19,7 @@ const url_service = `https://backend.omcloud.vn/api/service/`;
 
 export default function ServicesPage() {
   var classes = useStyles();
+  const [query, setQuery] = useState('');
   const [data, setData] = useState([]);
   const { t } = useTranslation()
   useEffect(() => {
@@ -67,6 +68,16 @@ export default function ServicesPage() {
     },
   ];
 
+  const search = (rows) => {
+    return rows.filter(
+      (services) =>
+        services.name.toLowerCase().indexOf(query) > -1 ||
+        services.name.indexOf(query) > -1 ||
+        services.service_type.name.toLowerCase().indexOf(query) > -1 ||
+        services.service_type.name.indexOf(query) > -1
+    );
+  }
+
   return (
     <>
       <PageTitle title={t("Services-List")} button={(
@@ -80,8 +91,14 @@ export default function ServicesPage() {
           </Button>
         </Link>
       )} />
+      <div className={classes.search}>
+        <input type="text" className={classes.searchTerm} placeholder="Nhập từ khóa tìm kiếm" onChange={e => setQuery(e.target.value)} />
+        <button type="submit" className={classes.searchButton}>
+          <i className="fa fa-search"></i>
+        </button>
+      </div>
       <DataGrid
-        rows={data}
+        rows={search(data)}
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}

@@ -19,6 +19,7 @@ const url_construction = `https://backend.omcloud.vn/api/construction/`;
 
 export default function ConstructionsPage() {
   var classes = useStyles();
+  const [query, setQuery] = useState('');
   const { t } = useTranslation()
   const [data, setData] = useState([]);
 
@@ -74,6 +75,20 @@ export default function ConstructionsPage() {
     },
   ];
 
+  const search = (rows) => {
+    return rows.filter(
+      (constructions) =>
+        constructions.name.toLowerCase().indexOf(query) > -1 ||
+        constructions.name.indexOf(query) > -1 ||
+        constructions.service.name.toLowerCase().indexOf(query) > -1 ||
+        constructions.service.name.indexOf(query) > -1 ||
+        constructions.address.toLowerCase().indexOf(query) > -1 ||
+        constructions.address.indexOf(query) > -1 ||
+        constructions.service_type.name.toLowerCase().indexOf(query) > -1 ||
+        constructions.service_type.name.indexOf(query) > -1
+    );
+  }
+
   return (
     <>
       <PageTitle title={t("Constructions-List")} button={(
@@ -87,8 +102,14 @@ export default function ConstructionsPage() {
           </Button>
         </Link>
       )} />
+      <div className={classes.search}>
+        <input type="text" className={classes.searchTerm} placeholder="Nhập từ khóa tìm kiếm" onChange={e => setQuery(e.target.value)} />
+        <button type="submit" className={classes.searchButton}>
+          <i className="fa fa-search"></i>
+        </button>
+      </div>
       <DataGrid
-        rows={data}
+        rows={search(data)}
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}

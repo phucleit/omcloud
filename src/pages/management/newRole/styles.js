@@ -9,11 +9,10 @@ export default makeStyles(theme => ({
       padding: '15px',
   },
   newRolesItem: {
-      width: '40%',
+      width: '65%',
       display: 'flex',
       flexDirection: 'column',
       marginTop: '10px',
-      marginRight: '20px',
   },
   label: {
       marginBottom: '10px',
@@ -38,6 +37,6 @@ export default makeStyles(theme => ({
     display: "flex",
   },
   itemPermisstion: {
-    marginRight: '40px',
+    marginRight: '15%',
   }
 }));

@@ -48,8 +48,6 @@ function useUserDispatch() {
 
 export { UserProvider, useUserState, useUserDispatch, loginUser, signOut };
 
-const API_URL = "https://backend.omcloud.vn/api/login";
-
 // ###########################################################
 
 function loginUser(dispatch, login, password, history, setIsLoading, setError) {
