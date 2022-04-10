@@ -103,7 +103,7 @@ export default function ConstructionsPage() {
         </Link>
       )} />
       <div className={classes.search}>
-        <input type="text" className={classes.searchTerm} placeholder="Nhập từ khóa tìm kiếm" onChange={e => setQuery(e.target.value)} />
+        <input type="text" className={classes.searchTerm} placeholder={t('Search-input')} onChange={e => setQuery(e.target.value)} />
         <button type="submit" className={classes.searchButton}>
           <i className="fa fa-search"></i>
         </button>

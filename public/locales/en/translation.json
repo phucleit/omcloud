@@ -51,5 +51,6 @@
     "client-phone-enter": "Enter client phone...",
     "client-email-enter": "Enter client email...",
     "hello": "Hello",
-    "signOut": "Sign Out"
+    "signOut": "Sign Out",
+    "Search-input": "Search keyword..."
 }
