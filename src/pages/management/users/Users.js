@@ -21,6 +21,7 @@ const url_user = `https://backend.omcloud.vn/api/user/`;
 export default function UsersPage() {
   const { t } = useTranslation()
   var classes = useStyles();
+  const [query, setQuery] = useState('');
   const [data, setData] = useState([]);
   useEffect(() => {
     loadUsers();
@@ -69,6 +70,20 @@ export default function UsersPage() {
     },
   ];
 
+  const search = (rows) => {
+    return rows.filter(
+      (users) =>
+        users.name.toLowerCase().indexOf(query) > -1 ||
+        users.name.indexOf(query) > -1 ||
+        users.username.toLowerCase().indexOf(query) > -1 ||
+        users.username.indexOf(query) > -1 ||
+        users.email.toLowerCase().indexOf(query) > -1 ||
+        users.email.indexOf(query) > -1 ||
+        users.role.title.toLowerCase().indexOf(query) > -1 ||
+        users.role.title.indexOf(query) > -1
+    );
+  }
+
   return (
     <>
       <PageTitle title={t("Account-List")} button={(
@@ -82,8 +97,14 @@ export default function UsersPage() {
           </Button>
         </Link>
       )} />
+      <div className={classes.search}>
+        <input type="text" className={classes.searchTerm} placeholder="Nhập từ khóa tìm kiếm" onChange={e => setQuery(e.target.value)} />
+        <button type="submit" className={classes.searchButton}>
+          <i className="fa fa-search"></i>
+        </button>
+      </div>
       <DataGrid
-        rows={data}
+        rows={search(data)}
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}

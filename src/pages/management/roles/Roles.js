@@ -17,6 +17,7 @@ import { useTranslation } from 'react-i18next';
 export default function RolesPage() {
   const { t } = useTranslation()
   var classes = useStyles();
+  const [query, setQuery] = useState('');
 
   const [data, setData] = useState([]);
   useEffect(() => {
@@ -34,6 +35,16 @@ export default function RolesPage() {
     { field: 'description', headerName: t("Desc"), width: 650 },
   ];
 
+  const search = (rows) => {
+    return rows.filter(
+      (roles) =>
+        roles.title.toLowerCase().indexOf(query) > -1 ||
+        roles.title.indexOf(query) > -1 ||
+        roles.description.toLowerCase().indexOf(query) > -1 ||
+        roles.description.indexOf(query) > -1
+    );
+  }
+
   return (
     <>
       <PageTitle title={t("Account-Group")} button={(
@@ -47,8 +58,14 @@ export default function RolesPage() {
           </Button>
         </Link>
       )} />
+      <div className={classes.search}>
+        <input type="text" className={classes.searchTerm} placeholder="Nhập từ khóa tìm kiếm" onChange={e => setQuery(e.target.value)} />
+        <button type="submit" className={classes.searchButton}>
+          <i className="fa fa-search"></i>
+        </button>
+      </div>
       <DataGrid
-        rows={data}
+        rows={search(data)}
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}
