@@ -50,6 +50,8 @@
     "client-name-enter": "Enter client name...",
     "client-phone-enter": "Enter client phone...",
     "client-email-enter": "Enter client email...",
+    "in-charge-enter": "Enter person in charge...",
     "hello": "Hello",
-    "signOut": "Sign Out"
+    "signOut": "Sign Out",
+    "Search-input": "Search keyword..."
 }
