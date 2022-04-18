@@ -7,12 +7,14 @@ import {
   useParams,
 } from "react-router-dom";
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 
 const url = `https://backend.omcloud.vn/api/construction/`;
 
 export default function EditConstruction() {
   var classes = useStyles();
   let history = useHistory();
+  const { t } = useTranslation()
 
   const paramId = useParams();
   const currentContructionId = paramId.id;
@@ -181,11 +183,11 @@ export default function EditConstruction() {
                 className={classes.newConstructionBtn}
                 onClick={handleEditConstruction}
               >
-                Cập nhật
+                {t('btn-update')}
               </Button>
             </div>
           </> :
-          <div>You do not have permission !</div>
+          <div>{t('not-permission')} !</div>
       }
     </>
 

@@ -9,46 +9,44 @@ import {
 } from "react-router-dom";
 
 // components
-import PageTitle from "../../../components/PageTitle/PageTitle";
+import PageTitle from "../../components/PageTitle/PageTitle";
 import useStyles from "./styles";
 import { useTranslation } from 'react-i18next';
 
-
-export default function RolesPage() {
-  const { t } = useTranslation()
+export default function StatusPage() {
   var classes = useStyles();
   const [query, setQuery] = useState('');
-
   const [data, setData] = useState([]);
+  const { t } = useTranslation()
   useEffect(() => {
-    loadRoles();
+    loadStatus();
   }, []);
 
-  const loadRoles = async () => {
-    const result = await axios.get('https://backend.omcloud.vn/api/role');
+  const loadStatus = async () => {
+    const result = await axios.get('https://backend.omcloud.vn/api/status');
     setData(result.data.data);
   };
 
   const columns = [
     // { field: 'id', headerName: 'ID', width: 70 },
-    { field: 'title', headerName: t("GroupName"), width: 250 },
-    { field: 'description', headerName: t("Desc"), width: 650 },
+    { field: 'name', headerName: t('status-name'), width: 250 },
+    { field: 'description', headerName: t('status-desc'), width: 400 },
   ];
 
   const search = (rows) => {
     return rows.filter(
-      (roles) =>
-        roles.title.toLowerCase().indexOf(query) > -1 ||
-        roles.title.indexOf(query) > -1 ||
-        roles.description.toLowerCase().indexOf(query) > -1 ||
-        roles.description.indexOf(query) > -1
+      (status) =>
+        status.name.toLowerCase().indexOf(query) > -1 ||
+        status.name.indexOf(query) > -1 ||
+        status.description.toLowerCase().indexOf(query) > -1 ||
+        status.description.indexOf(query) > -1
     );
   }
 
   return (
     <>
-      <PageTitle title={t("Account-Group")} button={(
-        <Link to="/app/new-role">
+      <PageTitle title={t("Status-List")} button={(
+        <Link to="/app/new-status">
           <Button
             variant="contained"
             size="medium"
@@ -70,7 +68,7 @@ export default function RolesPage() {
         pageSize={5}
         rowsPerPageOptions={[5]}
         disableSelectionOnClick
-        className={classes.rolesData}
+        className={classes.serviceData}
       />
     </>
   );

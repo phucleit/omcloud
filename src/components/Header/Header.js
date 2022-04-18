@@ -40,7 +40,6 @@ export default function Header(props) {
   var [userName, setUserName] = useState('')
   useEffect(() => {
     var user = localStorage.getItem('user_info');
-    console.log('user: ', JSON.parse(user).name);
     setUserName(JSON.parse(user).name)
   }, []);
   const { t, i18n } = useTranslation()
@@ -97,9 +96,6 @@ export default function Header(props) {
         <select id="language" className={style.comboBox} onChange={(e) => handleClick(e.target.value)}>
           <option value='vn'>Vietnamese</option>
           <option value='en'>English</option>
-
-
-
         </select>
 
         <Menu

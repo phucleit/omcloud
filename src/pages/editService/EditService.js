@@ -7,12 +7,14 @@ import {
   useHistory,
   useParams,
 } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 const url = 'https://backend.omcloud.vn/api/service';
 
 export default function EditService() {
   var classes = useStyles();
   let history = useHistory();
+  const { t } = useTranslation()
 
   const paramId = useParams();
   const currentServiceId = paramId.id;
@@ -101,12 +103,12 @@ export default function EditService() {
                 className={classes.newServiceBtn}
                 onClick={handleEditService}
               >
-                Cập nhật
+                {t('btn-update')}
               </Button>
             </div>
           </>
           :
-          <div>You do not have permission !</div>
+          <div>{t('not-permission')} !</div>
       }
     </>
 

@@ -165,11 +165,11 @@ export default function NewConstruction() {
                 className={classes.newConstructionBtn}
                 onClick={handleAddConstruction}
               >
-                Thêm mới
+                {t('Add')}
               </Button>
             </div>
           </>
-          : <div>You do not have permission !</div>
+          : <div>{t('not-permission')} !</div>
       }
     </>
 

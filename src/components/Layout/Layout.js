@@ -27,6 +27,8 @@ import EditService from "../../pages/editService";
 import Constructions from "../../pages/constructions";
 import NewConstruction from "../../pages/newConstruction";
 import EditConstruction from "../../pages/editConstruction";
+import Status from "../../pages/status";
+import NewStatus from "../../pages/newStatus";
 import { useTranslation } from 'react-i18next';
 // context
 import { useLayoutState } from "../../context/LayoutContext";
@@ -56,17 +58,14 @@ function Layout(props) {
             <Route path="/app/edit-user/:id" component={EditUser} />
             <Route path="/app/roles" component={Roles} />
             <Route path="/app/new-role" component={NewRole} />
-            {/* <Route
-                exact
-                path="/app"
-                render={() => <Redirect to="/app/services" />}
-              /> */}
             <Route path="/app/services" component={Services} />
             <Route path="/app/new-service" component={NewService} />
             <Route path="/app/edit-service/:id" component={EditService} />
             <Route path="/app/constructions" component={Constructions} />
             <Route path="/app/new-construction" component={NewConstruction} />
             <Route path="/app/edit-construction/:id" component={EditConstruction} />
+            <Route path="/app/status" component={Status} />
+            <Route path="/app/new-status" component={NewStatus} />
           </Switch>
           <Box
             mt={5}

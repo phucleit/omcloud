@@ -53,5 +53,15 @@
     "in-charge-enter": "Enter person in charge...",
     "hello": "Hello",
     "signOut": "Sign Out",
-    "Search-input": "Search keyword..."
+    "Search-input": "Search keyword...",
+    "permission-management": "You do not have permission",
+    "Status": "Status",
+    "Status-List": "Status List",
+    "Status-Add": "New Status",
+    "status-name": "Status Name",
+    "status-desc": "Status Description",
+    "status-name-enter": "Enter status name...",
+    "status-desc-enter": "Enter description name...",
+    "not-permission" : "You do not have permission",
+    "btn-update": "Update"
 }

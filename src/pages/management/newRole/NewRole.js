@@ -150,7 +150,7 @@ export default function NewRole() {
               </Button>
             </div>
           </>
-          : <div>You do not have permission !</div>
+          : <div>{t('not-permission')} !</div>
       }
     </>
 

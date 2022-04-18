@@ -42,7 +42,7 @@ export default function ServicesPage() {
   }
 
   const columns = [
-    { field: 'id', headerName: 'ID', width: 70 },
+    // { field: 'id', headerName: 'ID', width: 70 },
     { field: 'name', headerName: t('service-name'), width: 250 },
     {
       field: 'service_type',

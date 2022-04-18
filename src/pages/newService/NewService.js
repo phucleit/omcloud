@@ -92,7 +92,7 @@ export default function NewService() {
               </Button>
             </div>
           </>
-          : <div>You do not have permission !</div>
+          : <div>{t('not-permission')} !</div>
       }
     </>
 

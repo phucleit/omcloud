@@ -140,7 +140,7 @@ export default function NewUser() {
               </Button>
             </div>
           </>
-          : <div>You do not have permission !</div>
+          : <div>{t('not-permission')} !</div>
       }
     </>
 

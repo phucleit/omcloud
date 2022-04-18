@@ -9,7 +9,8 @@ import {
   Settings as SettingsIcon,
   Backup as BackupIcon,
   Apps as AppsIcon,
-  ListAlt as ListAltIcon
+  ListAlt as ListAltIcon,
+  PlaylistAddCheck as PlaylistAddCheckIcon
 } from "@material-ui/icons";
 import { useTheme } from "@material-ui/styles";
 import { withRouter } from "react-router-dom";
@@ -75,8 +76,18 @@ function Sidebar({ location }) {
         { label: t("Constructions-Add"), link: "/app/new-construction" },
       ],
     },
-    { id: 4, label: t("Report-Add"), link: "", icon: <ListAltIcon /> },
-    { id: 5, label: t("System-config"), link: "", icon: <BackupIcon /> },
+    {
+      id: 4,
+      label: t("Status"),
+      link: "/app/status",
+      icon: <PlaylistAddCheckIcon />,
+      children: [
+        { label: t("Status-List"), link: "/app/status" },
+        { label: t("Status-Add"), link: "/app/new-status" },
+      ],
+    },
+    { id: 5, label: t("Report-Add"), link: "", icon: <ListAltIcon /> },
+    { id: 6, label: t("System-config"), link: "", icon: <BackupIcon /> },
   ];
   useEffect(function () {
     window.addEventListener("resize", handleWindowWidthChange);

@@ -7,6 +7,7 @@ import {
   useHistory,
   useParams,
 } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 // components
 import PageTitle from "../../../components/PageTitle/PageTitle";
@@ -17,6 +18,7 @@ const url = `https://backend.omcloud.vn/api/user/`;
 export default function EditUser() {
   var classes = useStyles();
   let history = useHistory();
+  const { t } = useTranslation()
 
   const paramId = useParams();
   const currentUserId = paramId.id;
@@ -139,11 +141,11 @@ export default function EditUser() {
                 className={classes.newUserBtn}
                 onClick={handleEditUser}
               >
-                Cập nhật
+                {t('btn-update')}
               </Button>
             </div>
           </>
-          : <div>You do not have permission !</div>
+          : <div>{t('not-permission')} !</div>
       }
     </>
 

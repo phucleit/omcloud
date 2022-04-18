@@ -43,7 +43,7 @@ export default function UsersPage() {
   }
 
   const columns = [
-    { field: 'id', headerName: 'ID', width: 70 },
+    // { field: 'id', headerName: 'ID', width: 70 },
     { field: 'name', headerName: t('Fullname'), width: 250 },
     { field: 'username', headerName: t('Username'), width: 250 },
     { field: 'email', headerName: 'Email', width: 250 },

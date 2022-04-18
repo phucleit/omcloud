@@ -53,5 +53,15 @@
     "client-name": "Họ tên đại diện",
     "client-phone": "Điện thoại đại diện",
     "client-email": "Email đại diện",
-    "in-charge": "Nhân sự phụ trách"
+    "in-charge": "Nhân sự phụ trách",
+    "permission-management": "Tài khoản của bạn không có quyền truy cập",
+    "Status": "Trạng thái",
+    "Status-List": "Danh sách trạng thái",
+    "Status-Add": "Thêm trạng thái mới",
+    "status-name": "Tên trạng thái",
+    "status-desc": "Mô tả trạng thái",
+    "status-name-enter": "Nhập tên trạng thái...",
+    "status-desc-enter": "Nhập mô tả trạng thái...",
+    "not-permission" : "Tài khoản của bạn không được quyền truy cập",
+    "btn-update": "Cập nhật"
 }
