@@ -14,24 +14,27 @@ import useStyles from "./styles";
 
 const url = `https://backend.omcloud.vn/api/user/`;
 
-export default function EditUser () {
+export default function EditUser() {
   var classes = useStyles();
-  let history  = useHistory();
+  let history = useHistory();
 
   const paramId = useParams();
   const currentUserId = paramId.id;
 
-  const [ roles, setRoles ] = useState([]);
-  const [ roleID, setRoleID ] = useState('');
+  const [roles, setRoles] = useState([]);
+  const [roleID, setRoleID] = useState('');
 
-  const [ name, setName ] = useState('');
-  const [ username, setUsername ] = useState('');
-  const [ email, setEmail ] = useState('');
-  const [ tel, setTel ] = useState('');
-
+  const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [tel, setTel] = useState('');
+  const [permission, setPermission] = useState(false)
   useEffect(() => {
     loadUser();
     loadRoles();
+    if (localStorage.abilities.includes("user-update"))
+      setPermission(true)
+    else setPermission(false)
   }, []);
 
   const loadUser = async () => {
@@ -85,57 +88,64 @@ export default function EditUser () {
     }
 
     axios.put('https://backend.omcloud.vn/api/user/' + currentUserId, newUser)
-    .then(res => {
-      alert('Cập nhật tài khoản thành công!');
-      history.push('/app/users');
-    })
-    .catch(error => console.log(error));
+      .then(res => {
+        alert('Cập nhật tài khoản thành công!');
+        history.push('/app/users');
+      })
+      .catch(error => console.log(error));
   }
 
   return (
     <>
-      <PageTitle title="Cập nhật tài khoản" />
-      <div className={classes.newUserForm}>
-        <div className={classes.newUserItem}>
-            <label className={classes.label}>Họ tên</label>
-            <input type="text" name="name" className={classes.inputName} value={name} onChange={(e) => setName(e.target.value)} placeholder='Nhập họ tên...' />
-        </div>
-        <div className={classes.newUserItem}>
-            <label className={classes.label}>Username</label>
-            <input type="text" name="username" className={classes.inputName} value={username} onChange={(e) => setUsername(e.target.value)} placeholder='Nhập username...' />
-        </div>
-        <div className={classes.newUserItem}>
-            <label className={classes.label}>Email</label>
-            <input type="email" name="email" className={classes.inputName} value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Nhập email...' />
-        </div>
-        <div className={classes.newUserItem}>
-            <label className={classes.label}>Điện thoại</label>
-            <input type="tel" name="tel" className={classes.inputName} value={tel} onChange={(e) => setTel(e.target.value)} placeholder='Nhập số điện thoại...' />
-        </div>
-        <div className={classes.newUserItem}>
-          <label className={classes.label}>Nhóm</label>
-          <select
-            onChange={e => handleRolesChange(e)}
-            className={classes.newUserType}
-            id="newUserType"
-            value={roleID}
-          >
-            <option>-----</option>
-            {
-                Role.map((value, key) => <option key={value.id} value={value.id}>{value.title}</option>)
-            }
-          </select>
-        </div>
-        <Button
-          variant="contained"
-          size="medium"
-          color="secondary"
-          className={classes.newUserBtn}
-          onClick={handleEditUser}
-        >
-          Cập nhật
-        </Button>
-      </div>
+      {
+        permission ?
+          <>
+            <PageTitle title="Cập nhật tài khoản" />
+            <div className={classes.newUserForm}>
+              <div className={classes.newUserItem}>
+                <label className={classes.label}>Họ tên</label>
+                <input type="text" name="name" className={classes.inputName} value={name} onChange={(e) => setName(e.target.value)} placeholder='Nhập họ tên...' />
+              </div>
+              <div className={classes.newUserItem}>
+                <label className={classes.label}>Username</label>
+                <input type="text" name="username" className={classes.inputName} value={username} onChange={(e) => setUsername(e.target.value)} placeholder='Nhập username...' />
+              </div>
+              <div className={classes.newUserItem}>
+                <label className={classes.label}>Email</label>
+                <input type="email" name="email" className={classes.inputName} value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Nhập email...' />
+              </div>
+              <div className={classes.newUserItem}>
+                <label className={classes.label}>Điện thoại</label>
+                <input type="tel" name="tel" className={classes.inputName} value={tel} onChange={(e) => setTel(e.target.value)} placeholder='Nhập số điện thoại...' />
+              </div>
+              <div className={classes.newUserItem}>
+                <label className={classes.label}>Nhóm</label>
+                <select
+                  onChange={e => handleRolesChange(e)}
+                  className={classes.newUserType}
+                  id="newUserType"
+                  value={roleID}
+                >
+                  <option>-----</option>
+                  {
+                    Role.map((value, key) => <option key={value.id} value={value.id}>{value.title}</option>)
+                  }
+                </select>
+              </div>
+              <Button
+                variant="contained"
+                size="medium"
+                color="secondary"
+                className={classes.newUserBtn}
+                onClick={handleEditUser}
+              >
+                Cập nhật
+              </Button>
+            </div>
+          </>
+          : <div>You do not have permission !</div>
+      }
     </>
+
   );
 }

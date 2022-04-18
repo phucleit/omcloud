@@ -26,9 +26,12 @@ export default function NewUser() {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [tel, setTel] = useState('');
-
+  const [permission, setPermission] = useState(false)
   useEffect(() => {
     loadRoles();
+    if (localStorage.abilities.includes("user-create"))
+      setPermission(true)
+    else setPermission(false)
   }, []);
 
   const loadRoles = async () => {
@@ -88,51 +91,58 @@ export default function NewUser() {
 
   return (
     <>
-      <PageTitle title={t("Account-Add")} />
-      <div className={classes.newUserForm}>
-        <div className={classes.newUserItem}>
-          <label className={classes.label}>{t('Fullname')}</label>
-          <input type="text" name="name" className={classes.inputName} value={name} onChange={(e) => setName(e.target.value)} placeholder={t('Fullname-enter')} />
-        </div>
-        <div className={classes.newUserItem}>
-          <label className={classes.label}>{t('Username')}</label>
-          <input type="text" name="username" className={classes.inputName} value={username} onChange={(e) => setUsername(e.target.value)} placeholder={t('Username-enter')} />
-        </div>
-        <div className={classes.newUserItem}>
-          <label className={classes.label}>{t('Password')}</label>
-          <input type="password" name="password" className={classes.inputName} value={password} onChange={(e) => setPassword(e.target.value)} placeholder={t('Password-enter')} />
-        </div>
-        <div className={classes.newUserItem}>
-          <label className={classes.label}>Email</label>
-          <input type="email" name="email" className={classes.inputName} value={email} onChange={(e) => setEmail(e.target.value)} placeholder={t('Email-enter')} />
-        </div>
-        <div className={classes.newUserItem}>
-          <label className={classes.label}>{t('Password')}</label>
-          <input type="tel" name="tel" className={classes.inputName} value={tel} onChange={(e) => setTel(e.target.value)} placeholder={t('Password-enter')} />
-        </div>
-        <div className={classes.newUserItem}>
-          <label className={classes.label}>{t('Role')}</label>
-          <select
-            onChange={e => handleRolesChange(e)}
-            className={classes.newUserType}
-            id="newUserType"
-          >
-            <option>-----</option>
-            {
-              Role.map((value, key) => <option key={value.id} value={value.id}>{value.title}</option>)
-            }
-          </select>
-        </div>
-        <Button
-          variant="contained"
-          size="medium"
-          color="secondary"
-          className={classes.newUserBtn}
-          onClick={handleAddUser}
-        >
-          {t("Add")}
-        </Button>
-      </div>
+      {
+        permission ?
+          <>
+            <PageTitle title={t("Account-Add")} />
+            <div className={classes.newUserForm}>
+              <div className={classes.newUserItem}>
+                <label className={classes.label}>{t('Fullname')}</label>
+                <input type="text" name="name" className={classes.inputName} value={name} onChange={(e) => setName(e.target.value)} placeholder={t('Fullname-enter')} />
+              </div>
+              <div className={classes.newUserItem}>
+                <label className={classes.label}>{t('Username')}</label>
+                <input type="text" name="username" className={classes.inputName} value={username} onChange={(e) => setUsername(e.target.value)} placeholder={t('Username-enter')} />
+              </div>
+              <div className={classes.newUserItem}>
+                <label className={classes.label}>{t('Password')}</label>
+                <input type="password" name="password" className={classes.inputName} value={password} onChange={(e) => setPassword(e.target.value)} placeholder={t('Password-enter')} />
+              </div>
+              <div className={classes.newUserItem}>
+                <label className={classes.label}>Email</label>
+                <input type="email" name="email" className={classes.inputName} value={email} onChange={(e) => setEmail(e.target.value)} placeholder={t('Email-enter')} />
+              </div>
+              <div className={classes.newUserItem}>
+                <label className={classes.label}>{t('Password')}</label>
+                <input type="tel" name="tel" className={classes.inputName} value={tel} onChange={(e) => setTel(e.target.value)} placeholder={t('Password-enter')} />
+              </div>
+              <div className={classes.newUserItem}>
+                <label className={classes.label}>{t('Role')}</label>
+                <select
+                  onChange={e => handleRolesChange(e)}
+                  className={classes.newUserType}
+                  id="newUserType"
+                >
+                  <option>-----</option>
+                  {
+                    Role.map((value, key) => <option key={value.id} value={value.id}>{value.title}</option>)
+                  }
+                </select>
+              </div>
+              <Button
+                variant="contained"
+                size="medium"
+                color="secondary"
+                className={classes.newUserBtn}
+                onClick={handleAddUser}
+              >
+                {t("Add")}
+              </Button>
+            </div>
+          </>
+          : <div>You do not have permission !</div>
+      }
     </>
+
   );
 }

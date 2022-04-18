@@ -12,28 +12,31 @@ const url = `https://backend.omcloud.vn/api/construction/`;
 
 export default function EditConstruction() {
   var classes = useStyles();
-  let history  = useHistory();
+  let history = useHistory();
 
   const paramId = useParams();
   const currentContructionId = paramId.id;
 
-  const [ name, setName ] = useState('');
-  const [ address, setAddress ] = useState('');
-  const [ representative, setRepresentative ] = useState('');
-  const [ representative_tel, setRepresentativeTel ] = useState('');
-  const [ representative_mail, setRepresentativeMail ] = useState('');
-  const [ person_in_charge, setPersonInCharge ] = useState('');
+  const [name, setName] = useState('');
+  const [address, setAddress] = useState('');
+  const [representative, setRepresentative] = useState('');
+  const [representative_tel, setRepresentativeTel] = useState('');
+  const [representative_mail, setRepresentativeMail] = useState('');
+  const [person_in_charge, setPersonInCharge] = useState('');
 
-  const [ service, setService ] = useState([]);
-  const [ serviceID, setServiceID ] = useState();
+  const [service, setService] = useState([]);
+  const [serviceID, setServiceID] = useState();
 
-  const [ serviceType, setServiceType ] = useState([]);
-  const [ serviceTypeID, setServiceTypeID ] = useState('');
-
+  const [serviceType, setServiceType] = useState([]);
+  const [serviceTypeID, setServiceTypeID] = useState('');
+  const [permission, setPermission] = useState(false)
   useEffect(() => {
     loadConstruction();
     loadServicesType();
     loadServices();
+    if (localStorage.abilities.includes("construction-update"))
+      setPermission(true)
+    else setPermission(false)
   }, []);
 
   const loadConstruction = async () => {
@@ -104,80 +107,87 @@ export default function EditConstruction() {
       };
 
       axios.put(url + currentContructionId, editConstruction)
-      .then(res => {
-        alert('Cập nhật công trình thành công!');
-        history.push('/app/constructions');
-      })
-      .catch(error => console.log(error));
+        .then(res => {
+          alert('Cập nhật công trình thành công!');
+          history.push('/app/constructions');
+        })
+        .catch(error => console.log(error));
     }
   }
 
   return (
     <>
-      <PageTitle title="Cập nhật công trình" />
-      <div className={classes.newConstructionForm}>
-        <div className={classes.newConstructionItem}>
-            <label className={classes.label}>Tên công trình</label>
-            <input type="text" name="tencongtrinh" className={classes.inputName} value={name} onChange={(e) => setName(e.target.value)} placeholder='Nhập tên công trình...' />
-        </div>
-        <div className={classes.newConstructionItem}>
-            <label className={classes.label}>Địa điểm</label>
-            <input type="text" name="diadiem" className={classes.inputName} value={address} onChange={(e) => setAddress(e.target.value)} placeholder='Nhập địa điểm...' />
-        </div>
-        <div className={classes.newConstructionItem}>
-            <label className={classes.label}>Họ tên đại diện</label>
-            <input type="text" name="hotendaidien" className={classes.inputName} value={representative} onChange={(e) => setRepresentative(e.target.value)} placeholder='Nhập họ tên đại diện...' />
-        </div>
-        <div className={classes.newConstructionItem}>
-            <label className={classes.label}>Điện thoại đại diện</label>
-            <input type="tel" name="dienthoaidaidien" className={classes.inputName} value={representative_tel} onChange={(e) => setRepresentativeTel(e.target.value)} placeholder='Nhập điện thoại đại diện...' />
-        </div>
-        <div className={classes.newConstructionItem}>
-            <label className={classes.label}>Email đại diện</label>
-            <input type="email" name="emaildaidien" className={classes.inputName} value={representative_mail} onChange={(e) => setRepresentativeMail(e.target.value)} placeholder='Nhập email đại diện...' />
-        </div>
-        <div className={classes.newConstructionItem}>
-            <label className={classes.label}>Nhân sự phụ trách</label>
-            <input type="text" name="nhansuphutrach" className={classes.inputName} value={person_in_charge} onChange={(e) => setPersonInCharge(e.target.value)} placeholder='Nhập nhân sự phụ trách...' />
-        </div>
-        <div className={classes.newConstructionItem}>
-          <label className={classes.label}>Dịch vụ cung cấp</label>
-          <select
-            onChange={e => handleServiceChange(e)}
-            className={classes.newConstructionType} 
-            id="newConstructionType"
-            value={serviceID}
-          >
-            <option>-----</option>
-            {
-              Service.map((name, key) => <option key={key + 1} value={name.id}>{name.name}</option>)
-            }
-          </select>
-        </div>
-        <div className={classes.newConstructionItem}>
-          <label className={classes.label}>Loại dịch vụ</label>
-          <select
-            onChange={e => handleTypeChange(e)}
-            className={classes.newConstructionType}
-            id="newConstructionType"
-            value={serviceTypeID}
-          >
-            <option>-----</option>
-            {
-              Type.map((name, key) => <option key={key + 1} value={key + 1}>{name}</option>)
-            }
-          </select>
-        </div>
-        <Button
-          variant="contained"
-          size="medium"
-          color="secondary"
-          className={classes.newConstructionBtn}
-          onClick={handleEditConstruction}
-        >
-          Cập nhật
-        </Button>
-      </div>
+      {
+        permission ?
+          <>
+            <PageTitle title="Cập nhật công trình" />
+            <div className={classes.newConstructionForm}>
+              <div className={classes.newConstructionItem}>
+                <label className={classes.label}>Tên công trình</label>
+                <input type="text" name="tencongtrinh" className={classes.inputName} value={name} onChange={(e) => setName(e.target.value)} placeholder='Nhập tên công trình...' />
+              </div>
+              <div className={classes.newConstructionItem}>
+                <label className={classes.label}>Địa điểm</label>
+                <input type="text" name="diadiem" className={classes.inputName} value={address} onChange={(e) => setAddress(e.target.value)} placeholder='Nhập địa điểm...' />
+              </div>
+              <div className={classes.newConstructionItem}>
+                <label className={classes.label}>Họ tên đại diện</label>
+                <input type="text" name="hotendaidien" className={classes.inputName} value={representative} onChange={(e) => setRepresentative(e.target.value)} placeholder='Nhập họ tên đại diện...' />
+              </div>
+              <div className={classes.newConstructionItem}>
+                <label className={classes.label}>Điện thoại đại diện</label>
+                <input type="tel" name="dienthoaidaidien" className={classes.inputName} value={representative_tel} onChange={(e) => setRepresentativeTel(e.target.value)} placeholder='Nhập điện thoại đại diện...' />
+              </div>
+              <div className={classes.newConstructionItem}>
+                <label className={classes.label}>Email đại diện</label>
+                <input type="email" name="emaildaidien" className={classes.inputName} value={representative_mail} onChange={(e) => setRepresentativeMail(e.target.value)} placeholder='Nhập email đại diện...' />
+              </div>
+              <div className={classes.newConstructionItem}>
+                <label className={classes.label}>Nhân sự phụ trách</label>
+                <input type="text" name="nhansuphutrach" className={classes.inputName} value={person_in_charge} onChange={(e) => setPersonInCharge(e.target.value)} placeholder='Nhập nhân sự phụ trách...' />
+              </div>
+              <div className={classes.newConstructionItem}>
+                <label className={classes.label}>Dịch vụ cung cấp</label>
+                <select
+                  onChange={e => handleServiceChange(e)}
+                  className={classes.newConstructionType}
+                  id="newConstructionType"
+                  value={serviceID}
+                >
+                  <option>-----</option>
+                  {
+                    Service.map((name, key) => <option key={key + 1} value={name.id}>{name.name}</option>)
+                  }
+                </select>
+              </div>
+              <div className={classes.newConstructionItem}>
+                <label className={classes.label}>Loại dịch vụ</label>
+                <select
+                  onChange={e => handleTypeChange(e)}
+                  className={classes.newConstructionType}
+                  id="newConstructionType"
+                  value={serviceTypeID}
+                >
+                  <option>-----</option>
+                  {
+                    Type.map((name, key) => <option key={key + 1} value={key + 1}>{name}</option>)
+                  }
+                </select>
+              </div>
+              <Button
+                variant="contained"
+                size="medium"
+                color="secondary"
+                className={classes.newConstructionBtn}
+                onClick={handleEditConstruction}
+              >
+                Cập nhật
+              </Button>
+            </div>
+          </> :
+          <div>You do not have permission !</div>
+      }
     </>
+
   );
 }

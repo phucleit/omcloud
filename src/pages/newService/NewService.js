@@ -18,9 +18,12 @@ export default function NewService() {
   const [serviceType, setServiceType] = useState([]);
   const [serviceTypeID, setServiceTypeID] = useState('');
   const [serviceName, setServiceName] = useState('');
-
+  const [permission, setPermission] = useState(false)
   useEffect(() => {
     loadServicesType();
+    if (localStorage.abilities.includes("service-create"))
+      setPermission(true)
+    else setPermission(false)
   }, []);
 
   const loadServicesType = async () => {
@@ -56,35 +59,42 @@ export default function NewService() {
 
   return (
     <>
-      <PageTitle title={t('Services-Add')} />
-      <div className={classes.newServiceForm}>
-        <div className={classes.newServiceItem}>
-          <label className={classes.label}>{t('service-name')}</label>
-          <input type="text" name="tendichvu" placeholder={t('service-name-enter')} className={classes.inputName} value={serviceName} onChange={(e) => setServiceName(e.target.value)} />
-        </div>
-        <div className={classes.newServiceItem}>
-          <label className={classes.label}>{t('service-type')}</label>
-          <select
-            onChange={e => handleTypeChange(e)}
-            className={classes.newServiceType}
-            id="newServiceType"
-          >
-            <option>-----</option>
-            {
-              Type.map((name, key) => <option key={key + 1} value={key + 1}>{name}</option>)
-            }
-          </select>
-        </div>
-        <Button
-          variant="contained"
-          size="medium"
-          color="secondary"
-          className={classes.newServiceBtn}
-          onClick={handleAddService}
-        >
-          {t('Add')}
-        </Button>
-      </div>
+      {
+        permission ?
+          <>
+            <PageTitle title={t('Services-Add')} />
+            <div className={classes.newServiceForm}>
+              <div className={classes.newServiceItem}>
+                <label className={classes.label}>{t('service-name')}</label>
+                <input type="text" name="tendichvu" placeholder={t('service-name-enter')} className={classes.inputName} value={serviceName} onChange={(e) => setServiceName(e.target.value)} />
+              </div>
+              <div className={classes.newServiceItem}>
+                <label className={classes.label}>{t('service-type')}</label>
+                <select
+                  onChange={e => handleTypeChange(e)}
+                  className={classes.newServiceType}
+                  id="newServiceType"
+                >
+                  <option>-----</option>
+                  {
+                    Type.map((name, key) => <option key={key + 1} value={key + 1}>{name}</option>)
+                  }
+                </select>
+              </div>
+              <Button
+                variant="contained"
+                size="medium"
+                color="secondary"
+                className={classes.newServiceBtn}
+                onClick={handleAddService}
+              >
+                {t('Add')}
+              </Button>
+            </div>
+          </>
+          : <div>You do not have permission !</div>
+      }
     </>
+
   );
 }

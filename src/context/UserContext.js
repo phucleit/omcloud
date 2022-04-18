@@ -62,41 +62,46 @@ function loginUser(dispatch, login, password, history, setIsLoading, setError) {
   };
 
   axios.post('https://backend.omcloud.vn/api/login', userLogin)
-      .then(res => {
-        if (res.data.status_code === 500) {
-          alert('Username hoặc password không đúng. Vui lòng nhập lại!');
-          history.push('/');
-        } else {
-          setTimeout(() => {
-            localStorage.setItem('token', res.data.access_token);
-            setError(null)
-            setIsLoading(false)
-            dispatch({ type: 'LOGIN_SUCCESS' })
+    .then(res => {
+      if (res.data.status_code === 500) {
+        alert('Username hoặc password không đúng. Vui lòng nhập lại!');
+        history.push('/');
+      } else {
+        setTimeout(() => {
+          console.log(res.data);
+          /*   setUser(res.data) */
+          localStorage.setItem('token', res.data.access_token);
+          localStorage.setItem('abilities', res.data.abilities);
 
-            history.push('/app/dashboard')
-          }, 2000);
-        }
-      })
-      .catch(error => console.log(error));
+          localStorage.setItem('user_info', JSON.stringify(res.data.user_info));
+          setError(null)
+          setIsLoading(false)
+          dispatch({ type: 'LOGIN_SUCCESS' })
+
+          history.push('/app/dashboard')
+        }, 2000);
+      }
+    })
+    .catch(error => console.log(error));
 
   // axios.post(API_URL, userLogin)
-      // .then((response) => {
-        // if (response.data.accessToken) {
-        //   setTimeout(() => {
-        //     localStorage.setItem("user", JSON.stringify(response.data));
-        //     setError(null)
-        //     setIsLoading(false)
-        //     dispatch({ type: 'LOGIN_SUCCESS' })
+  // .then((response) => {
+  // if (response.data.accessToken) {
+  //   setTimeout(() => {
+  //     localStorage.setItem("user", JSON.stringify(response.data));
+  //     setError(null)
+  //     setIsLoading(false)
+  //     dispatch({ type: 'LOGIN_SUCCESS' })
 
-        //     history.push('/app/dashboard')
-        //   }, 2000);
-        // } else {
-        //   dispatch({ type: "LOGIN_FAILURE" });
-        //   setError(true);
-        //   setIsLoading(false);
-        // }
-        // return response.data;
-      // });
+  //     history.push('/app/dashboard')
+  //   }, 2000);
+  // } else {
+  //   dispatch({ type: "LOGIN_FAILURE" });
+  //   setError(true);
+  //   setIsLoading(false);
+  // }
+  // return response.data;
+  // });
 
   // if (!!login && !!password) {
   //   setTimeout(() => {
@@ -116,6 +121,7 @@ function loginUser(dispatch, login, password, history, setIsLoading, setError) {
 
 function signOut(dispatch, history) {
   localStorage.removeItem("token");
+  localStorage.removeItem("abilities");
   dispatch({ type: "SIGN_OUT_SUCCESS" });
   history.push("/login");
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   AppBar,
   Toolbar,
@@ -27,6 +27,7 @@ import {
 import { useUserDispatch, signOut } from "../../context/UserContext";
 
 export default function Header(props) {
+
   var classes = useStyles();
 
   // global
@@ -36,10 +37,17 @@ export default function Header(props) {
 
   // local
   var [profileMenu, setProfileMenu] = useState(null);
+  var [userName, setUserName] = useState('')
+  useEffect(() => {
+    var user = localStorage.getItem('user_info');
+    console.log('user: ', JSON.parse(user).name);
+    setUserName(JSON.parse(user).name)
+  }, []);
   const { t, i18n } = useTranslation()
   const handleClick = (lang) => {
     i18n.changeLanguage(lang)
   }
+
   return (
     <AppBar position="fixed" className={classes.appBar}>
       <Toolbar className={classes.toolbar}>
@@ -105,7 +113,7 @@ export default function Header(props) {
         >
           <div className={classes.profileMenuUser}>
             <Typography variant="h4" weight="medium">
-              {t('hello')}, Phúc
+              {t('hello')}, {userName}
             </Typography>
           </div>
           <div className={classes.profileMenuUser}>
