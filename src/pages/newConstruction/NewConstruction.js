@@ -70,12 +70,6 @@ export default function NewConstruction() {
     } else if (representative === "") {
       alert("Vui lòng nhập họ tên đại diện");
       return;
-    } else if (representative_tel === "") {
-      alert("Vui lòng nhập số điện thoại");
-      return;
-    } else if (representative_mail === "") {
-      alert("Vui lòng nhập email");
-      return;
     } else if (person_in_charge === "") {
       alert("Vui lòng nhập nhân sự phụ trách");
       return;
