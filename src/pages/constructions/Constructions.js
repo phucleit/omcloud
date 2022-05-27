@@ -25,6 +25,7 @@ export default function ConstructionsPage() {
   const [status, setStatus] = useState([]);
   const [service, setService] = useState([]);
   const [serviceType, setServiceType] = useState([]);
+  const [serviceTypeName, setServiceTypeName] = useState('');
 
   useEffect(() => {
     loadConstruction();
@@ -57,7 +58,11 @@ export default function ConstructionsPage() {
     setServiceType(result.data.data);
   };
 
-  const Type = serviceType.map(Type => Type.name)
+  const Type = serviceType.map(Type => Type)
+
+  const handleTypeChange = (e) => {
+    setServiceTypeName(e.target.value);
+  }
 
   const handleDelete = (id) => {
     if (window.confirm('Bạn có muốn xóa không?')) {
@@ -126,7 +131,7 @@ export default function ConstructionsPage() {
         >
           <option>---{t('Status')}---</option>
           {
-            Status.map((name, key) => <option key={key + 1} value={name.id}>{name.name}</option>)
+            Status.map((name, key) => <option key={key + 1} value={name.name}>{name.name}</option>)
           }
         </select>
         <select
@@ -135,16 +140,17 @@ export default function ConstructionsPage() {
         >
           <option>---{t('Services')}---</option>
           {
-            Service.map((name, key) => <option key={key + 1} value={name.id}>{name.name}</option>)
+            Service.map((name, key) => <option key={key + 1} value={name.name}>{name.name}</option>)
           }
         </select>
         <select
+          onChange={e => handleTypeChange(e)}
           className={classes.newConstructionType}
           id="newConstructionType"
           >
           <option>---{t('service-type')}---</option>
           {
-            Type.map((name, key) => <option key={key + 1} value={key + 1}>{name}</option>)
+            Type.map((name, key) => <option key={key + 1} value={name.name}>{name.name}</option>)
           }
         </select>
         <input type="text" className={classes.searchTerm} placeholder={t('Search-input')} onChange={e => setQuery(e.target.value)} />

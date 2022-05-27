@@ -19,6 +19,8 @@ export default function NewReport() {
 	const [code, setCode] = useState('');
 	const [dateIssued, setDateIssued] = useState('');
 	const [timeIssued, setTimeIssued] = useState('');
+	const [frequency, setFrequency] = useState('');
+	const [dateTest, setDateTest] = useState('');
 
 	const [permission, setPermission] = useState(false)
 	useEffect(() => {
@@ -56,6 +58,23 @@ export default function NewReport() {
                                     <div className={classes.newConstructionItem}>
 										<label className={classes.label}>{t('timeIssued')}</label>
 										<input type="text" name="timeIssued" className={classes.inputName} value={timeIssued} onChange={(e) => setTimeIssued(e.target.value)} placeholder={t('timeIssued-enter')} />
+									</div>
+									<div className={classes.newConstructionItem}>
+                						<label className={classes.label}>{t('frequency')}</label>
+                						<select
+                  							className={classes.newConstructionType}
+                  							id="newConstructionType"
+                						>
+											<option>--------</option>
+                  							<option value="monthly">{t('monthly')}</option>
+                  							<option value="quarterly">{t('quarterly')}</option>
+                  							<option value="semi-yearly">{t('semi-yearly')}</option>
+                  							<option value="yearly">{t('yearly')}</option>
+                						</select>
+              						</div>
+									  <div className={classes.newConstructionItem}>
+										<label className={classes.label}>{t('date-test')}</label>
+										<input type="text" name="dateTest" className={classes.inputName} value={dateTest} onChange={(e) => setDateTest(e.target.value)} placeholder={t('dateTest-enter')} />
 									</div>
 									<Button
 										variant="contained"

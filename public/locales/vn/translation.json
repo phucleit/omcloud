@@ -71,5 +71,12 @@
     "dateIssued": "Ngày ban hành",
     "dateIssued-enter": "Nhập ngày ban hành...",
     "timeIssued": "Lần ban hành",
-    "timeIssued-enter": "Nhập lần ban hành..."
+    "timeIssued-enter": "Nhập lần ban hành...",
+    "frequency": "Tần suất bảo dưỡng",
+    "monthly": "Hàng tháng",
+    "quarterly": "Hàng quý",
+    "semi-yearly": "Nửa năm",
+    "yearly": "Hàng năm",
+    "date-test": "Ngày kiểm tra",
+    "dateTest-enter": "Nhập ngày kiểm tra..."
 }

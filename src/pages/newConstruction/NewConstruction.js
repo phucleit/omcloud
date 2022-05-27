@@ -140,7 +140,7 @@ export default function NewConstruction() {
                 </select>
               </div>
               <div className={classes.newConstructionItem}>
-                <label className={classes.label}>Loại dịch vụ</label>
+                <label className={classes.label}>{t('service-type')}</label>
                 <select
                   onChange={e => handleTypeChange(e)}
                   className={classes.newConstructionType}

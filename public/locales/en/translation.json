@@ -71,5 +71,12 @@
     "dateIssued": "Date Issued",
     "dateIssued-enter": "Enter date issued...",
     "timeIssued": "Time Issued",
-    "timeIssued-enter": "Enter time issued..."
+    "timeIssued-enter": "Enter time issued...",
+    "frequency": "Frequency",
+    "monthly": "Monthly",
+    "quarterly": "Quarterly",
+    "semi-yearly": "Semi yearly",
+    "yearly": "Yearly",
+    "date-test": "Date",
+    "dateTest-enter": "Enter date..."
 }
