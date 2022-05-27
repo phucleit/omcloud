@@ -63,5 +63,13 @@
     "status-name-enter": "Nhập tên trạng thái...",
     "status-desc-enter": "Nhập mô tả trạng thái...",
     "not-permission" : "Tài khoản của bạn không được quyền truy cập",
-    "btn-update": "Cập nhật"
+    "btn-update": "Cập nhật",
+    "title-name": "Tiêu đề report",
+    "title-name-enter": "Nhập tiêu đề...",
+    "code-name": "Mã ban hành",
+    "code-name-enter": "Nhập mã ban hành...",
+    "dateIssued": "Ngày ban hành",
+    "dateIssued-enter": "Nhập ngày ban hành...",
+    "timeIssued": "Lần ban hành",
+    "timeIssued-enter": "Nhập lần ban hành..."
 }

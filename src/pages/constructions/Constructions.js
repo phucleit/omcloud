@@ -22,15 +22,42 @@ export default function ConstructionsPage() {
   const [query, setQuery] = useState('');
   const { t } = useTranslation()
   const [data, setData] = useState([]);
+  const [status, setStatus] = useState([]);
+  const [service, setService] = useState([]);
+  const [serviceType, setServiceType] = useState([]);
 
   useEffect(() => {
     loadConstruction();
+    loadServicesType();
+    loadServices();
+    loadStatus();
   }, []);
 
   const loadConstruction = async () => {
     const result = await axios.get('https://backend.omcloud.vn/api/construction');
     setData(result.data.data);
   };
+
+  const loadStatus = async () => {
+    const result = await axios.get('https://backend.omcloud.vn/api/status');
+    setStatus(result.data.data);
+  };
+
+  const Status = status.map(Status => Status);
+
+  const loadServices = async () => {
+    const result = await axios.get('https://backend.omcloud.vn/api/service');
+    setService(result.data.data);
+  };
+
+  const Service = service.map(Service => Service);
+
+  const loadServicesType = async () => {
+    const result = await axios.get('https://backend.omcloud.vn/api/service-type');
+    setServiceType(result.data.data);
+  };
+
+  const Type = serviceType.map(Type => Type.name)
 
   const handleDelete = (id) => {
     if (window.confirm('Bạn có muốn xóa không?')) {
@@ -91,7 +118,36 @@ export default function ConstructionsPage() {
 
   return (
     <>
-      <PageTitle title={t("Constructions-List")} button={(
+      <PageTitle title={t("Constructions-List")} />
+      <div className={classes.boxSearch}>
+        <select
+          className={classes.newStatusType}
+          id="newConstructionType"
+        >
+          <option>---{t('Status')}---</option>
+          {
+            Status.map((name, key) => <option key={key + 1} value={name.id}>{name.name}</option>)
+          }
+        </select>
+        <select
+          className={classes.newConstructionType}
+          id="newConstructionType"
+        >
+          <option>---{t('Services')}---</option>
+          {
+            Service.map((name, key) => <option key={key + 1} value={name.id}>{name.name}</option>)
+          }
+        </select>
+        <select
+          className={classes.newConstructionType}
+          id="newConstructionType"
+          >
+          <option>---{t('service-type')}---</option>
+          {
+            Type.map((name, key) => <option key={key + 1} value={key + 1}>{name}</option>)
+          }
+        </select>
+        <input type="text" className={classes.searchTerm} placeholder={t('Search-input')} onChange={e => setQuery(e.target.value)} />
         <Link to="/app/new-construction">
           <Button
             variant="contained"
@@ -101,12 +157,6 @@ export default function ConstructionsPage() {
             {t("Add")}
           </Button>
         </Link>
-      )} />
-      <div className={classes.search}>
-        <input type="text" className={classes.searchTerm} placeholder={t('Search-input')} onChange={e => setQuery(e.target.value)} />
-        <button type="submit" className={classes.searchButton}>
-          <i className="fa fa-search"></i>
-        </button>
       </div>
       <DataGrid
         rows={search(data)}

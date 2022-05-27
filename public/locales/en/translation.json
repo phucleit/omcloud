@@ -63,5 +63,13 @@
     "status-name-enter": "Enter status name...",
     "status-desc-enter": "Enter description name...",
     "not-permission" : "You do not have permission",
-    "btn-update": "Update"
+    "btn-update": "Update",
+    "title-name": "Title Report",
+    "title-name-enter": "Enter title name...",
+    "code-name": "Code Report",
+    "code-name-enter": "Enter code report...",
+    "dateIssued": "Date Issued",
+    "dateIssued-enter": "Enter date issued...",
+    "timeIssued": "Time Issued",
+    "timeIssued-enter": "Enter time issued..."
 }

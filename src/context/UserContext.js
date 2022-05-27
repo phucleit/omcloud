@@ -66,7 +66,6 @@ function loginUser(dispatch, login, password, history, setIsLoading, setError) {
         history.push('/');
       } else {
         setTimeout(() => {
-          /*   setUser(res.data) */
           localStorage.setItem('token', res.data.access_token);
           localStorage.setItem('abilities', res.data.abilities);
 
