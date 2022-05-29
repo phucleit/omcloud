@@ -78,5 +78,10 @@
     "semi-yearly": "Nửa năm",
     "yearly": "Hàng năm",
     "date-test": "Ngày kiểm tra",
-    "dateTest-enter": "Nhập ngày kiểm tra..."
+    "dateTest-enter": "Nhập ngày kiểm tra...",
+    "clientName": "Tên khách hàng",
+    "clientName-enter": "Nhập tên khách hàng...",
+    "address": "Địa chỉ",
+    "address-enter": "Nhập địa chỉ...",
+    "project": "Dự án"
 }

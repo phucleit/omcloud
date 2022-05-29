@@ -78,5 +78,10 @@
     "semi-yearly": "Semi yearly",
     "yearly": "Yearly",
     "date-test": "Date",
-    "dateTest-enter": "Enter date..."
+    "dateTest-enter": "Enter date...",
+    "clientName": "Client Name",
+    "clientName-enter": "Enter client name...",
+    "address": "Addess",
+    "address-enter": "Enter address",
+    "project": "Project"
 }

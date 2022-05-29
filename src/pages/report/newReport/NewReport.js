@@ -21,13 +21,24 @@ export default function NewReport() {
 	const [timeIssued, setTimeIssued] = useState('');
 	const [frequency, setFrequency] = useState('');
 	const [dateTest, setDateTest] = useState('');
+	const [clientName, setClientName] = useState('');
+	const [address, setAddress] = useState('');
+	const [construction, setConstruction] = useState([]);
 
 	const [permission, setPermission] = useState(false)
 	useEffect(() => {
 		if (localStorage.abilities.includes("construction-report"))
 			setPermission(true)
 		else setPermission(false)
+		loadConstruction();
 	}, []);
+
+	const loadConstruction = async () => {
+		const result = await axios.get('https://backend.omcloud.vn/api/construction');
+		setConstruction(result.data.data);
+	};
+	const Construction = construction.map(Construction => Construction);
+
 	const handleAddReport = (e) => {
 		e.preventDefault();
 
@@ -59,6 +70,27 @@ export default function NewReport() {
 										<label className={classes.label}>{t('timeIssued')}</label>
 										<input type="text" name="timeIssued" className={classes.inputName} value={timeIssued} onChange={(e) => setTimeIssued(e.target.value)} placeholder={t('timeIssued-enter')} />
 									</div>
+									<div className={classes.newConstructionItem}>
+										<label className={classes.label}>{t('client-name')}</label>
+										<input type="text" name="clientName" className={classes.inputName} value={clientName} onChange={(e) => setClientName(e.target.value)} placeholder={t('clientName-enter')} />
+									</div>
+									<div className={classes.newConstructionItem}>
+										<label className={classes.label}>{t('address')}</label>
+										<input type="text" name="address" className={classes.inputName} value={address} onChange={(e) => setAddress(e.target.value)} placeholder={t('address-enter')} />
+									</div>
+									<div className={classes.newConstructionItem}>
+                						<label className={classes.label}>{t('project')}</label>
+                						<select
+          									// onChange={e => handleTypeChange(e)}
+          									className={classes.newConstructionType}
+          									id="newConstruction"
+          								>
+          									<option>--------</option>
+          									{
+            									Construction.map((name, key) => <option key={key.id} value={name.id}>{name.name}</option>)
+          									}
+        								</select>
+              						</div>
 									<div className={classes.newConstructionItem}>
                 						<label className={classes.label}>{t('frequency')}</label>
                 						<select
