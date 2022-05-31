@@ -25,6 +25,9 @@ export default function ConstructionsPage() {
   const [status, setStatus] = useState([]);
   const [service, setService] = useState([]);
   const [serviceType, setServiceType] = useState([]);
+  const [filterServiceName, setFilterServiceName] = useState([]);
+  const [serviceName, setServiceName] = useState('');
+  const [filterServiceTypeName, setFilterServiceTypeName] = useState([]);
   const [serviceTypeName, setServiceTypeName] = useState('');
 
   useEffect(() => {
@@ -58,10 +61,28 @@ export default function ConstructionsPage() {
     setServiceType(result.data.data);
   };
 
-  const Type = serviceType.map(Type => Type)
+  const handleServiceChange = (value) => {
+    setServiceName(value);
+    const result = [];
+    data.forEach(item => {
+      if (item.service.name === value) 
+        result.push(item);
+      }
+    );
+    setFilterServiceName(result);
+  }
 
-  const handleTypeChange = (e) => {
-    setServiceTypeName(e.target.value);
+  const ServiceType = serviceType.map(ServiceType => ServiceType)
+
+  const handleServiceTypeChange = (value) => {
+    setServiceTypeName(value);
+    const result = [];
+    data.forEach(item => {
+      if (item.service_type.name === value) 
+        result.push(item);
+      }
+    );
+    setFilterServiceTypeName(result);
   }
 
   const handleDelete = (id) => {
@@ -75,7 +96,6 @@ export default function ConstructionsPage() {
   }
 
   const columns = [
-    // { field: 'id', headerName: 'ID', width: 70 },
     { field: 'name', headerName: t('construction-name'), width: 250 },
     {
       field: 'service_id',
@@ -135,6 +155,7 @@ export default function ConstructionsPage() {
           }
         </select>
         <select
+          onChange={(e) => handleServiceChange(e.target.value)}
           className={classes.newConstructionType}
           id="newConstructionType"
         >
@@ -144,16 +165,16 @@ export default function ConstructionsPage() {
           }
         </select>
         <select
-          onChange={e => handleTypeChange(e)}
+          onChange={(e) => handleServiceTypeChange(e.target.value)}
           className={classes.newConstructionType}
           id="newConstructionType"
           >
           <option>---{t('service-type')}---</option>
           {
-            Type.map((name, key) => <option key={key + 1} value={name.name}>{name.name}</option>)
+            ServiceType.map((name, key) => <option key={key + 1} value={name.name}>{name.name}</option>)
           }
         </select>
-        <input type="text" className={classes.searchTerm} placeholder={t('Search-input')} onChange={e => setQuery(e.target.value)} />
+        <input type="search" className={classes.searchTerm} placeholder={t('Search-input')} onChange={e => setQuery(e.target.value)} />
         <Link to="/app/new-construction">
           <Button
             variant="contained"
@@ -164,14 +185,46 @@ export default function ConstructionsPage() {
           </Button>
         </Link>
       </div>
-      <DataGrid
-        rows={search(data)}
-        columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
-        disableSelectionOnClick
-        className={classes.constructionData}
-      />
+      {
+        serviceName.length !==0 &&  serviceName !== '---Dịch vụ---'
+        ? <DataGrid
+            rows={search(filterServiceName)}
+            columns={columns}
+            pageSize={5}
+            rowsPerPageOptions={[5]}
+            disableSelectionOnClick
+            className={classes.constructionData}
+          />
+      : <DataGrid
+          rows={search(data)}
+          columns={columns}
+          pageSize={5}
+          rowsPerPageOptions={[5]}
+          disableSelectionOnClick
+          className={classes.constructionData}
+        />
+      }
+
+      {
+        serviceTypeName.length !==0 &&  serviceTypeName !== '---Loại dịch vụ---'
+        ? <DataGrid
+            rows={search(filterServiceTypeName)}
+            columns={columns}
+            pageSize={5}
+            rowsPerPageOptions={[5]}
+            disableSelectionOnClick
+            className={classes.constructionData}
+          />
+      : <DataGrid
+          rows={search(data)}
+          columns={columns}
+          pageSize={5}
+          rowsPerPageOptions={[5]}
+          disableSelectionOnClick
+          className={classes.constructionData}
+        />
+      }
+      
     </>
   );
 }
