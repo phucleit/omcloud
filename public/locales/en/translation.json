@@ -83,5 +83,22 @@
     "clientName-enter": "Enter client name...",
     "address": "Addess",
     "address-enter": "Enter address",
-    "project": "Project"
+    "project": "Project",
+    "supplies": "Synthesis of replacement materials and equipment",
+    "materials": "Materials and equipment",
+    "unit": "Unit",
+    "amount": "Amount",
+    "enter-materials": "Enter materials...",
+    "enter-unit": "Enter unit...",
+    "enter-amount": "Enter amount...",
+    "maintenance": "General maintenance",
+    "maintenance-equipment": "Maintenance equipment",
+    "maintenance-pictures": "Maintenance pictures",
+    "maintenance-description": "Maintenance description",
+    "enter-maintenance-equipment": "Enter maintenance equipment...",
+    "enter-maintenance-description": "Enter maintenance description...",
+    "hicon-reviews": "Hicon reviews",
+    "hiconReviews-enter": "Enter Hicon M-E reviews...",
+    "customer-reviews": "Customer reviews",
+    "customerReviews-enter": "Enter Customer reviews"
 }

@@ -83,5 +83,22 @@
     "clientName-enter": "Nhập tên khách hàng...",
     "address": "Địa chỉ",
     "address-enter": "Nhập địa chỉ...",
-    "project": "Dự án"
+    "project": "Dự án",
+    "supplies": "Tổng hợp vật tư thiết bị thay thế",
+    "materials": "Vật tư, thiết bị",
+    "unit": "Đơn vị",
+    "amount": "Số lượng",
+    "enter-materials": "Nhập vật tư, thiết bị...",
+    "enter-unit": "Nhập đơn vị...",
+    "enter-amount": "Nhập số lượng...",
+    "maintenance": "Tổng hợp bảo trì",
+    "maintenance-equipment": "Thiết bị bảo trì",
+    "maintenance-pictures": "Hình ảnh bảo trì",
+    "maintenance-description": "Mô tả bảo trì",
+    "enter-maintenance-equipment": "Nhập thiết bị bảo trì...",
+    "enter-maintenance-description": "Nhập mô tả bảo trì...",
+    "hicon-reviews": "Nhận xét của Hicon M-E",
+    "hiconReviews-enter": "Nhập nhận xét của Hicon M-E...",
+    "customer-reviews": "Nhận xét khách hàng",
+    "customerReviews-enter": "Nhập nhận xét khách hàng..."
 }
