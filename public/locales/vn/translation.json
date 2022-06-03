@@ -100,5 +100,13 @@
     "hicon-reviews": "Nhận xét của Hicon M-E",
     "hiconReviews-enter": "Nhập nhận xét của Hicon M-E...",
     "customer-reviews": "Nhận xét khách hàng",
-    "customerReviews-enter": "Nhập nhận xét khách hàng..."
+    "customerReviews-enter": "Nhập nhận xét khách hàng...",
+    "List-device": "Dánh sách thiết bị bảo trì",
+    "Add-List-device": "Thêm mới thiết bị bảo trì",
+    "device-maintenance": "Thiết bị bảo trì",
+    "photo-maintenance": "Hình ảnh bảo trì",
+    "des-maintenance": "Mô tả công việc bảo trì",
+    "enter-device-maintenance": "Nhập thiết bị bảo trì...",
+    "enter-des-maintenance": "Nhập mô tả công việc bảo trì...",
+    "drag-photo": "Kéo thả hình ảnh"
 }

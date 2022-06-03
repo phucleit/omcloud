@@ -86,7 +86,17 @@ function Sidebar({ location }) {
         { label: t("Status-Add"), link: "/app/new-status" },
       ],
     },
-    { id: 5, label: t("Report-Add"), link: "/app/new-report", icon: <ListAltIcon /> },
+    // { id: 5, label: t("Report-Add"), link: "/app/new-report", icon: <ListAltIcon /> },
+    {
+      id: 5,
+      label: t("Report-Add"),
+      link: "/app/report",
+      icon: <ListAltIcon />,
+      children: [
+        { label: t("List-device"), link: "/app/task" },
+        { label: t("Add-List-device"), link: "/app/new-task" },
+      ],
+    },
     { id: 6, label: t("System-config"), link: "", icon: <BackupIcon /> },
   ];
   useEffect(function () {

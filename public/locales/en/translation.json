@@ -100,5 +100,13 @@
     "hicon-reviews": "Hicon reviews",
     "hiconReviews-enter": "Enter Hicon M-E reviews...",
     "customer-reviews": "Customer reviews",
-    "customerReviews-enter": "Enter Customer reviews"
+    "customerReviews-enter": "Enter Customer reviews",
+    "List-device": "List device",
+    "Add-List-device": "Add list device",
+    "device-maintenance": "Device maintenance",
+    "photo-maintenance": "Photo maintenance",
+    "des-maintenance": "Description maintenance",
+    "enter-device-maintenance": "Enter device maintenance...",
+    "enter-des-maintenance": "Enter description maintenance...",
+    "drag-photo": "Drop file here"
 }
