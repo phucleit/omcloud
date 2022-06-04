@@ -14,7 +14,7 @@ import PageTitle from "../../../../components/PageTitle/PageTitle";
 import useStyles from "./styles";
 import { useTranslation } from 'react-i18next';
 
-const url_task = `https://backend.omcloud.vn/api/task/`;
+const url_task = ` https://backend.omcloud.vn/api/task/remove/`;
 
 export default function TasksPage() {
   var classes = useStyles();
@@ -33,7 +33,7 @@ export default function TasksPage() {
 
   const handleDelete = (id) => {
     if (window.confirm('Bạn có muốn xóa không?')) {
-      axios.delete(url_task + id)
+      axios.post(url_task + id)
         .then(res => {
           setData(data.filter((item) => item.id !== id));
         })

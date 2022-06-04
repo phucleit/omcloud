@@ -32,6 +32,7 @@ import NewStatus from "../../pages/newStatus";
 import NewReport from "../../pages/report/newReport";
 import TasksPage from '../../pages/report/task/data';
 import NewTask from '../../pages/report/task/new';
+import EditTask from '../../pages/report/task/edit';
 
 import { useTranslation } from 'react-i18next';
 // context
@@ -73,6 +74,7 @@ function Layout(props) {
             <Route path="/app/new-report" component={NewReport} />
             <Route path="/app/task" component={TasksPage} />
             <Route path="/app/new-task" component={NewTask} />
+            <Route path="/app/edit-task/:id" component={EditTask} />
           </Switch>
           <Box
             mt={5}

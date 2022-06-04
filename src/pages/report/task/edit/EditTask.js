@@ -1,24 +1,46 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@material-ui/core";
 import PageTitle from "../../../../components/PageTitle/PageTitle";
 import useStyles from "./styles";
 import { useTranslation } from 'react-i18next';
 
 import {
-	useHistory,
-} from "react-router-dom";
+    useHistory,
+    useParams,
+  } from "react-router-dom";
 import axios from 'axios';
 
-export default function NewTask() {
+const url = 'https://backend.omcloud.vn/api/task';
+
+export default function EditTask() {
     var classes = useStyles();
 	let history = useHistory();
 	const { t } = useTranslation();
 
+    const paramId = useParams();
+    const currentTaskId = paramId.id;
+
     const [name, setName] = useState('');
     const [photo, setPhoto] = useState('');
 	const [description, setDescription] = useState('');
+    const [reviewPhoto, setReviewPhoto] = useState('');
 
-    const handleAddTask = (e) => {
+
+    useEffect(() => {
+        loadTask();
+      }, []);
+
+    const loadTask = async () => {
+        const result = await axios.get(url + '/' + currentTaskId);
+        setName(result.data.data.name);
+        setPhoto(result.data.data.photo);
+        setDescription(result.data.data.name);
+        setReviewPhoto(result.data.data.photo);
+    };
+
+    console.log(photo);
+
+    const handleUpdateTask = (e) => {
 		e.preventDefault();
 
         if (name === "") {
@@ -33,9 +55,9 @@ export default function NewTask() {
             formDataTask.append('photo', photo);
             formDataTask.append('description', description);
 
-            axios.post('https://backend.omcloud.vn/api/task', formDataTask)
+            axios.post('https://backend.omcloud.vn/api/task/edit/' + currentTaskId, formDataTask)
 			.then(res => {
-				alert('Thêm thiết bị thành công!');
+				alert('Cập nhật thiết bị thành công!');
 				history.push('/app/task');
 			}).catch(error => console.log(error));
 		}
@@ -43,7 +65,7 @@ export default function NewTask() {
 
 	return (
 		<>
-            <PageTitle title={t('Add-List-device')} />
+            <PageTitle title={t('Edit-List-device')} />
             <div className={classes.newConstructionForm}>
 				<div className={classes.newConstructionItem}>
 					<label className={classes.label}>{t('device-maintenance')}</label>
@@ -52,6 +74,7 @@ export default function NewTask() {
                 <div className={classes.newConstructionItem}>
 					<label className={classes.label}>{t('photo-maintenance')}</label>
 					<input type="file" className={classes.inputName} onChange={(e) => setPhoto(e.target.files[0])} placeholder="Files" />
+                    {reviewPhoto ? <img src={'http://backend.omcloud.vn/uploads/' + reviewPhoto} style={{width: '250px', marginTop: '20px'}} /> : ''}
 				</div>
 				<div className={classes.newConstructionItem}>
 					<label className={classes.label}>{t("des-maintenance")}</label>
@@ -62,9 +85,9 @@ export default function NewTask() {
 					size="medium"
 					color="secondary"
 					className={classes.newConstructionBtn}
-					onClick={handleAddTask}
+					onClick={handleUpdateTask}
 				>
-					{t('Add')}
+					{t('btn-update')}
 				</Button>
 			</div>
 		</>
