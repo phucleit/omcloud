@@ -105,23 +105,19 @@ export default function EditUser() {
             <PageTitle title="Cập nhật tài khoản" />
             <div className={classes.newUserForm}>
               <div className={classes.newUserItem}>
-                <label className={classes.label}>Họ tên</label>
-                <input type="text" name="name" className={classes.inputName} value={name} onChange={(e) => setName(e.target.value)} placeholder='Nhập họ tên...' />
+                <label className={classes.label}>{t('Fullname')}</label>
+                <input type="text" name="name" className={classes.inputName} value={name} onChange={(e) => setName(e.target.value)} placeholder={t('Fullname-enter')} />
               </div>
               <div className={classes.newUserItem}>
-                <label className={classes.label}>Username</label>
-                <input type="text" name="username" className={classes.inputName} value={username} onChange={(e) => setUsername(e.target.value)} placeholder='Nhập username...' />
+                <label className={classes.label}>{t('Username')}</label>
+                <input type="text" name="username" className={classes.inputName} value={username} onChange={(e) => setUsername(e.target.value)} placeholder={t('Username-enter')} />
               </div>
               <div className={classes.newUserItem}>
                 <label className={classes.label}>Email</label>
-                <input type="email" name="email" className={classes.inputName} value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Nhập email...' />
+                <input type="email" name="email" className={classes.inputName} value={email} onChange={(e) => setEmail(e.target.value)} placeholder={t('Email-enter')} />
               </div>
               <div className={classes.newUserItem}>
-                <label className={classes.label}>Điện thoại</label>
-                <input type="tel" name="tel" className={classes.inputName} value={tel} onChange={(e) => setTel(e.target.value)} placeholder='Nhập số điện thoại...' />
-              </div>
-              <div className={classes.newUserItem}>
-                <label className={classes.label}>Nhóm</label>
+                <label className={classes.label}>{t('Role')}</label>
                 <select
                   onChange={e => handleRolesChange(e)}
                   className={classes.newUserType}

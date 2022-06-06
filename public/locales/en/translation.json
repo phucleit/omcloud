@@ -111,5 +111,6 @@
     "drag-photo": "Drop file here",
     "Edit-List-device": "Edit List Device",
     "List-report": "List Report",
-    "Add-List-Report": "Add Report"
+    "Add-List-Report": "Add Report",
+    "report-name": "Report Name"
 }

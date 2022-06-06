@@ -79,11 +79,11 @@ export default function EditService() {
             <PageTitle title="Cập nhật dịch vụ" />
             <div className={classes.newServiceForm}>
               <div className={classes.newServiceItem}>
-                <label className={classes.label}>Tên dịch vụ</label>
-                <input type="text" name="tendichvu" className={classes.inputName} value={serviceName} onChange={handleServiceNameChange} placeholder='Nhập tên dịch vụ...' />
+                <label className={classes.label}>{t('service-name')}</label>
+                <input type="text" name="tendichvu" className={classes.inputName} value={serviceName} onChange={handleServiceNameChange} placeholder={t('service-name-enter')} />
               </div>
               <div className={classes.newServiceItem}>
-                <label className={classes.label}>Loại dịch vụ</label>
+                <label className={classes.label}>{t('service-type')}</label>
                 <select
                   onChange={e => handleTypeChange(e)}
                   className={classes.newServiceType}
