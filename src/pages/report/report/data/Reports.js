@@ -10,12 +10,12 @@ import {
 } from "react-router-dom";
 
 // components
-import PageTitle from "../../components/PageTitle/PageTitle";
+import PageTitle from "../../../../components/PageTitle/PageTitle";
 import useStyles from "./styles";
 import { useTranslation } from 'react-i18next';
 
 
-const url_service = `https://backend.omcloud.vn/api/service/`;
+const url_report = `https://backend.omcloud.vn/api/report/`;
 
 export default function ServicesPage() {
   var classes = useStyles();
@@ -23,17 +23,17 @@ export default function ServicesPage() {
   const [data, setData] = useState([]);
   const { t } = useTranslation()
   useEffect(() => {
-    loadServices();
+    loadReports();
   }, []);
 
-  const loadServices = async () => {
-    const result = await axios.get('https://backend.omcloud.vn/api/service');
+  const loadReports = async () => {
+    const result = await axios.get('https://backend.omcloud.vn/api/report');
     setData(result.data.data);
   };
 
   const handleDelete = (id) => {
     if (window.confirm('Bạn có muốn xóa không?')) {
-      axios.delete(url_service + id)
+      axios.delete(url_report + id)
         .then(res => {
           setData(data.filter((item) => item.id !== id));
         })
@@ -42,14 +42,11 @@ export default function ServicesPage() {
   }
 
   const columns = [
-    { field: 'name', headerName: t('service-name'), width: 250 },
-    {
-      field: 'service_type',
-      headerName: t('service-type'),
-      width: 250,
-      valueGetter: (params) => `${params.row.service_type.name}`
-    },
-    { field: 'construction_count', headerName: t('construction_count'), width: 200 },
+    { field: 'name', headerName: t('title-name'), width: 350 },
+    { field: 'code', headerName: t('code'), width: 150 },
+    { field: 'publish_day', headerName: t('dateIssued'), width: 150 },
+    { field: 'representative_name', headerName: t('clientName'), width: 350 },
+    { field: 'address', headerName: t('address'), width: 350 },
     {
       field: 'hanhDong',
       headerName: t('Action'),
@@ -57,7 +54,7 @@ export default function ServicesPage() {
       renderCell: (params) => {
         return (
           <div className={classes.buttonAction}>
-            <Link to={"/app/edit-service/" + params.row.id}>
+            <Link to={"#" + params.row.id}>
               <button className={classes.serviceListEdit}>Edit</button>
             </Link>
             <DeleteOutline className={classes.serviceListDelete} onClick={() => handleDelete(params.row.id)} />
@@ -69,24 +66,22 @@ export default function ServicesPage() {
 
   const search = (rows) => {
     return rows.filter(
-      (services) =>
-        services.name.toLowerCase().indexOf(query) > -1 ||
-        services.name.indexOf(query) > -1 ||
-        services.service_type.name.toLowerCase().indexOf(query) > -1 ||
-        services.service_type.name.indexOf(query) > -1
+      (reports) =>
+        reports.name.toLowerCase().indexOf(query) > -1 ||
+        reports.name.indexOf(query) > -1
     );
   }
 
   return (
     <>
-      <PageTitle title={t("Services-List")} button={(
-        <Link to="/app/new-service">
+      <PageTitle title={t("List-report")} button={(
+        <Link to="/app/new-report">
           <Button
             variant="contained"
             size="medium"
             color="secondary"
           >
-            {t("Add")}
+            {t("Add-List-Report")}
           </Button>
         </Link>
       )} />

@@ -64,7 +64,7 @@
     "status-desc-enter": "Nhập mô tả trạng thái...",
     "not-permission" : "Tài khoản của bạn không được quyền truy cập",
     "btn-update": "Cập nhật",
-    "title-name": "Tiêu đề report",
+    "title-name": "Tiêu đề báo cáo",
     "title-name-enter": "Nhập tiêu đề...",
     "code-name": "Mã ban hành",
     "code-name-enter": "Nhập mã ban hành...",
@@ -91,7 +91,7 @@
     "enter-materials": "Nhập vật tư, thiết bị...",
     "enter-unit": "Nhập đơn vị...",
     "enter-amount": "Nhập số lượng...",
-    "maintenance": "Tổng hợp bảo trì",
+    "maintenance": "Tổng hợp thiết bị bảo trì",
     "maintenance-equipment": "Thiết bị bảo trì",
     "maintenance-pictures": "Hình ảnh bảo trì",
     "maintenance-description": "Mô tả bảo trì",
@@ -109,5 +109,7 @@
     "enter-device-maintenance": "Nhập thiết bị bảo trì...",
     "enter-des-maintenance": "Nhập mô tả công việc bảo trì...",
     "drag-photo": "Kéo thả hình ảnh",
-    "Edit-List-device": "Cập nhật thiết bị bảo trì"
+    "Edit-List-device": "Cập nhật thiết bị bảo trì",
+    "List-report": "Danh sách báo cáo",
+    "Add-List-Report": "Tạo báo cáo"
 }

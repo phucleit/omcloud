@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "@material-ui/core";
-import PageTitle from "../../../components/PageTitle/PageTitle";
+import PageTitle from "../../../../components/PageTitle/PageTitle";
 import useStyles from "./styles";
 import { useTranslation } from 'react-i18next';
 
@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 import axios from 'axios';
 
-function TableSupplies({rowsData, deleteTableRows, handleChange}) {
+function TableSupplies2({rowsData, deleteTableRows, handleChange}) {
 	const { t } = useTranslation();
     return(
         rowsData.map((data, index)=>{
@@ -28,7 +28,7 @@ function TableSupplies({rowsData, deleteTableRows, handleChange}) {
     )
 }
 
-function TableMaintenance({rowsData, deleteTableRows, handleChange}) {
+function TableMaintenance22({rowsData, deleteTableRows, handleChange}) {
 	const { t } = useTranslation();
     return(
         rowsData.map((data, index)=>{
@@ -49,7 +49,7 @@ function TableMaintenance({rowsData, deleteTableRows, handleChange}) {
     )
 }
 
-export default function NewReport() {
+export default function NewReport2() {
 
 	var classes = useStyles();
 	let history = useHistory();
@@ -225,7 +225,7 @@ export default function NewReport() {
                             					</tr>
                         					</thead>
                         					<tbody>
-                            					<TableMaintenance rowsData={rowMaintenance} deleteTableRows={deleteTableRowsMaintenance} handleChange={handleChangeMaintenance} />
+                            					<TableMaintenance22 rowsData={rowMaintenance} deleteTableRows={deleteTableRowsMaintenance} handleChange={handleChangeMaintenance} />
                         					</tbody> 
                     					</table>
 									</div>
@@ -241,7 +241,7 @@ export default function NewReport() {
                             					</tr>
                         					</thead>
                         					<tbody>
-                            					<TableSupplies rowsData={rowSupplies} deleteTableRows={deleteTableRowsSupplies} handleChange={handleChangeSupplies} />
+                            					<TableSupplies2 rowsData={rowSupplies} deleteTableRows={deleteTableRowsSupplies} handleChange={handleChangeSupplies} />
                         					</tbody> 
                     					</table>
 									</div>

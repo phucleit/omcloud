@@ -95,6 +95,8 @@ function Sidebar({ location }) {
       children: [
         { label: t("List-device"), link: "/app/task" },
         { label: t("Add-List-device"), link: "/app/new-task" },
+        { label: t("List-report"), link: "/app/report" },
+        { label: t("Add-List-Report"), link: "/app/new-report" },
       ],
     },
     { id: 6, label: t("System-config"), link: "", icon: <BackupIcon /> },

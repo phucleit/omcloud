@@ -29,10 +29,11 @@ import NewConstruction from "../../pages/newConstruction";
 import EditConstruction from "../../pages/editConstruction";
 import Status from "../../pages/status";
 import NewStatus from "../../pages/newStatus";
-import NewReport from "../../pages/report/newReport";
 import TasksPage from '../../pages/report/task/data';
 import NewTask from '../../pages/report/task/new';
 import EditTask from '../../pages/report/task/edit';
+import Report from "../../pages/report/report/data";
+import NewReport from "../../pages/report/report/new";
 
 import { useTranslation } from 'react-i18next';
 // context
@@ -71,10 +72,11 @@ function Layout(props) {
             <Route path="/app/edit-construction/:id" component={EditConstruction} />
             <Route path="/app/status" component={Status} />
             <Route path="/app/new-status" component={NewStatus} />
-            <Route path="/app/new-report" component={NewReport} />
             <Route path="/app/task" component={TasksPage} />
             <Route path="/app/new-task" component={NewTask} />
             <Route path="/app/edit-task/:id" component={EditTask} />
+            <Route path="/app/report" component={Report} />
+            <Route path="/app/new-report" component={NewReport} />
           </Switch>
           <Box
             mt={5}

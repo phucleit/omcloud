@@ -109,5 +109,7 @@
     "enter-device-maintenance": "Enter device maintenance...",
     "enter-des-maintenance": "Enter description maintenance...",
     "drag-photo": "Drop file here",
-    "Edit-List-device": "Edit List Device"
+    "Edit-List-device": "Edit List Device",
+    "List-report": "List Report",
+    "Add-List-Report": "Add Report"
 }
