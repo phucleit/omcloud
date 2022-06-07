@@ -6,8 +6,11 @@ import { useTranslation } from 'react-i18next';
 
 import {
 	useHistory,
+    useParams,
 } from "react-router-dom";
 import axios from 'axios';
+
+const url = 'https://backend.omcloud.vn/api/report';
 
 function TableSupplies({rowsData, deleteTableRows, handleChange}) {
 	const { t } = useTranslation();
@@ -28,14 +31,19 @@ function TableSupplies({rowsData, deleteTableRows, handleChange}) {
     )
 }
 
-export default function NewReport() {
+export default function EditReport() {
 
 	var classes = useStyles();
 	let history = useHistory();
 	const { t } = useTranslation()
 
+    const paramId = useParams();
+    const currentReportId = paramId.id;
+
 	const [ tasks, setTasks ] = useState([]);
 	const [construction, setConstruction] = useState([]);
+
+    const [ constructionName, setConstructionName ] = useState('');
 
 	const [ name, setName ] = useState('');
 	const [ code, setCode ] = useState('');
@@ -51,15 +59,31 @@ export default function NewReport() {
 	const [ hiconComment, setHiconComment ] = useState('');
 	const [ customerComment, setCustomerComment ] = useState('');
 
-
 	const [permission, setPermission] = useState(false)
 	useEffect(() => {
 		if (localStorage.abilities.includes("construction-report"))
 			setPermission(true)
 		else setPermission(false)
+        loadReport();
 		loadConstruction();
 		loadTasks();
 	}, []);
+
+    const loadReport = async () => {
+        const result = await axios.get(url + '/' + currentReportId);
+        setName(result.data.data.name);
+        setCode(result.data.data.code);
+        setPublishDay(result.data.data.publish_day);
+        setPublishTime(result.data.data.publish_time);
+        setRepresentativeName(result.data.data.representative_name);
+        setAddress(result.data.data.address);
+        setValidDate(result.data.data.valid_date);
+        setHiconComment(result.data.data.hicon_comment);
+        setCustomerComment(result.data.data.customer_comment);
+        setFrequency(result.data.data.frequency);
+        setConstructionName(result.data.data.construction.id);
+        setTasksID(result.data.data.task[0].id)
+      };
 
 	const loadConstruction = async () => {
 		const result = await axios.get('https://backend.omcloud.vn/api/construction');
@@ -113,10 +137,10 @@ export default function NewReport() {
 		setFrequency(e.target.value);
 	}
 
-	const handleAddReport = (e) => {
+	const handleEditReport = (e) => {
 		e.preventDefault();
 
-		const report = {
+		const updateReport = {
 			name: name,
     		code: code,
     		publish_day: publishDay,
@@ -132,12 +156,12 @@ export default function NewReport() {
     		items: rowSupplies,
 		};
 		
-		axios.post('https://backend.omcloud.vn/api/report', report)
-        .then(res => {
-          alert('Tạo báo cáo thành công!');
-          history.push('/app/report');
-        })
-        .catch(error => console.log(error));
+		// axios.post('https://backend.omcloud.vn/api/report', report)
+        // .then(res => {
+        //   alert('Tạo báo cáo thành công!');
+        //   history.push('/app/report');
+        // })
+        // .catch(error => console.log(error));
 	}
 
 	return (
@@ -147,7 +171,7 @@ export default function NewReport() {
 					<>
 						{
 							<>
-								<PageTitle title={t('Report-Add')} />
+								<PageTitle title={t('Report-Update')} />
 								<div className={classes.newConstructionForm}>
 									<div className={classes.newConstructionItem}>
 										<label className={classes.label}>{t('title-name')} (*)</label>
@@ -163,6 +187,7 @@ export default function NewReport() {
           									onChange={e => handleContructionsChange(e)}
           									className={classes.newConstructionType}
           									id="newConstruction"
+                                            value={constructionName}
           								>
           									<option>--------</option>
           									{
@@ -192,6 +217,7 @@ export default function NewReport() {
 											onChange={e => handleFrequencyChange(e)}
                   							className={classes.newConstructionType}
                   							id="newConstructionType"
+                                            value={frequency}
                 						>
 											<option>--------</option>
                   							<option value="1">{t('monthly')}</option>
@@ -210,6 +236,7 @@ export default function NewReport() {
                   							onChange={e => handleTaskChange(e)}
                   							className={classes.newConstructionType}
                   							id="newConstructionType"
+                                            value={tasksID}
                 						>
                   							<option>-----</option>
                   							{
@@ -246,9 +273,9 @@ export default function NewReport() {
 										size="medium"
 										color="secondary"
 										className={classes.newConstructionBtn}
-										onClick={handleAddReport}
+										onClick={handleEditReport}
 									>
-										{t('Add')}
+										{t('btn-update')}
 									</Button>
 								</div>
 							</>

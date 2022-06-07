@@ -15,7 +15,7 @@ import useStyles from "./styles";
 import { useTranslation } from 'react-i18next';
 
 
-const url_report = `https://backend.omcloud.vn/api/report/`;
+const url_report = `https://backend.omcloud.vn/api/report/remove/`;
 
 export default function ServicesPage() {
   var classes = useStyles();
@@ -33,7 +33,7 @@ export default function ServicesPage() {
 
   const handleDelete = (id) => {
     if (window.confirm('Bạn có muốn xóa không?')) {
-      axios.delete(url_report + id)
+      axios.post(`https://backend.omcloud.vn/api/report/remove/` + id)
         .then(res => {
           setData(data.filter((item) => item.id !== id));
         })
@@ -43,7 +43,7 @@ export default function ServicesPage() {
 
   const columns = [
     { field: 'name', headerName: t('title-name'), width: 350 },
-    { field: 'code', headerName: t('code'), width: 150 },
+    { field: 'code', headerName: t('code-name'), width: 150 },
     { field: 'publish_day', headerName: t('dateIssued'), width: 150 },
     { field: 'representative_name', headerName: t('clientName'), width: 350 },
     { field: 'address', headerName: t('address'), width: 350 },
@@ -54,7 +54,7 @@ export default function ServicesPage() {
       renderCell: (params) => {
         return (
           <div className={classes.buttonAction}>
-            <Link to={"#" + params.row.id}>
+            <Link to={"/app/edit-report/" + params.row.id}>
               <button className={classes.serviceListEdit}>Edit</button>
             </Link>
             <DeleteOutline className={classes.serviceListDelete} onClick={() => handleDelete(params.row.id)} />
