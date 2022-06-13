@@ -13,36 +13,14 @@ function TableSupplies({rowsData, deleteTableRows, handleChange}) {
 	const { t } = useTranslation();
     return(
         rowsData.map((data, index)=>{
-			const {name, unit, quantity} = data;
-            return(
-                <tr key={index}>
-                	<td>
-                    	<input type="text" value={name} onChange={(evnt)=>(handleChange(index, evnt))} name="name" placeholder={t('enter-materials')} className="form-control"/>
-                	</td>
-                	<td><input type="text" value={unit}  onChange={(evnt)=>(handleChange(index, evnt))} name="unit" placeholder={t('enter-unit')} className="form-control"/> </td>
-                	<td><input type="text" value={quantity}  onChange={(evnt)=>(handleChange(index, evnt))} name="quantity" placeholder={t('enter-amount')} className="form-control" /> </td>
-                	<td><button className="btn btn-outline-danger" onClick={()=>(deleteTableRows(index))}>x</button></td>
-            	</tr>
-            );
-        })
-    )
-}
-
-function TableMaintenance({rowsData, deleteTableRows, handleChange}) {
-	const { t } = useTranslation();
-    return(
-        rowsData.map((data, index)=>{
-            const {name, images, description} = data;
-
+            const {name, unit, quantity} = data;
             return(
                 <tr key={index}>
                 <td>
-                    <input type="text" value={name} onChange={(evnt)=>(handleChange(index, evnt))} name="name" placeholder={t('enter-maintenance-equipment')} className="form-control"/>
+                    <input type="text" value={name} onChange={(evnt)=>(handleChange(index, evnt))} name="name" placeholder={t('enter-materials')} className="form-control"/>
                 </td>
-				<td>
-					<input type="file" value={images} onChange={(evnt)=>(handleChange(index, evnt))} id="images" name="images" accept="image/png, image/jpeg" />
-                </td>
-                <td><input type="text" value={description}  onChange={(evnt)=>(handleChange(index, evnt))} name="description" placeholder={t('enter-maintenance-description')} className="form-control" /> </td>
+                <td><input type="text" value={unit}  onChange={(evnt)=>(handleChange(index, evnt))} name="unit" placeholder={t('enter-unit')} className="form-control"/> </td>
+                <td><input type="text" value={quantity}  onChange={(evnt)=>(handleChange(index, evnt))} name="quantity" placeholder={t('enter-amount')} className="form-control" /> </td>
                 <td><button className="btn btn-outline-danger" onClick={()=>(deleteTableRows(index))}>x</button></td>
             </tr>
             )
@@ -50,12 +28,13 @@ function TableMaintenance({rowsData, deleteTableRows, handleChange}) {
     )
 }
 
-export default function NewReport() {
+export default function NewReport2() {
 
 	var classes = useStyles();
 	let history = useHistory();
-	const { t } = useTranslation();	
+	const { t } = useTranslation()
 
+	const [ tasks, setTasks ] = useState([]);
 	const [construction, setConstruction] = useState([]);
 
 	const [ name, setName ] = useState('');
@@ -67,10 +46,11 @@ export default function NewReport() {
 	const [ address, setAddress ] = useState('');
 	const [ frequency, setFrequency ] = useState('');
 	const [ validDate, setValidDate ] = useState('');
+	const [ tasksID, setTasksID ] = useState([]);
+	const [ rowSupplies, setRowSupplies ] = useState([]);
 	const [ hiconComment, setHiconComment ] = useState('');
 	const [ customerComment, setCustomerComment ] = useState('');
-	const [ rowSupplies, setRowSupplies ] = useState([]);
-	const [ rowMaintenance, setRowMaintenance ] = useState([]);
+
 
 	const [permission, setPermission] = useState(false)
 	useEffect(() => {
@@ -78,6 +58,7 @@ export default function NewReport() {
 			setPermission(true)
 		else setPermission(false)
 		loadConstruction();
+		loadTasks();
 	}, []);
 
 	const loadConstruction = async () => {
@@ -86,40 +67,19 @@ export default function NewReport() {
 	};
 	const Construction = construction.map(Construction => Construction);
 
-	/* table row bảo trị */
-    const addTableRowsMaintenance = () => {
-        const rowsInputMaintenance = {
-            name: '',
-            images: '',
-            description: ''  
-        };
-        setRowMaintenance([...rowMaintenance, rowsInputMaintenance]);
-    };
-
-    const deleteTableRowsMaintenance = (index) => {
-        const rows = [...rowMaintenance];
-        rows.splice(index, 1);
-        setRowMaintenance(rows);
-    }
-
-	const handleChangeMaintenance = (index, evnt) => {
-        const { name, value } = evnt.target;
-        const rowsInput = [...rowMaintenance];
-
-		const formDataTask = new FormData();
-		formDataTask.append(`${name}`, value);
-
-        rowsInput[index][name] = value;
-        setRowMaintenance(rowsInput);
-    }
-	/* end table row thiết bị */
+	const loadTasks = async () => {
+		const result = await axios.get('https://backend.omcloud.vn/api/task');
+		setTasks(result.data.data);
+	  };
+	
+	const Tasks = tasks.map(Tasks => Tasks);
  
 	/* table row thiết bị */
     const addTableRowsSupplies = () => {
         const rowsInputSupplies = {
-            name: '',
-            unit: '',
-            quantity: ''  
+            name: "",
+            unit: "",
+            quantity: ""
         };
         setRowSupplies([...rowSupplies, rowsInputSupplies]);
     };
@@ -138,14 +98,19 @@ export default function NewReport() {
     }
 	/* end table row thiết bị */
 
-	const handleFrequencyChange = (e) => {
-		e.preventDefault();
-		setFrequency(e.target.value);
-	}
-
 	const handleContructionsChange = (e) => {
 		e.preventDefault();
 		setConstructionId(e.target.value);
+	}
+
+	const handleTaskChange = (e) => {
+		e.preventDefault();
+		setTasksID(e.target.value);
+	}
+
+	const handleFrequencyChange = (e) => {
+		e.preventDefault();
+		setFrequency(e.target.value);
 	}
 
 	const handleAddReport = (e) => {
@@ -163,10 +128,10 @@ export default function NewReport() {
     		valid_date: validDate,
     		hicon_comment: hiconComment,
     		customer_comment: customerComment,
-    		tasks: rowMaintenance,
+    		tasks: [tasksID],
     		items: rowSupplies,
 		};
-
+		
 		axios.post('https://backend.omcloud.vn/api/report', report)
         .then(res => {
           alert('Tạo báo cáo thành công!');
@@ -185,11 +150,11 @@ export default function NewReport() {
 								<PageTitle title={t('Report-Add')} />
 								<div className={classes.newConstructionForm}>
 									<div className={classes.newConstructionItem}>
-										<label className={classes.label}>{t('title-name')}</label>
+										<label className={classes.label}>{t('title-name')} (*)</label>
 										<input type="text" name="name" className={classes.inputName} value={name} onChange={(e) => setName(e.target.value)} placeholder={t('title-name-enter')} />
 									</div>
                                     <div className={classes.newConstructionItem}>
-										<label className={classes.label}>{t('code-name')}</label>
+										<label className={classes.label}>{t('code-name')} (*)</label>
 										<input type="text" name="code" className={classes.inputName} value={code} onChange={(e) => setCode(e.target.value)} placeholder={t('code-name-enter')} />
 									</div>
 									<div className={classes.newConstructionItem}>
@@ -206,19 +171,19 @@ export default function NewReport() {
         								</select>
               						</div>
                                     <div className={classes.newConstructionItem}>
-										<label className={classes.label}>{t('dateIssued')}</label>
+										<label className={classes.label}>{t('dateIssued')} (*)</label>
 										<input type="text" name="publishDay" className={classes.inputName} value={publishDay} onChange={(e) => setPublishDay(e.target.value)} placeholder={t('dateIssued-enter')} />
 									</div>
                                     <div className={classes.newConstructionItem}>
-										<label className={classes.label}>{t('timeIssued')}</label>
+										<label className={classes.label}>{t('timeIssued')} (*)</label>
 										<input type="text" name="publishTime" className={classes.inputName} value={publishTime} onChange={(e) => setPublishTime(e.target.value)} placeholder={t('timeIssued-enter')} />
 									</div>
 									<div className={classes.newConstructionItem}>
-										<label className={classes.label}>{t('client-name')}</label>
+										<label className={classes.label}>{t('client-name')} (*)</label>
 										<input type="text" name="representativeName" className={classes.inputName} value={representativeName} onChange={(e) => setRepresentativeName(e.target.value)} placeholder={t('clientName-enter')} />
 									</div>
 									<div className={classes.newConstructionItem}>
-										<label className={classes.label}>{t('address')}</label>
+										<label className={classes.label}>{t('address')} (*)</label>
 										<input type="text" name="address" className={classes.inputName} value={address} onChange={(e) => setAddress(e.target.value)} placeholder={t('address-enter')} />
 									</div>
 									<div className={classes.newConstructionItem}>
@@ -237,23 +202,20 @@ export default function NewReport() {
               						</div>
 									<div className={classes.newConstructionItem}>
 										<label className={classes.label}>{t('date-test')} (*)</label>
-									  	<input type="text" name="validDate" className={classes.inputName} value={validDate} onChange={(e) => setValidDate(e.target.value)} placeholder={t('dateTest-enter')} />
-								  	</div>
+										<input type="text" name="validDate" className={classes.inputName} value={validDate} onChange={(e) => setValidDate(e.target.value)} placeholder={t('dateTest-enter')} />
+									</div>
 									<div className={classes.newConstructionItem}>
-										<label className={classes.label}>{t('maintenance')}</label>
-										<table className="table">
-                        					<thead>
-                            					<tr>
-                                					<th>{t('maintenance-equipment')}</th>
-                                					<th>{t('maintenance-pictures')}</th>
-                                					<th>{t('maintenance-description')}</th>
-                                					<th><button className="btn btn-outline-success" onClick={addTableRowsMaintenance} >+</button></th>
-                            					</tr>
-                        					</thead>
-                        					<tbody>
-                            					<TableMaintenance rowsData={rowMaintenance} deleteTableRows={deleteTableRowsMaintenance} handleChange={handleChangeMaintenance} />
-                        					</tbody> 
-                    					</table>
+										<label className={classes.label}>{t('maintenance')} (*)</label>
+										<select
+                  							onChange={e => handleTaskChange(e)}
+                  							className={classes.newConstructionType}
+                  							id="newConstructionType"
+                						>
+                  							<option>-----</option>
+                  							{
+                    							Tasks.map((name, key) => <option key={key.id} value={name.id}>{name.name}</option>)
+                  							}
+                						</select>
 									</div>
 									<div className={classes.newConstructionItem}>
 										<label className={classes.label}>{t('supplies')}</label>

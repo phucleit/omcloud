@@ -93,8 +93,8 @@ function Sidebar({ location }) {
       link: "/app/report",
       icon: <ListAltIcon />,
       children: [
-        { label: t("List-device"), link: "/app/task" },
-        { label: t("Add-List-device"), link: "/app/new-task" },
+        // { label: t("List-device"), link: "/app/task" },
+        // { label: t("Add-List-device"), link: "/app/new-task" },
         { label: t("List-report"), link: "/app/report" },
         { label: t("Add-List-Report"), link: "/app/new-report" },
       ],
