@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 
 // components
-import PageTitle from "../../components/PageTitle/PageTitle";
+import PageTitle from "../../../components/PageTitle/PageTitle";
 import useStyles from "./styles";
 import { useTranslation } from 'react-i18next';
 
@@ -28,7 +28,6 @@ export default function StatusPage() {
   };
 
   const columns = [
-    // { field: 'id', headerName: 'ID', width: 70 },
     { field: 'name', headerName: t('status-name'), width: 250 },
     { field: 'description', headerName: t('status-desc'), width: 400 },
   ];

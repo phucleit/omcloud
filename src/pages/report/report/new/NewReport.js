@@ -40,7 +40,7 @@ function TableMaintenance({rowsData, deleteTableRows, handleChange}) {
                     <input type="text" value={name} onChange={(evnt)=>(handleChange(index, evnt))} name="name" placeholder={t('enter-maintenance-equipment')} className="form-control"/>
                 </td>
 				<td>
-					<input type="file" value={images} onChange={(evnt)=>(handleChange(index, evnt))} id="images" name="images" accept="image/png, image/jpeg" />
+					<input type="file" multiple value={images} onChange={(evnt)=>(handleChange(index, evnt))} id="images" name="images" accept="image/png, image/jpeg" />
                 </td>
                 <td><input type="text" value={description}  onChange={(evnt)=>(handleChange(index, evnt))} name="description" placeholder={t('enter-maintenance-description')} className="form-control" /> </td>
                 <td><button className="btn btn-outline-danger" onClick={()=>(deleteTableRows(index))}>x</button></td>
@@ -90,7 +90,7 @@ export default function NewReport() {
     const addTableRowsMaintenance = () => {
         const rowsInputMaintenance = {
             name: '',
-            images: '',
+            images: [],
             description: ''  
         };
         setRowMaintenance([...rowMaintenance, rowsInputMaintenance]);
@@ -105,9 +105,6 @@ export default function NewReport() {
 	const handleChangeMaintenance = (index, evnt) => {
         const { name, value } = evnt.target;
         const rowsInput = [...rowMaintenance];
-
-		const formDataTask = new FormData();
-		formDataTask.append(`${name}`, value);
 
         rowsInput[index][name] = value;
         setRowMaintenance(rowsInput);
@@ -151,28 +148,50 @@ export default function NewReport() {
 	const handleAddReport = (e) => {
 		e.preventDefault();
 
-		const report = {
-			name: name,
-    		code: code,
-    		publish_day: publishDay,
-    		publish_time: publishTime,
-    		representative_name: representativeName,
-    		address: address,
-    		construction_id: constructionId,
-    		frequency: frequency,
-    		valid_date: validDate,
-    		hicon_comment: hiconComment,
-    		customer_comment: customerComment,
-    		tasks: rowMaintenance,
-    		items: rowSupplies,
-		};
+		const formDataReport = new FormData();
+		formDataReport.append('name', name);
+		formDataReport.append('code', code);
+		formDataReport.append('publish_day', publishDay);
+		formDataReport.append('publish_time', publishTime);
+		formDataReport.append('representative_name', representativeName);
+		formDataReport.append('address', address);
+		formDataReport.append('construction_id', constructionId);
+		formDataReport.append('frequency', frequency);
+		formDataReport.append('valid_date', validDate);
+		formDataReport.append('hicon_comment', hiconComment);
+		formDataReport.append('customer_comment', customerComment);
+		formDataReport.append('tasks', rowMaintenance);
+		formDataReport.append('items', rowSupplies);
 
-		axios.post('https://backend.omcloud.vn/api/report', report)
+		axios.post('https://backend.omcloud.vn/api/report', formDataReport)
         .then(res => {
           alert('Tạo báo cáo thành công!');
           history.push('/app/report');
         })
         .catch(error => console.log(error));
+
+		// const report = {
+		// 	name: name,
+    	// 	code: code,
+    	// 	publish_day: publishDay,
+    	// 	publish_time: publishTime,
+    	// 	representative_name: representativeName,
+    	// 	address: address,
+    	// 	construction_id: constructionId,
+    	// 	frequency: frequency,
+    	// 	valid_date: validDate,
+    	// 	hicon_comment: hiconComment,
+    	// 	customer_comment: customerComment,
+    	// 	tasks: rowMaintenance,
+    	// 	items: rowSupplies,
+		// };
+
+		// axios.post('https://backend.omcloud.vn/api/report', report)
+        // .then(res => {
+        //   alert('Tạo báo cáo thành công!');
+        //   history.push('/app/report');
+        // })
+        // .catch(error => console.log(error));
 	}
 
 	return (

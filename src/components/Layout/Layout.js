@@ -21,17 +21,22 @@ import NewUser from '../../pages/management/newUser';
 import EditUser from '../../pages/management/editUser';
 import Roles from '../../pages/management/roles';
 import NewRole from '../../pages/management/newRole';
-import Services from "../../pages/services";
-import NewService from "../../pages/newService";
-import EditService from "../../pages/editService";
-import Constructions from "../../pages/constructions";
-import NewConstruction from "../../pages/newConstruction";
-import EditConstruction from "../../pages/editConstruction";
-import Status from "../../pages/status";
-import NewStatus from "../../pages/newStatus";
+
+import Services from "../../pages/services/data";
+import NewService from "../../pages/services/new";
+import EditService from "../../pages/services/edit";
+
+import Constructions from "../../pages/constructions/data";
+import NewConstruction from "../../pages/constructions/new";
+import EditConstruction from "../../pages/constructions/edit";
+
+import Status from "../../pages/status/data";
+import NewStatus from "../../pages/status/new";
+
 import TasksPage from '../../pages/report/task/data';
 import NewTask from '../../pages/report/task/new';
 import EditTask from '../../pages/report/task/edit';
+
 import Report from "../../pages/report/report/data";
 import NewReport from "../../pages/report/report/new";
 import EditReport from "../../pages/report/report/edit";

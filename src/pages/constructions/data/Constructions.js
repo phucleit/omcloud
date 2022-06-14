@@ -12,7 +12,7 @@ import {
 } from "react-router-dom";
 
 // components
-import PageTitle from "../../components/PageTitle/PageTitle";
+import PageTitle from "../../../components/PageTitle/PageTitle";
 import useStyles from "./styles";
 
 const url_construction = `https://backend.omcloud.vn/api/construction/`;
