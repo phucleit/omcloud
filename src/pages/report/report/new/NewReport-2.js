@@ -19,7 +19,7 @@ function TableSupplies({rowsData, deleteTableRows, handleChange}) {
                 	<td>
                     	<input type="text" value={name} onChange={(evnt)=>(handleChange(index, evnt))} name="name" placeholder={t('enter-materials')} className="form-control"/>
                 	</td>
-                	<td><input type="text" value={unit}  onChange={(evnt)=>(handleChange(index, evnt))} name="unit" placeholder={t('enter-unit')} className="form-control"/> </td>
+                	<td><input type="text" value={unit} onChange={(evnt)=>(handleChange(index, evnt))} name="unit" placeholder={t('enter-unit')} className="form-control"/> </td>
                 	<td><input type="text" value={quantity}  onChange={(evnt)=>(handleChange(index, evnt))} name="quantity" placeholder={t('enter-amount')} className="form-control" /> </td>
                 	<td><button className="btn btn-outline-danger" onClick={()=>(deleteTableRows(index))}>x</button></td>
             	</tr>
@@ -40,7 +40,7 @@ function TableMaintenance({rowsData, deleteTableRows, handleChange}) {
                     <input type="text" value={name} onChange={(evnt)=>(handleChange(index, evnt))} name="name" placeholder={t('enter-maintenance-equipment')} className="form-control"/>
                 </td>
 				<td>
-					<input type="file" value={image} onChange={(evnt)=>(handleChange(index, evnt))} id="image" name="image" accept="image/png, image/jpeg" />
+					<input type="file" value={image} onChange={(evnt)=>(handleChange(index, evnt))} id="image" name="image" accept="image/png, image/jpeg, image/jpg" />
                 </td>
                 <td><input type="text" value={description}  onChange={(evnt)=>(handleChange(index, evnt))} name="description" placeholder={t('enter-maintenance-description')} className="form-control" /> </td>
                 <td><button className="btn btn-outline-danger" onClick={()=>(deleteTableRows(index))}>x</button></td>
@@ -50,7 +50,7 @@ function TableMaintenance({rowsData, deleteTableRows, handleChange}) {
     )
 }
 
-export default function NewReport() {
+export default function NewReport2() {
 
 	var classes = useStyles();
 	let history = useHistory();
@@ -103,7 +103,7 @@ export default function NewReport() {
     }
 
 	const handleChangeMaintenance = (index, evnt) => {
-        const { name, value } = evnt.target;
+		const { name, value } = evnt.target;
         const rowsInput = [...rowMaintenance];
 
         rowsInput[index][name] = value;
