@@ -50,6 +50,16 @@ function TableMaintenance({rowsData, deleteTableRows, handleChange}) {
     )
 }
 
+function createFormData(formData, key, data) {
+    if (data === Object(data) || Array.isArray(data)) {
+        for (var i in data) {
+            createFormData(formData, key + '[' + i + ']', data[i]);
+        }
+    } else {
+        formData.append(key, data);
+    }
+}
+
 export default function NewReport() {
 
 	var classes = useStyles();
@@ -145,6 +155,36 @@ export default function NewReport() {
 		setConstructionId(e.target.value);
 	}
 
+
+	/**/
+	const [inputFields, setInputFields] = useState([
+		{ 
+			name: '', 
+			image: '',
+			description: ''
+		}
+	]);
+
+	const handleFormChange = (index, event) => {
+    	let data = [...inputFields];
+    	data[index][event.target.name] = event.target.value;
+		console.log(data);
+		setInputFields(data);
+	}
+
+	const addFields = () => {
+		let newfield = { name: '', age: '' }
+		setInputFields([...inputFields, newfield])
+	}
+
+	const removeFields = (index) => {
+		let data = [...inputFields];
+		data.splice(index, 1)
+		setInputFields(data)
+	}
+	/**/
+
+	
 	const handleAddReport = (e) => {
 		e.preventDefault();
 
@@ -160,8 +200,10 @@ export default function NewReport() {
 		formDataReport.append('valid_date', validDate);
 		formDataReport.append('hicon_comment', hiconComment);
 		formDataReport.append('customer_comment', customerComment);
-		formDataReport.append('tasks', rowMaintenance);
-		formDataReport.append('items', rowSupplies);
+		createFormData(formDataReport, 'tasks', rowMaintenance);
+		createFormData(formDataReport, 'items', rowSupplies);
+		// formDataReport.append('tasks', JSON.stringify(rowMaintenance));
+		// formDataReport.append('items', JSON.stringify(rowSupplies));
 
 		axios.post('https://backend.omcloud.vn/api/report', formDataReport)
         .then(res => {
@@ -185,6 +227,8 @@ export default function NewReport() {
     	// 	tasks: rowMaintenance,
     	// 	items: rowSupplies,
 		// };
+
+		// console.log(report);
 
 		// axios.post('https://backend.omcloud.vn/api/report', report)
         // .then(res => {
@@ -258,22 +302,22 @@ export default function NewReport() {
 										<label className={classes.label}>{t('date-test')} (*)</label>
 									  	<input type="text" name="validDate" className={classes.inputName} value={validDate} onChange={(e) => setValidDate(e.target.value)} placeholder={t('dateTest-enter')} />
 								  	</div>
-									<div className={classes.newConstructionItem}>
-										<label className={classes.label}>{t('maintenance')}</label>
-										<table className="table">
-                        					<thead>
-                            					<tr>
-                                					<th>{t('maintenance-equipment')}</th>
-                                					<th>{t('maintenance-pictures')}</th>
-                                					<th>{t('maintenance-description')}</th>
-                                					<th><button className="btn btn-outline-success" onClick={addTableRowsMaintenance} >+</button></th>
-                            					</tr>
-                        					</thead>
-                        					<tbody>
-                            					<TableMaintenance rowsData={rowMaintenance} deleteTableRows={deleteTableRowsMaintenance} handleChange={handleChangeMaintenance} />
-                        					</tbody> 
-                    					</table>
-									</div>
+									  <div className={classes.newConstructionItem}>
+									  <label className={classes.label}>{t('maintenance')}</label>
+									  <table className="table">
+										  <thead>
+											  <tr>
+												  <th>{t('maintenance-equipment')}</th>
+												  <th>{t('maintenance-pictures')}</th>
+												  <th>{t('maintenance-description')}</th>
+												  <th><button className="btn btn-outline-success" onClick={addTableRowsMaintenance} >+</button></th>
+											  </tr>
+										  </thead>
+										  <tbody>
+											  <TableMaintenance rowsData={rowMaintenance} deleteTableRows={deleteTableRowsMaintenance} handleChange={handleChangeMaintenance} />
+										  </tbody> 
+									  </table>
+								  </div>
 									<div className={classes.newConstructionItem}>
 										<label className={classes.label}>{t('supplies')}</label>
 										<table className="table">
