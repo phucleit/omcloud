@@ -205,7 +205,7 @@ export default function ConstructionsPage() {
         />
       }
 
-      {
+      {/* {
         serviceTypeName.length !==0 &&  serviceTypeName !== '---Loại dịch vụ---'
         ? <DataGrid
             rows={search(filterServiceTypeName)}
@@ -223,7 +223,7 @@ export default function ConstructionsPage() {
           disableSelectionOnClick
           className={classes.constructionData}
         />
-      }
+      } */}
       
     </>
   );

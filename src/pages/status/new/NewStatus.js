@@ -38,7 +38,17 @@ export default function NewStatus() {
 				description: description,
 			};
 
-			axios.post('https://backend.omcloud.vn/api/status', newStatus)
+			const config = {
+				method: 'post',
+				url: 'https://backend.omcloud.vn/api/status',
+				headers: { 
+					'Authorization': 'Bearer 10|wrpJyOOlFaGAbvXyOsSvHJQbpYmP0HiPi2KVMck4', 
+					'Content-Type': 'application/json'
+				},
+				data: newStatus
+			};
+
+			axios(config)
 				.then(res => {
 					alert('Thêm trạng thái thành công!');
 					history.push('/app/status');

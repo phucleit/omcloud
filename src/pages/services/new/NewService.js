@@ -47,9 +47,19 @@ export default function NewService() {
     const newService = {
       name: serviceName,
       type_id: serviceTypeID,
-    }
+    };
 
-    axios.post(URL_ADD_SERVICE, newService)
+    const config = {
+      method: 'post',
+      url: URL_ADD_SERVICE,
+      headers: { 
+          'Authorization': 'Bearer 10|wrpJyOOlFaGAbvXyOsSvHJQbpYmP0HiPi2KVMck4', 
+          'Content-Type': 'application/json'
+      },
+      data: newService
+    };
+
+    axios(config)
       .then(res => {
         alert('Thêm dịch vụ thành công!');
         history.push('/app/services');

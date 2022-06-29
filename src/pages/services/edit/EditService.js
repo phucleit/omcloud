@@ -61,9 +61,19 @@ export default function EditService() {
     const editService = {
       name: serviceName,
       type_id: parseInt(serviceTypeName),
-    }
+    };
 
-    axios.put(url + '/' + currentServiceId, editService)
+    const config = {
+      method: 'put',
+      url: url + '/' + currentServiceId,
+      headers: { 
+          'Authorization': 'Bearer 10|wrpJyOOlFaGAbvXyOsSvHJQbpYmP0HiPi2KVMck4', 
+          'Content-Type': 'application/json'
+      },
+      data: editService
+    };
+
+    axios(config)
       .then(res => {
         alert('Cập nhật dịch vụ thành công!');
         history.push('/app/services');

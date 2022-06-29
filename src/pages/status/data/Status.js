@@ -23,7 +23,15 @@ export default function StatusPage() {
   }, []);
 
   const loadStatus = async () => {
-    const result = await axios.get('https://backend.omcloud.vn/api/status');
+    const result = await axios.get(
+      'https://backend.omcloud.vn/api/status',
+      {
+        headers: { 
+          'Authorization': 'Bearer 10|wrpJyOOlFaGAbvXyOsSvHJQbpYmP0HiPi2KVMck4', 
+          'Content-Type': 'application/json'
+        },
+      }
+    );
     setData(result.data.data);
   };
 
