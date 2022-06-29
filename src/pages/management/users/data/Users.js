@@ -28,14 +28,29 @@ export default function UsersPage() {
   }, []);
 
   const loadUsers = async () => {
-    const result = await axios.get('https://backend.omcloud.vn/api/user');
+    const result = await axios.get(
+      'https://backend.omcloud.vn/api/user',
+      {
+        headers: { 
+          'Authorization': 'Bearer 10|wrpJyOOlFaGAbvXyOsSvHJQbpYmP0HiPi2KVMck4', 
+          'Content-Type': 'application/json'
+        },
+      }
+    );
     setData(result.data.data);
   };
 
   const handleDelete = (id) => {
     if (window.confirm('Bạn có muốn xóa không?')) {
-      axios.delete(url_user + id)
-        .then(res => {
+      axios.delete(
+        url_user + id,
+        {
+          headers: { 
+            'Authorization': 'Bearer 10|wrpJyOOlFaGAbvXyOsSvHJQbpYmP0HiPi2KVMck4', 
+            'Content-Type': 'application/json'
+          },
+        }
+      ).then(res => {
           setData(data.filter((item) => item.id !== id));
         })
         .catch(error => console.log(error));
@@ -43,7 +58,6 @@ export default function UsersPage() {
   }
 
   const columns = [
-    // { field: 'id', headerName: 'ID', width: 70 },
     { field: 'name', headerName: t('Fullname'), width: 250 },
     { field: 'username', headerName: t('Username'), width: 250 },
     { field: 'email', headerName: 'Email', width: 250 },

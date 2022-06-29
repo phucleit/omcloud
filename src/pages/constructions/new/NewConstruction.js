@@ -85,7 +85,17 @@ export default function NewConstruction() {
         service_type_id: serviceTypeID
       };
 
-      axios.post('https://backend.omcloud.vn/api/construction', newConstruction)
+      const config = {
+        method: 'post',
+        url: 'https://backend.omcloud.vn/api/construction',
+        headers: { 
+            'Authorization': 'Bearer 10|wrpJyOOlFaGAbvXyOsSvHJQbpYmP0HiPi2KVMck4', 
+            'Content-Type': 'application/json'
+        },
+        data: newConstruction
+      };
+
+      axios(config)
         .then(res => {
           alert('Thêm công trình thành công!');
           history.push('/app/constructions');

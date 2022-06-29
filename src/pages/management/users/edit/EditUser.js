@@ -49,7 +49,15 @@ export default function EditUser() {
   };
 
   const loadRoles = async () => {
-    const result = await axios.get('https://backend.omcloud.vn/api/role');
+    const result = await axios.get(
+      'https://backend.omcloud.vn/api/role',
+      {
+        headers: { 
+          'Authorization': 'Bearer 10|wrpJyOOlFaGAbvXyOsSvHJQbpYmP0HiPi2KVMck4', 
+          'Content-Type': 'application/json'
+        },
+      }
+    );
     setRoles(result.data.data);
   };
 
@@ -87,9 +95,19 @@ export default function EditUser() {
       email: email,
       tel: tel,
       role_id: roleID
-    }
+    };
 
-    axios.put('https://backend.omcloud.vn/api/user/' + currentUserId, newUser)
+    const config = {
+      method: 'put',
+      url: 'https://backend.omcloud.vn/api/user/' + currentUserId,
+      headers: { 
+          'Authorization': 'Bearer 10|wrpJyOOlFaGAbvXyOsSvHJQbpYmP0HiPi2KVMck4', 
+          'Content-Type': 'application/json'
+      },
+      data: newUser
+    };
+
+    axios(config)
       .then(res => {
         alert('Cập nhật tài khoản thành công!');
         history.push('/app/users');

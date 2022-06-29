@@ -132,7 +132,17 @@ export default function EditConstruction() {
         service_type_id: serviceTypeID
       };
 
-      axios.put(url + currentContructionId, editConstruction)
+      const config = {
+        method: 'put',
+        url: url + currentContructionId,
+        headers: { 
+            'Authorization': 'Bearer 10|wrpJyOOlFaGAbvXyOsSvHJQbpYmP0HiPi2KVMck4', 
+            'Content-Type': 'application/json'
+        },
+        data: editConstruction
+      };
+
+      axios(config)
         .then(res => {
           alert('Cập nhật công trình thành công!');
           history.push('/app/constructions');

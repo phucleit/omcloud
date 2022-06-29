@@ -25,12 +25,19 @@ export default function RolesPage() {
   }, []);
 
   const loadRoles = async () => {
-    const result = await axios.get('https://backend.omcloud.vn/api/role');
+    const result = await axios.get(
+      'https://backend.omcloud.vn/api/role',
+      {
+        headers: { 
+          'Authorization': 'Bearer 10|wrpJyOOlFaGAbvXyOsSvHJQbpYmP0HiPi2KVMck4', 
+          'Content-Type': 'application/json'
+        },
+      }
+    );
     setData(result.data.data);
   };
 
   const columns = [
-    // { field: 'id', headerName: 'ID', width: 70 },
     { field: 'title', headerName: t("GroupName"), width: 250 },
     { field: 'description', headerName: t("Desc"), width: 650 },
   ];

@@ -71,7 +71,17 @@ export default function NewRole() {
         permissions: permissions
       };
 
-      axios.post('https://backend.omcloud.vn/api/role', newRole)
+      const config = {
+        method: 'post',
+        url: 'https://backend.omcloud.vn/api/role',
+        headers: { 
+            'Authorization': 'Bearer 10|wrpJyOOlFaGAbvXyOsSvHJQbpYmP0HiPi2KVMck4', 
+            'Content-Type': 'application/json'
+        },
+        data: newRole
+      };
+
+      axios(config)
         .then(res => {
           alert('Thêm người dùng thành công!');
           history.push('/app/roles');

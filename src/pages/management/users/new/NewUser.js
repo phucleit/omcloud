@@ -35,7 +35,15 @@ export default function NewUser() {
   }, []);
 
   const loadRoles = async () => {
-    const result = await axios.get('https://backend.omcloud.vn/api/role');
+    const result = await axios.get(
+      'https://backend.omcloud.vn/api/role',
+      {
+        headers: { 
+          'Authorization': 'Bearer 10|wrpJyOOlFaGAbvXyOsSvHJQbpYmP0HiPi2KVMck4', 
+          'Content-Type': 'application/json'
+        },
+      }
+    );
     setRoles(result.data.data);
   };
 
@@ -81,7 +89,17 @@ export default function NewUser() {
       role_id: roleID
     }
 
-    axios.post('https://backend.omcloud.vn/api/user', newUser)
+    const config = {
+      method: 'post',
+      url: 'https://backend.omcloud.vn/api/user',
+      headers: { 
+          'Authorization': 'Bearer 10|wrpJyOOlFaGAbvXyOsSvHJQbpYmP0HiPi2KVMck4', 
+          'Content-Type': 'application/json'
+      },
+      data: newUser
+    };
+
+    axios(config)
       .then(res => {
         alert(t('Success_Alert'));
         history.push('/app/users');
@@ -119,8 +137,8 @@ export default function NewUser() {
                 </div>
                 <div className="col medium-6 small-12 large-6">
                   <div className={classes.newUserItem}>
-                    <label className={classes.label}>{t('Password')}</label>
-                    <input type="tel" name="tel" className={classes.inputName} value={tel} onChange={(e) => setTel(e.target.value)} placeholder={t('Password-enter')} />
+                    <label className={classes.label}>{t('Phone')}</label>
+                    <input type="tel" name="tel" className={classes.inputName} value={tel} onChange={(e) => setTel(e.target.value)} placeholder={t('Phone-enter')} />
                   </div>
                 </div>
               </div>

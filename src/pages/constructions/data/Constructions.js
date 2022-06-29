@@ -38,26 +38,58 @@ export default function ConstructionsPage() {
   }, []);
 
   const loadConstruction = async () => {
-    const result = await axios.get('https://backend.omcloud.vn/api/construction');
+    const result = await axios.get(
+      'https://backend.omcloud.vn/api/construction',
+      {
+        headers: { 
+          'Authorization': 'Bearer 10|wrpJyOOlFaGAbvXyOsSvHJQbpYmP0HiPi2KVMck4', 
+          'Content-Type': 'application/json'
+        },
+      }
+    );
     setData(result.data.data);
   };
 
   const loadStatus = async () => {
-    const result = await axios.get('https://backend.omcloud.vn/api/status');
+    const result = await axios.get(
+      'https://backend.omcloud.vn/api/status',
+      {
+        headers: { 
+          'Authorization': 'Bearer 10|wrpJyOOlFaGAbvXyOsSvHJQbpYmP0HiPi2KVMck4', 
+          'Content-Type': 'application/json'
+        },
+      }
+    );
     setStatus(result.data.data);
   };
 
   const Status = status.map(Status => Status);
 
   const loadServices = async () => {
-    const result = await axios.get('https://backend.omcloud.vn/api/service');
+    const result = await axios.get(
+      'https://backend.omcloud.vn/api/service',
+      {
+        headers: { 
+          'Authorization': 'Bearer 10|wrpJyOOlFaGAbvXyOsSvHJQbpYmP0HiPi2KVMck4', 
+          'Content-Type': 'application/json'
+        },
+      }
+    );
     setService(result.data.data);
   };
 
   const Service = service.map(Service => Service);
 
   const loadServicesType = async () => {
-    const result = await axios.get('https://backend.omcloud.vn/api/service-type');
+    const result = await axios.get(
+      'https://backend.omcloud.vn/api/service-type',
+      {
+        headers: { 
+          'Authorization': 'Bearer 10|wrpJyOOlFaGAbvXyOsSvHJQbpYmP0HiPi2KVMck4', 
+          'Content-Type': 'application/json'
+        },
+      }
+    );
     setServiceType(result.data.data);
   };
 
@@ -87,8 +119,15 @@ export default function ConstructionsPage() {
 
   const handleDelete = (id) => {
     if (window.confirm('Bạn có muốn xóa không?')) {
-      axios.delete(url_construction + id)
-        .then(res => {
+      axios.delete(
+        url_construction + id,
+        {
+          headers: { 
+            'Authorization': 'Bearer 10|wrpJyOOlFaGAbvXyOsSvHJQbpYmP0HiPi2KVMck4', 
+            'Content-Type': 'application/json'
+          },
+        }
+      ).then(res => {
           setData(data.filter((item) => item.id !== id));
         })
         .catch(error => console.log(error));

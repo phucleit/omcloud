@@ -27,14 +27,29 @@ export default function ServicesPage() {
   }, []);
 
   const loadReports = async () => {
-    const result = await axios.get('https://backend.omcloud.vn/api/report');
+    const result = await axios.get(
+      'https://backend.omcloud.vn/api/report',
+      {
+        headers: { 
+          'Authorization': 'Bearer 10|wrpJyOOlFaGAbvXyOsSvHJQbpYmP0HiPi2KVMck4', 
+          'Content-Type': 'application/json'
+        },
+      }
+    );
     setData(result.data.data);
   };
 
   const handleDelete = (id) => {
     if (window.confirm('Bạn có muốn xóa không?')) {
-      axios.delete(`https://backend.omcloud.vn/api/report/` + id)
-        .then(res => {
+      axios.delete(
+        `https://backend.omcloud.vn/api/report/` + id,
+        {
+          headers: { 
+            'Authorization': 'Bearer 10|wrpJyOOlFaGAbvXyOsSvHJQbpYmP0HiPi2KVMck4', 
+            'Content-Type': 'application/json'
+          },
+        }
+      ).then(res => {
           setData(data.filter((item) => item.id !== id));
         })
         .catch(error => console.log(error));
