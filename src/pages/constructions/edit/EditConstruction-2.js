@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 
 const url = `https://backend.omcloud.vn/api/construction/`;
 
-export default function EditConstruction() {
+export default function EditConstruction2() {
   var classes = useStyles();
   let history = useHistory();
   const { t } = useTranslation()
@@ -32,15 +32,15 @@ export default function EditConstruction() {
   const [serviceType, setServiceType] = useState([]);
   const [serviceTypeID, setServiceTypeID] = useState('');
 
+  const [report, setReport] = useState([]);
   const [status, setStatus] = useState([]);
-
-  const [statusID, setStatusID] = useState('');
 
   const [permission, setPermission] = useState(false)
   useEffect(() => {
     loadConstruction();
     loadServicesType();
     loadServices();
+    loadReport();
     loadStatus();
     if (localStorage.abilities.includes("construction-update"))
       setPermission(true)
@@ -81,8 +81,15 @@ export default function EditConstruction() {
     setServiceTypeID(e.target.value);
   }
 
-  const handleStatusChange = (e) => {
-    setStatusID(e.target.value);
+  const loadReport = async () => {
+    const result = await axios.get('https://backend.omcloud.vn/api/report');
+    setReport(result.data.data);
+  };
+
+  const Report = report.map(Report => Report);
+
+  const handleReportChange = (e) => {
+    
   }
   
   const loadStatus = async () => {
@@ -122,8 +129,7 @@ export default function EditConstruction() {
         representative_mail: representative_mail,
         person_in_charge: person_in_charge,
         service_id: serviceID,
-        service_type_id: serviceTypeID,
-        status: serviceTypeID
+        service_type_id: serviceTypeID
       };
 
       const config = {
@@ -231,9 +237,23 @@ export default function EditConstruction() {
               <div className="row">
                 <div className="col medium-6 small-12 large-6">
                   <div className={classes.newConstructionItem}>
+                    <label className={classes.label}>{t('report-name')}</label>
+                    <select
+                      onChange={e => handleReportChange(e)}
+                      className={classes.newConstructionType}
+                      id="newConstructionType"
+                    >
+                      <option>-----</option>
+                      {
+                        Report.map((name, key) => <option key={name.id} value={name.id}>{name.name}</option>)
+                      }
+                    </select>
+                  </div>
+                </div>
+                <div className="col medium-6 small-12 large-6">
+                  <div className={classes.newConstructionItem}>
                     <label className={classes.label}>{t('Status')}</label>
                     <select
-                      onChange={e => handleStatusChange(e)}
                       className={classes.newConstructionType}
                       id="newConstructionType"
                     >
@@ -244,7 +264,6 @@ export default function EditConstruction() {
                     </select>
                   </div>
                 </div>
-                <div className="col medium-6 small-12 large-6"></div>
               </div>
               <Button
                 variant="contained"

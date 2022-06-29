@@ -126,7 +126,7 @@ export default function NewReport() {
 	}, []);
 
 	const loadConstruction = async () => {
-		const result = await axios.get('https://backend.omcloud.vn/api/construction');
+		const result = await axios.get('https://backend.omcloud.vn/api/construction?status=3');
 		setConstruction(result.data.data);
 	};
 	const Construction = construction.map(Construction => Construction);
