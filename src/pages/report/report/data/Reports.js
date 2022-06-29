@@ -69,6 +69,9 @@ export default function ServicesPage() {
       renderCell: (params) => {
         return (
           <div className={classes.buttonAction}>
+            {/* <Link to={"/app/edit-report/" + params.row.id}>
+              <button className={classes.serviceListEdit}>Edit</button>
+            </Link> */}
             <DeleteOutline className={classes.serviceListDelete} onClick={() => handleDelete(params.row.id)} />
           </div>
         );
