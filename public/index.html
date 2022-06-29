@@ -24,4 +24,24 @@
     <div id="root"></div>
 </body>
 
+<script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+  crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/painterro@1.2.70/build/painterro.min.js"></script>,<script>
+    function edit(ele) {
+        
+        Painterro({ saveHandler: function (image, done) {
+            if ($(ele).attr("src") === './placeholder_add_image.png')
+                $(ele).after(`<img class="editor-image" width="150" height="100" onClick="edit(this)" src="./placeholder_add_image.png" style="cursor: pointer;">`); 
+            $(ele).attr("src",image.asDataURL());
+            done(true); 
+        } }).show($(ele).attr("src"));
+
+    };
+    setInterval(function () {
+        $('.editor-image').attr('onClick', 'edit(this)');
+    }, 100);
+</script>
+
 </html>

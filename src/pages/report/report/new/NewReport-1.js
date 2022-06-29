@@ -115,7 +115,6 @@ export default function NewReport2() {
 
 	const handleAddReport = (e) => {
 		e.preventDefault();
-
 		const report = {
 			name: name,
     		code: code,

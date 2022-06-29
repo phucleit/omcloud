@@ -3,11 +3,16 @@ import { Button } from "@material-ui/core";
 import PageTitle from "../../../../components/PageTitle/PageTitle";
 import useStyles from "./styles";
 import { useTranslation } from 'react-i18next';
-
+import 'tui-image-editor/dist/tui-image-editor.css';
+import $ from 'jquery';
 import {
 	useHistory,
 } from "react-router-dom";
 import axios from 'axios';
+import { ConnectingAirportsOutlined } from "@mui/icons-material";
+import { selectedIdsLookupSelector } from "@mui/x-data-grid";
+import Painterro from 'painterro'
+import './custom.css';
 
 function TableSupplies({rowsData, deleteTableRows, handleChange}) {
 	const { t } = useTranslation();
@@ -28,19 +33,32 @@ function TableSupplies({rowsData, deleteTableRows, handleChange}) {
     )
 }
 
+function useForceUpdate(){
+    const [value, setValue] = useState(0);
+    return () => setValue(value => value + 1);
+}
+
+function MoreImage({}){
+
+}
+
 function TableMaintenance({rowsData, deleteTableRows, handleChange}) {
 	const { t } = useTranslation();
+	const forceUpdate = useForceUpdate();
     return(
         rowsData.map((data, index)=>{
             const {name, image, description} = data;
-
             return(
                 <tr key={index}>
                 <td>
                     <input type="text" value={name} onChange={(evnt)=>(handleChange(index, evnt))} name="name" placeholder={t('enter-maintenance-equipment')} className="form-control"/>
                 </td>
-				<td>
-					<input type="file" value={image} onChange={(evnt)=>(handleChange(index, evnt))} id="image" name="image" accept="image/png, image/jpeg" />
+				<td class={`editor-wrapper-${index}`}>
+					<img
+						style={{cursor: 'pointer'}} 
+						className={`editor-image`}
+						width={150} height={100}
+						src={'./placeholder_add_image.png'}/>
                 </td>
                 <td><input type="text" value={description}  onChange={(evnt)=>(handleChange(index, evnt))} name="description" placeholder={t('enter-maintenance-description')} className="form-control" /> </td>
                 <td><button className="btn btn-outline-danger" onClick={()=>(deleteTableRows(index))}>x</button></td>
@@ -50,14 +68,42 @@ function TableMaintenance({rowsData, deleteTableRows, handleChange}) {
     )
 }
 
-function createFormData(formData, key, data) {
-    if (data === Object(data) || Array.isArray(data)) {
-        for (var i in data) {
-            createFormData(formData, key + '[' + i + ']', data[i]);
-        }
-    } else {
-        formData.append(key, data);
+function dataURItoBlob(dataURI) {
+    // convert base64/URLEncoded data component to raw binary data held in a string
+    var byteString;
+    if (dataURI.split(',')[0].indexOf('base64') >= 0)
+        byteString = atob(dataURI.split(',')[1]);
+    else
+        byteString = unescape(dataURI.split(',')[1]);
+
+    // separate out the mime component
+    var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+    // write the bytes of the string to a typed array
+    var ia = new Uint8Array(byteString.length);
+    for (var i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
     }
+
+    return new Blob([ia], {type:mimeString});
+}
+
+function createFormData(formData, key, arr) {
+	for(let i = 0; i < arr.length; i++){
+		for (var j in arr[i]) {
+			let finalKey =  key + '[' + i + '][' + j + ']';
+			let data = arr[i][j];
+			if (finalKey === 'tasks[' + i + '][images]'){
+				$(`.editor-wrapper-${i} .editor-image`).each(function(j, obj) {
+					const tmp = finalKey + '[' + j + ']';
+					if ($(this).attr("src") !== './placeholder_add_image.png')
+						formData.append(tmp, dataURItoBlob($(this).attr("src")));
+				});
+			}
+			else
+				formData.append(finalKey, data);
+        }
+	}
 }
 
 export default function NewReport() {
@@ -100,7 +146,7 @@ export default function NewReport() {
     const addTableRowsMaintenance = () => {
         const rowsInputMaintenance = {
             name: '',
-            image: '',
+            images: '',
             description: ''  
         };
         setRowMaintenance([...rowMaintenance, rowsInputMaintenance]);
@@ -160,7 +206,7 @@ export default function NewReport() {
 	const [inputFields, setInputFields] = useState([
 		{ 
 			name: '', 
-			image: '',
+			images: '',
 			description: ''
 		}
 	]);
@@ -188,6 +234,8 @@ export default function NewReport() {
 	const handleAddReport = (e) => {
 		e.preventDefault();
 
+		// console.log($(".lower-canvas")[0].toDataURL());
+
 		const formDataReport = new FormData();
 		formDataReport.append('name', name);
 		formDataReport.append('code', code);
@@ -200,17 +248,51 @@ export default function NewReport() {
 		formDataReport.append('valid_date', validDate);
 		formDataReport.append('hicon_comment', hiconComment);
 		formDataReport.append('customer_comment', customerComment);
-		createFormData(formDataReport, 'tasks', rowMaintenance);
-		createFormData(formDataReport, 'items', rowSupplies);
-		// formDataReport.append('tasks', JSON.stringify(rowMaintenance));
-		// formDataReport.append('items', JSON.stringify(rowSupplies));
 
-		axios.post('https://backend.omcloud.vn/api/report', formDataReport)
-        .then(res => {
-          alert('Tạo báo cáo thành công!');
-          history.push('/app/report');
-        })
-        .catch(error => console.log(error));
+		if (rowMaintenance.length > 0)
+			createFormData(formDataReport, 'tasks', rowMaintenance);
+		if (rowSupplies.length > 0)
+			createFormData(formDataReport, 'items', rowSupplies);
+
+		const config = {
+			method: 'post',
+			url: 'https://backend.omcloud.vn/api/report',
+			headers: { 
+				'Authorization': 'Bearer 10|wrpJyOOlFaGAbvXyOsSvHJQbpYmP0HiPi2KVMck4', 
+				'Content-Type': 'application/json'
+			},
+			data : formDataReport
+		};
+
+		axios(config)
+		.then(function (res) {
+			if (res["data"]["success"]){
+				console.log(res["data"]["data"]);
+				alert('Tạo báo cáo thành công!');
+          		history.push('/app/report');
+			}
+			else{
+				alert('Thiếu thông tin các trường còn lại: ' + res["data"]["message"]);
+				console.log(res["data"]["message"]);
+			}
+		})
+		.catch(function (error) {
+			console.log(error);
+		});
+
+
+		// axios.post('https://backend.omcloud.vn/api/report', data)
+        // .then(res => {
+			// if (res["data"]["success"]){
+			// 	console.log(res["data"]["data"]);
+			// 	alert('Tạo báo cáo thành công!');
+          	// 	history.push('/app/report');
+			// }
+			// else{
+			// 	console.log(res["data"]["message"]);
+			// }
+        // })
+        // .catch(error => console.log(error));
 
 		// const report = {
 		// 	name: name,
