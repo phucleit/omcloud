@@ -114,5 +114,6 @@
     "List-report": "List Report",
     "Add-List-Report": "Add Report",
     "report-name": "Report Name",
-    "Report-Update": "Report Update"
+    "Report-Update": "Report Update",
+    "btn-export": "Export Report"
 }

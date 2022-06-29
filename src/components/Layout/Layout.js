@@ -37,7 +37,7 @@ import NewStatus from "../../pages/status/new";
 
 import Report from "../../pages/report/report/data";
 import NewReport from "../../pages/report/report/new";
-import EditReport from "../../pages/report/report/edit";
+import ExportReport from "../../pages/report/report/export";
 
 import { useTranslation } from 'react-i18next';
 // context
@@ -78,7 +78,7 @@ function Layout(props) {
             <Route path="/app/new-status" component={NewStatus} />
             <Route path="/app/report" component={Report} />
             <Route path="/app/new-report" component={NewReport} />
-            <Route path="/app/edit-report/:id" component={EditReport} />
+            <Route path="/app/export-report/:id" component={ExportReport} />
           </Switch>
           <Box
             mt={5}

@@ -4,7 +4,6 @@ import PageTitle from "../../../../components/PageTitle/PageTitle";
 import useStyles from "./styles";
 import { useTranslation } from 'react-i18next';
 import 'tui-image-editor/dist/tui-image-editor.css';
-import $ from 'jquery';
 import {
 	useHistory,
 	useParams
@@ -14,91 +13,45 @@ import '../new/custom.css';
 
 const url = 'https://backend.omcloud.vn/api/report';
 
-function TableSupplies({rowsData, deleteTableRows, handleChange}) {
-	const { t } = useTranslation();
+function TableDataTask({rowsData}) {
 	var classes = useStyles();
-    return(
-        rowsData.map((data, index)=>{
-			const {name, unit, quantity} = data;
-            return(
-                <tr key={index}>
-                	<td>
-                    	<input type="text" value={name} onChange={(evnt)=>(handleChange(index, evnt))} name="name" placeholder={t('enter-materials')} className={classes.inputName} />
-                	</td>
-                	<td><input type="text" value={unit} onChange={(evnt)=>(handleChange(index, evnt))} name="unit" placeholder={t('enter-unit')} className={classes.inputName} /> </td>
-                	<td><input type="text" value={quantity}  onChange={(evnt)=>(handleChange(index, evnt))} name="quantity" placeholder={t('enter-amount')} className={classes.inputName} /> </td>
-                	<td><button className="btn btn-outline-danger" onClick={()=>(deleteTableRows(index))}>x</button></td>
-            	</tr>
-            );
-        })
-    )
+	return(
+		rowsData.map((data, index) => {
+			return(
+				<tr key={index}>
+					<td><input type="text" value={data.name} className={classes.inputName} /></td>
+					<td>
+						{
+							data.report_task.map((image, i) => {
+								return(
+									<img key={i} src={`https://backend.omcloud.vn/uploads/` + image.photo} width="150px" style={{padding: '8px'}} />
+								)
+							})
+						}
+					</td>
+					<td><input type="text" value={data.description} className={classes.inputName} /></td>
+				</tr>
+			);
+		})
+	);
 }
 
-function TableMaintenance({rowsData, deleteTableRows, handleChange}) {
-	const { t } = useTranslation();
+function TableDataItem({rowsData}) {
 	var classes = useStyles();
-    return(
-        rowsData.map((data, index)=>{
-            const {name, image, description} = data;
-            return(
-                <tr key={index}>
-                <td>
-                    <input type="text" value={name} onChange={(evnt)=>(handleChange(index, evnt))} name="name" placeholder={t('enter-maintenance-equipment')} className={classes.inputName} />
-                </td>
-				<td class={`editor-wrapper-${index}`}>
-					<img
-						style={{cursor: 'pointer'}} 
-						className={`editor-image`}
-						width={150} height={100}
-						src={'./placeholder_add_image.png'}/>
-                </td>
-                <td><input type="text" value={description}  onChange={(evnt)=>(handleChange(index, evnt))} name="description" placeholder={t('enter-maintenance-description')} className={classes.inputName} /> </td>
-                <td><button className="btn btn-outline-danger" onClick={()=>(deleteTableRows(index))}>x</button></td>
-            </tr>
-            )
-        })
-    )
+	return(
+		rowsData.map((data, index) => {
+			return(
+				<tr key={index}>
+					<td><input type="text" value={data.item_name} className={classes.inputName} /></td>
+					<td><input type="text" value={data.item_unit} className={classes.inputName} /></td>
+					<td><input type="text" value={data.item_quantity} className={classes.inputName} /></td>
+				</tr>
+			);
+		})
+	);
 }
 
-function dataURItoBlob(dataURI) {
-    // convert base64/URLEncoded data component to raw binary data held in a string
-    var byteString;
-    if (dataURI.split(',')[0].indexOf('base64') >= 0)
-        byteString = atob(dataURI.split(',')[1]);
-    else
-        byteString = unescape(dataURI.split(',')[1]);
-
-    // separate out the mime component
-    var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-
-    // write the bytes of the string to a typed array
-    var ia = new Uint8Array(byteString.length);
-    for (var i = 0; i < byteString.length; i++) {
-        ia[i] = byteString.charCodeAt(i);
-    }
-
-    return new Blob([ia], {type:mimeString});
-}
-
-function createFormData(formData, key, arr) {
-	for(let i = 0; i < arr.length; i++){
-		for (var j in arr[i]) {
-			let finalKey =  key + '[' + i + '][' + j + ']';
-			let data = arr[i][j];
-			if (finalKey === 'tasks[' + i + '][images]'){
-				$(`.editor-wrapper-${i} .editor-image`).each(function(j, obj) {
-					const tmp = finalKey + '[' + j + ']';
-					if ($(this).attr("src") !== './placeholder_add_image.png')
-						formData.append(tmp, dataURItoBlob($(this).attr("src")));
-				});
-			}
-			else
-				formData.append(finalKey, data);
-        }
-	}
-}
-
-export default function EditReport() {
+export default function ExportReport() {
 
 	var classes = useStyles();
 	let history = useHistory();
@@ -120,8 +73,8 @@ export default function EditReport() {
 	const [ validDate, setValidDate ] = useState('');
 	const [ hiconComment, setHiconComment ] = useState('');
 	const [ customerComment, setCustomerComment ] = useState('');
-	const [ rowSupplies, setRowSupplies ] = useState([]);
-	const [ rowMaintenance, setRowMaintenance ] = useState([]);
+	const [ task, setTask ] = useState([]);
+	const [ item, setItem ] = useState([]);
 
 	const [ constructionName, setConstructionName ] = useState('');
 
@@ -147,6 +100,8 @@ export default function EditReport() {
         setValidDate(result.data.data.valid_date);
         setHiconComment(result.data.data.hicon_comment);
         setCustomerComment(result.data.data.customer_comment);
+		setTask(result.data.data.task);
+		setItem(result.data.data.item);
     };
 
 	/* load construction */
@@ -155,55 +110,6 @@ export default function EditReport() {
 		setConstruction(result.data.data);
 	};
 	const Construction = construction.map(Construction => Construction);
-
-	/* table row bảo trị */
-    const addTableRowsMaintenance = () => {
-        const rowsInputMaintenance = {
-            name: '',
-            images: '',
-            description: ''  
-        };
-        setRowMaintenance([...rowMaintenance, rowsInputMaintenance]);
-    };
-
-    const deleteTableRowsMaintenance = (index) => {
-        const rows = [...rowMaintenance];
-        rows.splice(index, 1);
-        setRowMaintenance(rows);
-    }
-
-	const handleChangeMaintenance = (index, evnt) => {
-        const { name, value } = evnt.target;
-        const rowsInput = [...rowMaintenance];
-
-        rowsInput[index][name] = value;
-        setRowMaintenance(rowsInput);
-    }
-	/* end table row thiết bị */
- 
-	/* table row thiết bị */
-    const addTableRowsSupplies = () => {
-        const rowsInputSupplies = {
-            name: '',
-            unit: '',
-            quantity: ''  
-        };
-        setRowSupplies([...rowSupplies, rowsInputSupplies]);
-    };
-
-    const deleteTableRowsSupplies = (index) => {
-        const rows = [...rowSupplies];
-        rows.splice(index, 1);
-        setRowSupplies(rows);
-    }
-
-	const handleChangeSupplies = (index, evnt) => {
-        const { name, value } = evnt.target;
-        const rowsInput = [...rowSupplies];
-        rowsInput[index][name] = value;
-        setRowSupplies(rowsInput);
-    }
-	/* end table row thiết bị */
 
 	const handleFrequencyChange = (e) => {
 		e.preventDefault();
@@ -215,52 +121,9 @@ export default function EditReport() {
 		setConstructionId(e.target.value);
 	}
 	
-	const handleAddReport = (e) => {
+	const handleExportReport = (e) => {
 		e.preventDefault();
 
-		const formDataReport = new FormData();
-		formDataReport.append('name', name);
-		formDataReport.append('code', code);
-		formDataReport.append('publish_day', publishDay);
-		formDataReport.append('publish_time', publishTime);
-		formDataReport.append('representative_name', representativeName);
-		formDataReport.append('address', address);
-		formDataReport.append('construction_id', constructionId);
-		formDataReport.append('frequency', frequency);
-		formDataReport.append('valid_date', validDate);
-		formDataReport.append('hicon_comment', hiconComment);
-		formDataReport.append('customer_comment', customerComment);
-
-		if (rowMaintenance.length > 0)
-			createFormData(formDataReport, 'tasks', rowMaintenance);
-		if (rowSupplies.length > 0)
-			createFormData(formDataReport, 'items', rowSupplies);
-
-		const config = {
-			method: 'post',
-			url: 'https://backend.omcloud.vn/api/report',
-			headers: { 
-				'Authorization': 'Bearer 10|wrpJyOOlFaGAbvXyOsSvHJQbpYmP0HiPi2KVMck4', 
-				'Content-Type': 'application/json'
-			},
-			data : formDataReport
-		};
-
-		axios(config)
-		.then(function (res) {
-			if (res["data"]["success"]){
-				console.log(res["data"]["data"]);
-				alert('Tạo báo cáo thành công!');
-          		history.push('/app/report');
-			}
-			else{
-				alert('Thiếu thông tin các trường còn lại: ' + res["data"]["message"]);
-				console.log(res["data"]["message"]);
-			}
-		})
-		.catch(function (error) {
-			console.log(error);
-		});
 	}
 
 	return (
@@ -270,7 +133,7 @@ export default function EditReport() {
 					<>
 						{
 							<>
-								<PageTitle title={t('Report-Update')} />
+								<PageTitle title={t('btn-export')} />
 								<div className={classes.newConstructionForm}>
 									<div className="row">
 										<div className="col medium-6 small-12 large-6">
@@ -365,11 +228,10 @@ export default function EditReport() {
 												  			<th>{t('maintenance-equipment')}</th>
 												  			<th>{t('maintenance-pictures')}</th>
 												  			<th>{t('maintenance-description')}</th>
-												  			<th><button className="btn btn-outline-success" onClick={addTableRowsMaintenance} >+</button></th>
 											  			</tr>
 										  			</thead>
 										  			<tbody>
-											  			<TableMaintenance rowsData={rowMaintenance} deleteTableRows={deleteTableRowsMaintenance} handleChange={handleChangeMaintenance} />
+														<TableDataTask rowsData={task} />
 										  			</tbody> 
 									  			</table>
 								  			</div>
@@ -380,17 +242,16 @@ export default function EditReport() {
 											<div className={classes.newConstructionItem}>
 												<label className={classes.label}>{t('supplies')}</label>
 												<table className="table">
-                        							<thead>
-                            							<tr>
-                                							<th>{t('materials')}</th>
-                                							<th>{t('unit')}</th>
-                                							<th>{t('amount')}</th>
-                                							<th><button className="btn btn-outline-success" onClick={addTableRowsSupplies} >+</button></th>
-                            							</tr>
-                        							</thead>
-                        							<tbody>
-                            							<TableSupplies rowsData={rowSupplies} deleteTableRows={deleteTableRowsSupplies} handleChange={handleChangeSupplies} />
-                        							</tbody> 
+													<thead>
+														<tr>
+															<th>{t('materials')}</th>
+															<th>{t('unit')}</th>
+															<th>{t('amount')}</th>
+  														</tr>
+													</thead>
+													<tbody>
+														<TableDataItem rowsData={item} />
+										  			</tbody> 
                     							</table>
 											</div>
 										</div>
@@ -414,9 +275,9 @@ export default function EditReport() {
 										size="medium"
 										color="secondary"
 										className={classes.newConstructionBtn}
-										onClick={handleAddReport}
+										onClick={handleExportReport}
 									>
-										{t('btn-update')}
+										{t('btn-export')}
 									</Button>
 								</div>
 							</>
