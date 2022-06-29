@@ -9,7 +9,6 @@ export default makeStyles(theme => ({
         padding: '15px',
     },
     newConstructionItem: {
-        width: '40%',
         display: 'flex',
         flexDirection: 'column',
         marginTop: '10px',

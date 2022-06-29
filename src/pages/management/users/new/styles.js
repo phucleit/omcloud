@@ -1,18 +1,18 @@
 import { makeStyles } from "@material-ui/styles";
 
 export default makeStyles(theme => ({
-  newRolesForm: {
+  newUserForm: {
       background: '#fff',
       marginTop: '40px',
       border: '1px solid rgba(224, 224, 224, 1)',
       borderRadius: '4px',
       padding: '15px',
   },
-  newRolesItem: {
-      width: '65%',
+  newUserItem: {
       display: 'flex',
       flexDirection: 'column',
       marginTop: '10px',
+      marginRight: '20px',
   },
   label: {
       marginBottom: '10px',
@@ -25,18 +25,12 @@ export default makeStyles(theme => ({
       borderRadius: '5px',
       fontSize: '15px',
   },
-  newRolesType: {
+  newUserType: {
       height: '40px',
       borderRadius: '5px',
       fontSize: '15px',
   },
-  newRoleBtn: {
+  newUserBtn: {
       marginTop: '20px',
-  },
-  listPermission: {
-    display: "flex",
-  },
-  itemPermisstion: {
-    marginRight: '15%',
   }
 }));

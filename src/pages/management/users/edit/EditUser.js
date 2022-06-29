@@ -10,7 +10,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 // components
-import PageTitle from "../../../components/PageTitle/PageTitle";
+import PageTitle from "../../../../components/PageTitle/PageTitle";
 import useStyles from "./styles";
 
 const url = `https://backend.omcloud.vn/api/user/`;
@@ -104,31 +104,43 @@ export default function EditUser() {
           <>
             <PageTitle title="Cập nhật tài khoản" />
             <div className={classes.newUserForm}>
-              <div className={classes.newUserItem}>
-                <label className={classes.label}>{t('Fullname')}</label>
-                <input type="text" name="name" className={classes.inputName} value={name} onChange={(e) => setName(e.target.value)} placeholder={t('Fullname-enter')} />
+              <div className="row">
+                <div className="col medium-6 small-12 large-6">
+                  <div className={classes.newUserItem}>
+                    <label className={classes.label}>{t('Fullname')}</label>
+                    <input type="text" name="name" className={classes.inputName} value={name} onChange={(e) => setName(e.target.value)} placeholder={t('Fullname-enter')} />
+                  </div>
+                </div>
+                <div className="col medium-6 small-12 large-6">
+                  <div className={classes.newUserItem}>
+                    <label className={classes.label}>{t('Username')}</label>
+                    <input type="text" name="username" className={classes.inputName} value={username} onChange={(e) => setUsername(e.target.value)} placeholder={t('Username-enter')} />
+                  </div>
+                </div>
               </div>
-              <div className={classes.newUserItem}>
-                <label className={classes.label}>{t('Username')}</label>
-                <input type="text" name="username" className={classes.inputName} value={username} onChange={(e) => setUsername(e.target.value)} placeholder={t('Username-enter')} />
-              </div>
-              <div className={classes.newUserItem}>
-                <label className={classes.label}>Email</label>
-                <input type="email" name="email" className={classes.inputName} value={email} onChange={(e) => setEmail(e.target.value)} placeholder={t('Email-enter')} />
-              </div>
-              <div className={classes.newUserItem}>
-                <label className={classes.label}>{t('Role')}</label>
-                <select
-                  onChange={e => handleRolesChange(e)}
-                  className={classes.newUserType}
-                  id="newUserType"
-                  value={roleID}
-                >
-                  <option>-----</option>
-                  {
-                    Role.map((value, key) => <option key={value.id} value={value.id}>{value.title}</option>)
-                  }
-                </select>
+              <div className="row">
+                <div className="col medium-6 small-12 large-6">
+                  <div className={classes.newUserItem}>
+                    <label className={classes.label}>Email</label>
+                    <input type="email" name="email" className={classes.inputName} value={email} onChange={(e) => setEmail(e.target.value)} placeholder={t('Email-enter')} />
+                  </div>
+                </div>
+                <div className="col medium-6 small-12 large-6">
+                  <div className={classes.newUserItem}>
+                    <label className={classes.label}>{t('Role')}</label>
+                    <select
+                      onChange={e => handleRolesChange(e)}
+                      className={classes.newUserType}
+                      id="newUserType"
+                      value={roleID}
+                    >
+                      <option>-----</option>
+                      {
+                        Role.map((value, key) => <option key={value.id} value={value.id}>{value.title}</option>)
+                      }
+                    </select>
+                  </div>
+                </div>
               </div>
               <Button
                 variant="contained"

@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 // components
-import PageTitle from "../../../components/PageTitle/PageTitle";
+import PageTitle from "../../../../components/PageTitle/PageTitle";
 import useStyles from "./styles";
 
 export default function NewRole() {
@@ -105,7 +105,7 @@ export default function NewRole() {
                         role_1[1].map(
                           (value_1) =>
                             <div className={classes.checkPermission}>
-                              <input type="checkbox" key={value_1.id} value={value_1.id} onClick={e => handleChangeRoleOne(e)} /><label>{value_1.title}</label>
+                              <input className={classes.inputCheckbox} type="checkbox" key={value_1.id} value={value_1.id} onClick={e => handleChangeRoleOne(e)} /><label>{value_1.title}</label>
                             </div>
                         )
                       )
@@ -118,7 +118,7 @@ export default function NewRole() {
                         role_2[1].map(
                           (value_2) =>
                             <div className={classes.checkPermission}>
-                              <input type="checkbox" key={value_2.id} value={value_2.id} onClick={e => handleChangeRoleOne(e)} /><label>{value_2.title}</label>
+                              <input className={classes.inputCheckbox} type="checkbox" key={value_2.id} value={value_2.id} onClick={e => handleChangeRoleOne(e)} /><label>{value_2.title}</label>
                             </div>
                         )
                       )
@@ -131,7 +131,7 @@ export default function NewRole() {
                         role_3[1].map(
                           (value_3) =>
                             <div className={classes.checkPermission}>
-                              <input type="checkbox" key={value_3.id} value={value_3.id} onClick={e => handleChangeRoleOne(e)} /><label>{value_3.title}</label>
+                              <input className={classes.inputCheckbox} type="checkbox" key={value_3.id} value={value_3.id} onClick={e => handleChangeRoleOne(e)} /><label>{value_3.title}</label>
                             </div>
                         )
                       )

@@ -2,3 +2,11 @@
     left: 400px !important;
     top: 100px !important;
 }
+
+.table tbody tr td input {
+    width: 100%;
+}
+
+.table tbody tr td, .table thead tr th {
+    text-align: center;
+}

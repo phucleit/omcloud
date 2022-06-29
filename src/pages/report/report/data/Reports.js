@@ -33,7 +33,7 @@ export default function ServicesPage() {
 
   const handleDelete = (id) => {
     if (window.confirm('Bạn có muốn xóa không?')) {
-      axios.post(`https://backend.omcloud.vn/api/report/remove/` + id)
+      axios.delete(`https://backend.omcloud.vn/api/report/` + id)
         .then(res => {
           setData(data.filter((item) => item.id !== id));
         })
@@ -54,9 +54,6 @@ export default function ServicesPage() {
       renderCell: (params) => {
         return (
           <div className={classes.buttonAction}>
-            <Link to={"/app/edit-report/" + params.row.id}>
-              <button className={classes.serviceListEdit}>Edit</button>
-            </Link>
             <DeleteOutline className={classes.serviceListDelete} onClick={() => handleDelete(params.row.id)} />
           </div>
         );

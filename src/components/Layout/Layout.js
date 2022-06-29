@@ -16,11 +16,13 @@ import Sidebar from "../Sidebar";
 
 // pages
 import Dashboard from "../../pages/dashboard";
-import Users from '../../pages/management/users';
-import NewUser from '../../pages/management/newUser';
-import EditUser from '../../pages/management/editUser';
-import Roles from '../../pages/management/roles';
-import NewRole from '../../pages/management/newRole';
+
+import Users from '../../pages/management/users/data';
+import NewUser from '../../pages/management/users/new';
+import EditUser from '../../pages/management/users/edit';
+
+import Roles from '../../pages/management/roles/data';
+import NewRole from '../../pages/management/roles/new';
 
 import Services from "../../pages/services/data";
 import NewService from "../../pages/services/new";
@@ -32,10 +34,6 @@ import EditConstruction from "../../pages/constructions/edit";
 
 import Status from "../../pages/status/data";
 import NewStatus from "../../pages/status/new";
-
-import TasksPage from '../../pages/report/task/data';
-import NewTask from '../../pages/report/task/new';
-import EditTask from '../../pages/report/task/edit';
 
 import Report from "../../pages/report/report/data";
 import NewReport from "../../pages/report/report/new";
@@ -78,9 +76,6 @@ function Layout(props) {
             <Route path="/app/edit-construction/:id" component={EditConstruction} />
             <Route path="/app/status" component={Status} />
             <Route path="/app/new-status" component={NewStatus} />
-            <Route path="/app/task" component={TasksPage} />
-            <Route path="/app/new-task" component={NewTask} />
-            <Route path="/app/edit-task/:id" component={EditTask} />
             <Route path="/app/report" component={Report} />
             <Route path="/app/new-report" component={NewReport} />
             <Route path="/app/edit-report/:id" component={EditReport} />
