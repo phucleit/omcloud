@@ -19,7 +19,7 @@ function TableDataTask({rowsData}) {
 		rowsData.map((data, index) => {
 			return(
 				<tr key={index}>
-					<td><input type="text" value={data.name} className={classes.inputName} /></td>
+					<td><input disabled type="text" value={data.name} className={classes.inputName} /></td>
 					<td>
 						{
 							data.report_task.map((image, i) => {
@@ -29,7 +29,7 @@ function TableDataTask({rowsData}) {
 							})
 						}
 					</td>
-					<td><input type="text" value={data.description} className={classes.inputName} /></td>
+					<td><input disabled type="text" value={data.description} className={classes.inputName} /></td>
 				</tr>
 			);
 		})
@@ -42,9 +42,9 @@ function TableDataItem({rowsData}) {
 		rowsData.map((data, index) => {
 			return(
 				<tr key={index}>
-					<td><input type="text" value={data.item_name} className={classes.inputName} /></td>
-					<td><input type="text" value={data.item_unit} className={classes.inputName} /></td>
-					<td><input type="text" value={data.item_quantity} className={classes.inputName} /></td>
+					<td><input disabled type="text" value={data.item_name} className={classes.inputName} /></td>
+					<td><input disabled type="text" value={data.item_unit} className={classes.inputName} /></td>
+					<td><input disabled type="text" value={data.item_quantity} className={classes.inputName} /></td>
 				</tr>
 			);
 		})
@@ -139,13 +139,13 @@ export default function ExportReport() {
 										<div className="col medium-6 small-12 large-6">
 											<div className={classes.newConstructionItem}>
 												<label className={classes.label}>{t('title-name')}</label>
-												<input type="text" name="name" className={classes.inputName} value={name} onChange={(e) => setName(e.target.value)} placeholder={t('title-name-enter')} />
+												<input disabled type="text" name="name" className={classes.inputName} value={name} onChange={(e) => setName(e.target.value)} placeholder={t('title-name-enter')} />
 											</div>
 										</div>
 										<div className="col medium-6 small-12 large-6">
 											<div className={classes.newConstructionItem}>
 												<label className={classes.label}>{t('code-name')}</label>
-												<input type="text" name="code" className={classes.inputName} value={code} onChange={(e) => setCode(e.target.value)} placeholder={t('code-name-enter')} />
+												<input disabled type="text" name="code" className={classes.inputName} value={code} onChange={(e) => setCode(e.target.value)} placeholder={t('code-name-enter')} />
 											</div>
 										</div>
 									</div>
@@ -158,6 +158,7 @@ export default function ExportReport() {
           											className={classes.newConstructionType}
           											id="newConstruction"
 													value={constructionName}
+													disabled
           										>
           											<option>--------</option>
           											{
@@ -169,7 +170,7 @@ export default function ExportReport() {
 										<div className="col medium-6 small-12 large-6">
 											<div className={classes.newConstructionItem}>
 												<label className={classes.label}>{t('dateIssued')}</label>
-												<input type="text" name="publishDay" className={classes.inputName} value={publishDay} onChange={(e) => setPublishDay(e.target.value)} placeholder={t('dateIssued-enter')} />
+												<input disabled type="text" name="publishDay" className={classes.inputName} value={publishDay} onChange={(e) => setPublishDay(e.target.value)} placeholder={t('dateIssued-enter')} />
 											</div>
 										</div>
 									</div>
@@ -177,19 +178,19 @@ export default function ExportReport() {
 										<div className="col medium-4 small-12 large-4">
 											<div className={classes.newConstructionItem}>
 												<label className={classes.label}>{t('timeIssued')}</label>
-												<input type="text" name="publishTime" className={classes.inputName} value={publishTime} onChange={(e) => setPublishTime(e.target.value)} placeholder={t('timeIssued-enter')} />
+												<input disabled type="text" name="publishTime" className={classes.inputName} value={publishTime} onChange={(e) => setPublishTime(e.target.value)} placeholder={t('timeIssued-enter')} />
 											</div>
 										</div>
 										<div className="col medium-4 small-12 large-4">
 											<div className={classes.newConstructionItem}>
 												<label className={classes.label}>{t('client-name')}</label>
-												<input type="text" name="representativeName" className={classes.inputName} value={representativeName} onChange={(e) => setRepresentativeName(e.target.value)} placeholder={t('clientName-enter')} />
+												<input disabled type="text" name="representativeName" className={classes.inputName} value={representativeName} onChange={(e) => setRepresentativeName(e.target.value)} placeholder={t('clientName-enter')} />
 											</div>
 										</div>
 										<div className="col medium-4 small-12 large-4">
 											<div className={classes.newConstructionItem}>
 												<label className={classes.label}>{t('date-test')} (*)</label>
-									  			<input type="text" name="validDate" className={classes.inputName} value={validDate} onChange={(e) => setValidDate(e.target.value)} placeholder={t('dateTest-enter')} />
+									  			<input disabled type="text" name="validDate" className={classes.inputName} value={validDate} onChange={(e) => setValidDate(e.target.value)} placeholder={t('dateTest-enter')} />
 								  			</div>
 										</div>
 									</div>
@@ -197,7 +198,7 @@ export default function ExportReport() {
 										<div className="col medium-6 small-12 large-6">
 											<div className={classes.newConstructionItem}>
 												<label className={classes.label}>{t('address')}</label>
-												<input type="text" name="address" className={classes.inputName} value={address} onChange={(e) => setAddress(e.target.value)} placeholder={t('address-enter')} />
+												<input disabled type="text" name="address" className={classes.inputName} value={address} onChange={(e) => setAddress(e.target.value)} placeholder={t('address-enter')} />
 											</div>
 										</div>
 										<div className="col medium-6 small-12 large-6">
@@ -208,6 +209,7 @@ export default function ExportReport() {
                   									className={classes.newConstructionType}
                   									id="newConstructionType"
 													value={frequency}
+													disabled
                 								>
 													<option>--------</option>
                   									<option value="1">{t('monthly')}</option>
@@ -260,13 +262,13 @@ export default function ExportReport() {
 										<div className="col medium-6 small-12 large-6">
 											<div className={classes.newConstructionItem}>
 												<label className={classes.label}>{t('hicon-reviews')} (*)</label>
-												<textarea name="hiconComment" rows="4" cols="50" className={classes.inputName} value={hiconComment} onChange={(e) => setHiconComment(e.target.value)} placeholder={t('hiconReviews-enter')}></textarea>
+												<textarea disabled name="hiconComment" rows="4" cols="50" className={classes.inputName} value={hiconComment} onChange={(e) => setHiconComment(e.target.value)} placeholder={t('hiconReviews-enter')}></textarea>
 											</div>
 										</div>
 										<div className="col medium-6 small-12 large-6">
 											<div className={classes.newConstructionItem}>
 												<label className={classes.label}>{t('customer-reviews')} (*)</label>
-												<textarea name="customerComment" rows="4" cols="50" className={classes.inputName} value={customerComment} onChange={(e) => setCustomerComment(e.target.value)} placeholder={t('customerReviews-enter')}></textarea>
+												<textarea disabled name="customerComment" rows="4" cols="50" className={classes.inputName} value={customerComment} onChange={(e) => setCustomerComment(e.target.value)} placeholder={t('customerReviews-enter')}></textarea>
 											</div>
 										</div>
 									</div>
