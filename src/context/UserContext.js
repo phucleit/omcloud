@@ -59,7 +59,17 @@ function loginUser(dispatch, login, password, history, setIsLoading, setError) {
     password: password,
   };
 
-  axios.post('https://backend.omcloud.vn/api/login', userLogin)
+  const config = {
+    method: 'post',
+    url: 'https://backend.omcloud.vn/api/login',
+    headers: { 
+        'Authorization': 'Bearer 10|wrpJyOOlFaGAbvXyOsSvHJQbpYmP0HiPi2KVMck4', 
+        'Content-Type': 'application/json'
+    },
+    data: userLogin
+  };
+
+  axios(config)
     .then(res => {
       if (res.data.status_code === 500) {
         alert('Username hoặc password không đúng. Vui lòng nhập lại!');
