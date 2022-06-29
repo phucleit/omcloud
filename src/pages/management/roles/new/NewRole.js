@@ -137,7 +137,7 @@ export default function NewRole() {
                   <div className={classes.itemPermisstion}>
                     <label>{t('Constructions')}</label>
                     {
-                      Object.entries(listPermission).slice(3, 4).map(role_3 =>
+                      Object.entries(listPermission).slice(3, 5).map(role_3 =>
                         role_3[1].map(
                           (value_3) =>
                             <div className={classes.checkPermission}>

@@ -9,7 +9,7 @@ export default makeStyles(theme => ({
       padding: '15px',
   },
   newRolesItem: {
-      width: '65%',
+      width: '100%',
       display: 'flex',
       flexDirection: 'column',
       marginTop: '10px',
