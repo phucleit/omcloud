@@ -1,5 +1,6 @@
 import React from "react";
 import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
+import "@progress/kendo-theme-default/dist/all.css";
 
 // components
 import Layout from "./Layout";
@@ -37,7 +38,7 @@ export default function App() {
     return (
       <Route
         {...rest}
-        render={props =>
+        render={(props) =>
           isAuthenticated ? (
             React.createElement(component, props)
           ) : (
@@ -59,7 +60,7 @@ export default function App() {
     return (
       <Route
         {...rest}
-        render={props =>
+        render={(props) =>
           isAuthenticated ? (
             <Redirect
               to={{

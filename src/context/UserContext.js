@@ -1,5 +1,5 @@
 import React from "react";
-import axios from 'axios';
+import axios from "axios";
 
 var UserStateContext = React.createContext();
 var UserDispatchContext = React.createContext();
@@ -60,35 +60,35 @@ function loginUser(dispatch, login, password, history, setIsLoading, setError) {
   };
 
   const config = {
-    method: 'post',
-    url: 'https://backend.omcloud.vn/api/login',
-    headers: { 
-        'Authorization': 'Bearer 10|wrpJyOOlFaGAbvXyOsSvHJQbpYmP0HiPi2KVMck4', 
-        'Content-Type': 'application/json'
+    method: "post",
+    url: "https://backend.omcloud.vn/api/login",
+    headers: {
+      Authorization: "Bearer 10|wrpJyOOlFaGAbvXyOsSvHJQbpYmP0HiPi2KVMck4",
+      "Content-Type": "application/json",
     },
-    data: userLogin
+    data: userLogin,
   };
 
   axios(config)
-    .then(res => {
+    .then((res) => {
       if (res.data.status_code === 500) {
-        alert('Username hoặc password không đúng. Vui lòng nhập lại!');
-        history.push('/');
+        alert("Username hoặc password không đúng. Vui lòng nhập lại!");
+        history.push("/");
       } else {
         setTimeout(() => {
-          localStorage.setItem('token', res.data.access_token);
-          localStorage.setItem('abilities', res.data.abilities);
+          localStorage.setItem("token", res.data.access_token);
+          localStorage.setItem("abilities", res.data.abilities);
 
-          localStorage.setItem('user_info', JSON.stringify(res.data.user_info));
-          setError(null)
-          setIsLoading(false)
-          dispatch({ type: 'LOGIN_SUCCESS' })
+          localStorage.setItem("user_info", JSON.stringify(res.data.user_info));
+          setError(null);
+          setIsLoading(false);
+          dispatch({ type: "LOGIN_SUCCESS" });
 
-          history.push('/app/dashboard')
+          history.push("/app/dashboard");
         }, 2000);
       }
     })
-    .catch(error => console.log(error));
+    .catch((error) => console.log(error));
 
   // axios.post(API_URL, userLogin)
   // .then((response) => {

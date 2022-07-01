@@ -1,11 +1,7 @@
 import React from "react";
-import {
-  Route,
-  Switch,
-  withRouter,
-} from "react-router-dom";
+import { Route, Switch, withRouter } from "react-router-dom";
 import classnames from "classnames";
-import { Box } from '@material-ui/core'
+import { Box } from "@material-ui/core";
 
 // styles
 import useStyles from "./styles";
@@ -17,12 +13,12 @@ import Sidebar from "../Sidebar";
 // pages
 import Dashboard from "../../pages/dashboard";
 
-import Users from '../../pages/management/users/data';
-import NewUser from '../../pages/management/users/new';
-import EditUser from '../../pages/management/users/edit';
+import Users from "../../pages/management/users/data";
+import NewUser from "../../pages/management/users/new";
+import EditUser from "../../pages/management/users/edit";
 
-import Roles from '../../pages/management/roles/data';
-import NewRole from '../../pages/management/roles/new';
+import Roles from "../../pages/management/roles/data";
+import NewRole from "../../pages/management/roles/new";
 
 import Services from "../../pages/services/data";
 import NewService from "../../pages/services/new";
@@ -35,16 +31,17 @@ import EditConstruction from "../../pages/constructions/edit";
 import Status from "../../pages/status/data";
 import NewStatus from "../../pages/status/new";
 
-import Report from "../../pages/report/report/data";
-import NewReport from "../../pages/report/report/new";
-import ExportReport from "../../pages/report/report/export";
+import Report from "../../pages/report/data";
+import NewReport from "../../pages/report/new";
+import ExportReport from "../../pages/report/export";
+import PreviewReport from "../../pages/report/export/PreviewReport";
 
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 // context
 import { useLayoutState } from "../../context/LayoutContext";
 
 function Layout(props) {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   var classes = useStyles();
 
   // global
@@ -73,12 +70,16 @@ function Layout(props) {
             <Route path="/app/edit-service/:id" component={EditService} />
             <Route path="/app/constructions" component={Constructions} />
             <Route path="/app/new-construction" component={NewConstruction} />
-            <Route path="/app/edit-construction/:id" component={EditConstruction} />
+            <Route
+              path="/app/edit-construction/:id"
+              component={EditConstruction}
+            />
             <Route path="/app/status" component={Status} />
             <Route path="/app/new-status" component={NewStatus} />
             <Route path="/app/report" component={Report} />
             <Route path="/app/new-report" component={NewReport} />
             <Route path="/app/export-report/:id" component={ExportReport} />
+            <Route path="/app/preview-report/:id" component={PreviewReport} />
           </Switch>
           <Box
             mt={5}
@@ -87,9 +88,7 @@ function Layout(props) {
             alignItems={"center"}
             justifyContent="space-between"
           >
-            <div>
-              {t('Copyright')}
-            </div>
+            <div>{t("Copyright")}</div>
           </Box>
         </div>
       </>

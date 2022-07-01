@@ -10,7 +10,7 @@ import {
 } from "react-router-dom";
 
 // components
-import PageTitle from "../../../../components/PageTitle/PageTitle";
+import PageTitle from "../../../components/PageTitle/PageTitle";
 import useStyles from "./styles";
 import { useTranslation } from 'react-i18next';
 
