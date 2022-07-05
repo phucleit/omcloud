@@ -85,14 +85,13 @@ const PreviewReport = () => {
                 <span className="com1">
                   Công ty cổ phần cơ điện và bảo trì Hicon ( M&E)
                 </span>
-                <span className="com2">{data.name}</span>
               </div>
             </div>
             <div className="header_right">
               <div className="companyName">
-                <span className="com1">Mã hiệu: KSBT-BC-01</span>
-                <span className="com1">Ngày ban hành: 05-01-2016</span>
-                <span className="com1">Lần ban hành: 01</span>
+                <span className="com1">Mã hiệu: {data.code}</span>
+                <span className="com1">Ngày ban hành: {data.publish_day}</span>
+                <span className="com1">Lần ban hành: {data.publish_time}</span>
               </div>
             </div>
           </div>
@@ -104,7 +103,7 @@ const PreviewReport = () => {
               marginTop: "10px",
             }}
           >
-            BÁO CÁO BẢO TRÌ HỆ THỐNG PHÒNG CHÁY CHỮA CHÁY
+            {data.name}
           </h2>
           <div className="main">
             <div className="left">
