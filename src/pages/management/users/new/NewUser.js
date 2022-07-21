@@ -26,7 +26,10 @@ export default function NewUser() {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [tel, setTel] = useState('');
-  const [permission, setPermission] = useState(false)
+  const [permission, setPermission] = useState(false);
+
+  const [checked, setChecked] = useState(false);
+
   useEffect(() => {
     loadRoles();
     if (localStorage.abilities.includes("user-create"))
@@ -163,6 +166,16 @@ export default function NewUser() {
                       }
                     </select>
                   </div>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col medium-12 small-12 large-12" style={{marginTop: '15px'}}>
+                  <label>
+                    <input type="checkbox"
+                      defaultChecked={checked}
+                      onChange={() => setChecked(!checked)}
+                    /> {t('send-password')}
+                  </label>  
                 </div>
               </div>
               <Button

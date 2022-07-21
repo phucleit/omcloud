@@ -9,6 +9,10 @@ import {
 } from "@material-ui/core";
 import { withRouter } from "react-router-dom";
 
+import {
+  useHistory,
+} from "react-router-dom";
+
 // styles
 import useStyles from "./styles";
 
@@ -20,6 +24,7 @@ import { useUserDispatch, loginUser } from "../../context/UserContext";
 
 function Login(props) {
   var classes = useStyles();
+  let history = useHistory();
 
   // global
   var userDispatch = useUserDispatch();
@@ -29,6 +34,10 @@ function Login(props) {
   var [error, setError] = useState(null);
   var [loginValue, setLoginValue] = useState("");
   var [passwordValue, setPasswordValue] = useState("");
+
+  const handleResetPass = () => {
+    history.push('/reset-pass');
+  };
 
   return (
     <Grid container className={classes.container}>
@@ -109,6 +118,7 @@ function Login(props) {
                 color="primary"
                 size="large"
                 className={classes.forgetButton}
+                onClick={handleResetPass}
               >
                 Quên mật khẩu
               </Button>

@@ -23,6 +23,8 @@ export default function EditUser() {
   const paramId = useParams();
   const currentUserId = paramId.id;
 
+  const [checked, setChecked] = useState(false);
+
   const [roles, setRoles] = useState([]);
   const [roleID, setRoleID] = useState('');
 
@@ -30,6 +32,10 @@ export default function EditUser() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [tel, setTel] = useState('');
+
+  const [password, setPassword] = useState('');
+  const [rePassword, setRePassword] = useState('');
+
   const [permission, setPermission] = useState(false)
   useEffect(() => {
     loadUser();
@@ -89,12 +95,28 @@ export default function EditUser() {
       return;
     }
 
+    if (checked === true && password === "") {
+      alert("Vui lòng nhập mật khẩu");
+      return;
+    }
+
+    if (checked === true && rePassword === "") {
+      alert("Vui lòng nhập lại mật khẩu");
+      return;
+    }
+
+    if (checked === true && password !== rePassword) {
+      alert("Mật khẩu không trùng khớp");
+      return;
+    }
+
     const newUser = {
       name: name,
       username: username,
       email: email,
       tel: tel,
-      role_id: roleID
+      role_id: roleID,
+      password: password
     };
 
     const config = {
@@ -158,6 +180,33 @@ export default function EditUser() {
                       }
                     </select>
                   </div>
+                </div>
+              </div>
+              {
+                checked ?
+                  <div className="row">
+                    <div className="col medium-6 small-12 large-6">
+                      <div className={classes.newUserItem}>
+                        <label className={classes.label}>{t('Password')}</label>
+                        <input type="password" name="password" className={classes.inputName} value={password} onChange={(e) => setPassword(e.target.value)} placeholder={t('Password-enter')} />
+                      </div>
+                    </div>
+                    <div className="col medium-6 small-12 large-6">
+                      <div className={classes.newUserItem}>
+                        <label className={classes.label}>{t('Re-Password')}</label>
+                        <input type="password" name="re_password" className={classes.inputName} value={rePassword} onChange={(e) => setRePassword(e.target.value)} placeholder={t('Re-Password-enter')} />
+                      </div>
+                    </div>
+                  </div> : ''
+              }
+              <div className="row">
+                <div className="col medium-12 small-12 large-12" style={{marginTop: '15px'}}>
+                  <label>
+                    <input type="checkbox"
+                      defaultChecked={checked}
+                      onChange={() => setChecked(!checked)}
+                    /> {t('change-password')}
+                  </label>  
                 </div>
               </div>
               <Button

@@ -115,5 +115,9 @@
     "Add-List-Report": "Tạo báo cáo",
     "report-name": "Tên báo cáo",
     "Report-Update": "Cập nhật báo cáo",
-    "btn-export": "Xuất báo cáo"
+    "btn-export": "Xuất báo cáo",
+    "change-password": "Bạn có muốn thay đổi mật khẩu?",
+    "Re-Password": "Nhập lại password",
+    "Re-Password-enter": "Nhập lại password...",
+    "send-password": "Gửi mật khẩu qua email cho người dùng"
 }

@@ -115,5 +115,9 @@
     "Add-List-Report": "Add Report",
     "report-name": "Report Name",
     "Report-Update": "Report Update",
-    "btn-export": "Export Report"
+    "btn-export": "Export Report",
+    "change-password": "Do you want to change the password?",
+    "Re-Password": "Re-password...",
+    "Re-Password-Enter": "Re-enter the password...",
+    "send-password": "Send password to email user"
 }
