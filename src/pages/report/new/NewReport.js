@@ -9,6 +9,9 @@ import {
 	useHistory,
 } from "react-router-dom";
 import axios from 'axios';
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
+
 import './custom.css';
 
 function TableSupplies({rowsData, deleteTableRows, handleChange}) {
@@ -106,12 +109,12 @@ export default function NewReport() {
 	const [ name, setName ] = useState('');
 	const [ code, setCode ] = useState('');
 	const [ constructionId, setConstructionId ] = useState('');
-	const [ publishDay,setPublishDay ] = useState('');
+	const [ publishDay,setPublishDay ] = useState(new Date());
 	const [ publishTime, setPublishTime ] = useState('');
 	const [ representativeName, setRepresentativeName ] = useState('');
 	const [ address, setAddress ] = useState('');
 	const [ frequency, setFrequency ] = useState('');
-	const [ validDate, setValidDate ] = useState('');
+	const [ validDate, setValidDate ] = useState(new Date());
 	const [ hiconComment, setHiconComment ] = useState('');
 	const [ customerComment, setCustomerComment ] = useState('');
 	const [ rowSupplies, setRowSupplies ] = useState([]);
@@ -280,7 +283,15 @@ export default function NewReport() {
 										<div className="col medium-6 small-12 large-6">
 											<div className={classes.newConstructionItem}>
 												<label className={classes.label}>{t('dateIssued')}</label>
-												<input type="text" name="publishDay" className={classes.inputName} value={publishDay} onChange={(e) => setPublishDay(e.target.value)} placeholder={t('dateIssued-enter')} />
+												<DatePicker 
+                									dateFormat="dd/MM/yyyy" 
+                									selected={publishDay} 
+                									onChange={date => setPublishDay(date)}
+                									peekNextMonth
+                									showMonthDropdown
+                									showYearDropdown
+                									dropdownMode="select"
+              									/>
 											</div>
 										</div>
 									</div>
@@ -300,7 +311,15 @@ export default function NewReport() {
 										<div className="col medium-4 small-12 large-4">
 											<div className={classes.newConstructionItem}>
 												<label className={classes.label}>{t('date-test')} (*)</label>
-									  			<input type="text" name="validDate" className={classes.inputName} value={validDate} onChange={(e) => setValidDate(e.target.value)} placeholder={t('dateTest-enter')} />
+												<DatePicker 
+                									dateFormat="dd/MM/yyyy" 
+                									selected={validDate} 
+                									onChange={date => setValidDate(date)}
+                									peekNextMonth
+                									showMonthDropdown
+                									showYearDropdown
+                									dropdownMode="select"
+              									/>
 								  			</div>
 										</div>
 									</div>
