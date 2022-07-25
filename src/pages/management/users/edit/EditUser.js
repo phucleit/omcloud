@@ -154,7 +154,7 @@ export default function EditUser() {
                 <div className="col medium-6 small-12 large-6">
                   <div className={classes.newUserItem}>
                     <label className={classes.label}>{t('Username')}</label>
-                    <input type="text" name="username" className={classes.inputName} value={username} onChange={(e) => setUsername(e.target.value)} placeholder={t('Username-enter')} />
+                    <input type="text" disabled name="username" className={classes.inputName} value={username} onChange={(e) => setUsername(e.target.value)} placeholder={t('Username-enter')} />
                   </div>
                 </div>
               </div>
@@ -181,6 +181,15 @@ export default function EditUser() {
                     </select>
                   </div>
                 </div>
+              </div>
+              <div className="row">
+                <div className="col medium-6 small-12 large-6">
+                  <div className={classes.newUserItem}>
+                    <label className={classes.label}>{t('Phone')}</label>
+                    <input type="tel" name="tel" className={classes.inputName} value={tel} onChange={(e) => setTel(e.target.value)} placeholder={t('Phone-enter')} />
+                  </div>
+                </div>
+                <div className="col medium-6 small-12 large-6"></div>
               </div>
               {
                 checked ?

@@ -100,7 +100,9 @@ export default function UsersPage() {
 
   return (
     <>
-      <PageTitle title={t("Account-List")} button={(
+      <PageTitle title={t("Account-List")} />
+      <div className={classes.boxSearch}>
+        <input type="search" className={classes.searchTerm} placeholder={t('Search-input')} onChange={e => setQuery(e.target.value)} />
         <Link to="/app/new-user">
           <Button
             variant="contained"
@@ -110,12 +112,6 @@ export default function UsersPage() {
             {t("Add")}
           </Button>
         </Link>
-      )} />
-      <div className={classes.search}>
-        <input type="text" className={classes.searchTerm} placeholder={t('Search-input')} onChange={e => setQuery(e.target.value)} />
-        <button type="submit" className={classes.searchButton}>
-          <i className="fa fa-search"></i>
-        </button>
       </div>
       <DataGrid
         rows={search(data)}

@@ -30,12 +30,30 @@ export default function ConstructionsPage() {
   const [filterServiceTypeName, setFilterServiceTypeName] = useState([]);
   const [serviceTypeName, setServiceTypeName] = useState('');
 
+  const [city, setCity] = useState([]);
+
   useEffect(() => {
     loadConstruction();
     loadServicesType();
     loadServices();
     loadStatus();
+    loadCity();
   }, []);
+
+  const loadCity = async () => {
+    const result = await axios.get(
+      'https://backend.omcloud.vn/api/city?limit=100',
+      {
+        headers: { 
+          'Authorization': 'Bearer 10|wrpJyOOlFaGAbvXyOsSvHJQbpYmP0HiPi2KVMck4', 
+          'Content-Type': 'application/json'
+        },
+      }
+    );
+    setCity(result.data.data);
+  };
+
+  const City = city.map(City => City);
 
   const loadConstruction = async () => {
     const result = await axios.get(
@@ -186,6 +204,15 @@ export default function ConstructionsPage() {
       <div className={classes.boxSearch}>
         <select
           className={classes.newStatusType}
+          id="newConstructionType"
+        >
+          <option>---{t('City')}---</option>
+          {
+            City.map((name, key) => <option key={key + 1} value={name.name}>{name.name}</option>)
+          }
+        </select>
+        <select
+          className={classes.newConstructionType}
           id="newConstructionType"
         >
           <option>---{t('Status')}---</option>

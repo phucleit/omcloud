@@ -28,6 +28,7 @@ export default makeStyles(theme => ({
     height: '38px',
     marginLeft: '20px',
     marginRight: '20px',
+    borderRadius: '5px'
   },
   searchButton: {
     width: '3%',
@@ -36,11 +37,13 @@ export default makeStyles(theme => ({
   newConstructionType: {
     height: '38px',
     marginLeft: '20px',
+    borderRadius: '5px'
   },
   boxSearch: {
     marginBottom: '20px',
   },
   newStatusType: {
     height: '38px',
+    borderRadius: '5px'
   }
 }));

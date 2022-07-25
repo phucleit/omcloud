@@ -24,9 +24,14 @@ export default makeStyles(theme => ({
   search: {
     marginBottom: '30px',
   },
+  boxSearch: {
+    marginBottom: '20px',
+  },
   searchTerm: {
-    width: '97%',
+    width: '15%',
     height: '40px',
+    marginRight: '20px',
+    borderRadius: '5px'
   },
   searchButton: {
     width: '3%',

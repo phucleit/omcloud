@@ -119,5 +119,6 @@
     "change-password": "Bạn có muốn thay đổi mật khẩu?",
     "Re-Password": "Nhập lại password",
     "Re-Password-enter": "Nhập lại password...",
-    "send-password": "Gửi mật khẩu qua email cho người dùng"
+    "send-password": "Gửi mật khẩu qua email cho người dùng",
+    "City": "Tỉnh thành"
 }

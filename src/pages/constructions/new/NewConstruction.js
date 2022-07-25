@@ -25,16 +25,31 @@ export default function NewConstruction() {
 
   const [serviceType, setServiceType] = useState([]);
   const [serviceTypeID, setServiceTypeID] = useState('');
+  
+  const [city, setCity] = useState([]);
+  const [cityID, setCityID] = useState('');
 
   const [permission, setPermission] = useState(false)
   useEffect(() => {
     loadServicesType();
     loadServices();
+    loadCity();
 
     if (localStorage.abilities.includes("construction-create"))
       setPermission(true)
     else setPermission(false)
   }, []);
+
+  const loadCity = async () => {
+    const result = await axios.get('https://backend.omcloud.vn/api/city?limit=100');
+    setCity(result.data.data);
+  };
+
+  const City = city.map(City => City);
+
+  const handleCityChange = (e) => {
+    setCityID(e.target.value);
+  }
 
   const loadServices = async () => {
     const result = await axios.get('https://backend.omcloud.vn/api/service');
@@ -77,6 +92,7 @@ export default function NewConstruction() {
       const newConstruction = {
         name: name,
         address: address,
+        city_id: cityID,
         representative: representative,
         representative_tel: representative_tel,
         representative_mail: representative_mail,
@@ -113,16 +129,31 @@ export default function NewConstruction() {
             <PageTitle title={t('Constructions-Add')} />
             <div className={classes.newConstructionForm}>
               <div className="row">
-                <div className="col medium-6 small-12 large-6">
+                <div className="col medium-4 small-12 large-4">
                   <div className={classes.newConstructionItem}>
                     <label className={classes.label}>{t('construction-name')}</label>
                     <input type="text" name="tencongtrinh" className={classes.inputName} value={name} onChange={(e) => setName(e.target.value)} placeholder={t('construction-name-enter')} />
                   </div>
                 </div>
-                <div className="col medium-6 small-12 large-6">
+                <div className="col medium-4 small-12 large-4">
                   <div className={classes.newConstructionItem}>
                     <label className={classes.label}>{t('construction-address')}</label>
                     <input type="text" name="diadiem" className={classes.inputName} value={address} onChange={(e) => setAddress(e.target.value)} placeholder={t('construction-address-enter')} />
+                  </div>
+                </div>
+                <div className="col medium-4 small-12 large-4">
+                  <div className={classes.newConstructionItem}>
+                    <label className={classes.label}>{t('City')}</label>
+                    <select
+                      onChange={e => handleCityChange(e)}
+                      className={classes.newConstructionType}
+                      id="newConstructionType"
+                    >
+                      <option>-----</option>
+                      {
+                        City.map((name, key) => <option key={key + 1} value={name.id}>{name.name}</option>)
+                      }
+                    </select>
                   </div>
                 </div>
               </div>

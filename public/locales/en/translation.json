@@ -119,5 +119,6 @@
     "change-password": "Do you want to change the password?",
     "Re-Password": "Re-password...",
     "Re-Password-Enter": "Re-enter the password...",
-    "send-password": "Send password to email user"
+    "send-password": "Send password to email user",
+    "City": "City"
 }

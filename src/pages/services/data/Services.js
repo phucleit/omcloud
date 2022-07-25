@@ -94,7 +94,9 @@ export default function ServicesPage() {
 
   return (
     <>
-      <PageTitle title={t("Services-List")} button={(
+      <PageTitle title={t("Services-List")} />
+      <div className={classes.boxSearch}>
+        <input type="search" className={classes.searchTerm} placeholder={t('Search-input')} onChange={e => setQuery(e.target.value)} />
         <Link to="/app/new-service">
           <Button
             variant="contained"
@@ -104,12 +106,6 @@ export default function ServicesPage() {
             {t("Add")}
           </Button>
         </Link>
-      )} />
-      <div className={classes.search}>
-        <input type="text" className={classes.searchTerm} placeholder={t('Search-input')} onChange={e => setQuery(e.target.value)} />
-        <button type="submit" className={classes.searchButton}>
-          <i className="fa fa-search"></i>
-        </button>
       </div>
       <DataGrid
         rows={search(data)}
