@@ -110,8 +110,8 @@ export default function ServicesPage() {
       <DataGrid
         rows={search(data)}
         columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
+        pageSize={30}
+        rowsPerPageOptions={[30]}
         disableSelectionOnClick
         className={classes.serviceData}
       />

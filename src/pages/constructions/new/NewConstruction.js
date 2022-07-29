@@ -3,11 +3,16 @@ import { Button } from "@material-ui/core";
 import PageTitle from "../../../components/PageTitle/PageTitle";
 import useStyles from "./styles";
 import { useTranslation } from 'react-i18next';
+import TextField from '@mui/material/TextField';
+import Stack from '@mui/material/Stack';
+import Autocomplete from '@mui/material/Autocomplete';
+import { Box } from '@mui/system';
 
 import {
   useHistory,
 } from "react-router-dom";
 import axios from 'axios';
+import './custom.css'
 
 export default function NewConstruction() {
   var classes = useStyles();
@@ -29,16 +34,24 @@ export default function NewConstruction() {
   const [city, setCity] = useState([]);
   const [cityID, setCityID] = useState('');
 
+  const [user, setUser] = useState([]);
+
   const [permission, setPermission] = useState(false)
   useEffect(() => {
     loadServicesType();
     loadServices();
     loadCity();
+    loadUser();
 
     if (localStorage.abilities.includes("construction-create"))
       setPermission(true)
     else setPermission(false)
   }, []);
+
+  const loadUser = async () => {
+    const result = await axios.get('https://backend.omcloud.vn/api/user');
+    setUser(result.data.data);
+  };
 
   const loadCity = async () => {
     const result = await axios.get('https://backend.omcloud.vn/api/city?limit=100');
@@ -89,34 +102,34 @@ export default function NewConstruction() {
       alert("Vui lòng nhập nhân sự phụ trách");
       return;
     } else {
-      const newConstruction = {
-        name: name,
-        address: address,
-        city_id: cityID,
-        representative: representative,
-        representative_tel: representative_tel,
-        representative_mail: representative_mail,
-        person_in_charge: person_in_charge,
-        service_id: serviceID,
-        service_type_id: serviceTypeID
-      };
+      // const newConstruction = {
+      //   name: name,
+      //   address: address,
+      //   city_id: cityID,
+      //   representative: representative,
+      //   representative_tel: representative_tel,
+      //   representative_mail: representative_mail,
+      //   person_in_charge: person_in_charge,
+      //   service_id: serviceID,
+      //   service_type_id: serviceTypeID
+      // };
 
-      const config = {
-        method: 'post',
-        url: 'https://backend.omcloud.vn/api/construction',
-        headers: { 
-            'Authorization': 'Bearer 10|wrpJyOOlFaGAbvXyOsSvHJQbpYmP0HiPi2KVMck4', 
-            'Content-Type': 'application/json'
-        },
-        data: newConstruction
-      };
+      // const config = {
+      //   method: 'post',
+      //   url: 'https://backend.omcloud.vn/api/construction',
+      //   headers: { 
+      //       'Authorization': 'Bearer 10|wrpJyOOlFaGAbvXyOsSvHJQbpYmP0HiPi2KVMck4', 
+      //       'Content-Type': 'application/json'
+      //   },
+      //   data: newConstruction
+      // };
 
-      axios(config)
-        .then(res => {
-          alert('Thêm công trình thành công!');
-          history.push('/app/constructions');
-        })
-        .catch(error => console.log(error));
+      // axios(config)
+      //   .then(res => {
+      //     alert('Thêm công trình thành công!');
+      //     history.push('/app/constructions');
+      //   })
+      //   .catch(error => console.log(error));
     }
   }
 
@@ -175,14 +188,37 @@ export default function NewConstruction() {
                 <div className="col medium-6 small-12 large-6">
                   <div className={classes.newConstructionItem}>
                     <label className={classes.label}>{t('client-email')}</label>
-                    <input type="email" name="emaildaidien" className={classes.inputName} value={representative_mail} onChange={(e) => setRepresentativeMail(e.target.value)} placeholder={t('client-email-enter')} />
+                    <Autocomplete 
+                      id="list_complete"
+                      getOptionLabel={(user) => `${user.email}`}
+                      options={user}
+                      isOptionEqualToValue={(option, value) => 
+                        option.email === value.email
+                      }
+                      renderOption={(props, user) => (
+                        <Box component="li" {...props} key={user.id}>{user.email}</Box>
+                      )}
+                      renderInput={(params) => <TextField {...params} label={t('client-email')} />}
+                    />
                   </div>
                 </div>
                 <div className="col medium-6 small-12 large-6">
                   <div className={classes.newConstructionItem}>
                     <label className={classes.label}>{t('in-charge')}</label>
-                    <input type="text" name="nhansuphutrach" className={classes.inputName} value={person_in_charge} onChange={(e) => setPersonInCharge(e.target.value)} placeholder={t('in-charge-enter')} />
-                  </div>
+                    <Autocomplete
+                      multiple
+                      id="list_complete_2"
+                      getOptionLabel={(user) => `${user.name}`}
+                      options={user}
+                      isOptionEqualToValue={(option, value) => 
+                        option.name === value.name
+                      }
+                      renderOption={(props, user) => (
+                        <Box component="li" {...props} key={user.id}>{user.name}</Box>
+                      )}
+                      renderInput={(params) => <TextField {...params} label={t('in-charge-enter')} />}
+                    />
+                   </div>
                 </div>
               </div>
               <div className="row">
