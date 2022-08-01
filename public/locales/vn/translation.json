@@ -120,5 +120,12 @@
     "Re-Password": "Nhập lại password",
     "Re-Password-enter": "Nhập lại password...",
     "send-password": "Gửi mật khẩu qua email cho người dùng",
-    "City": "Tỉnh thành"
+    "City": "Tỉnh thành",
+    "construction-detail": "Chi tiết công trình",
+    "current-status": "Tình trạng hiện tại",
+    "contact": "Liên hệ",
+    "period": "Kỳ bảo trì",
+    "date": "Ngày",
+    "action-2": "Tác vụ",
+    "current-history": "Lịch sử sữa chữa"
 }

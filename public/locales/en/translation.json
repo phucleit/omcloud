@@ -120,5 +120,12 @@
     "Re-Password": "Re-password...",
     "Re-Password-Enter": "Re-enter the password...",
     "send-password": "Send password to email user",
-    "City": "City"
+    "City": "City",
+    "construction-detail": "Construction Detail",
+    "current-status": "Current status",
+    "contact": "Contact",
+    "period": "Period",
+    "date": "Date",
+    "action-2": "Action",
+    "current-history": "Current History"
 }

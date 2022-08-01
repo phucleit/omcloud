@@ -111,6 +111,8 @@ export default function ConstructionsPage() {
     setServiceType(result.data.data);
   };
 
+  const ServiceType = serviceType.map(ServiceType => ServiceType)
+
   const handleServiceChange = (value) => {
     setServiceName(value);
     const result = [];
@@ -121,8 +123,6 @@ export default function ConstructionsPage() {
     );
     setFilterServiceName(result);
   }
-
-  const ServiceType = serviceType.map(ServiceType => ServiceType)
 
   const handleServiceTypeChange = (value) => {
     setServiceTypeName(value);
@@ -153,7 +153,13 @@ export default function ConstructionsPage() {
   }
 
   const columns = [
-    { field: 'name', headerName: t('construction-name'), width: 250 },
+    { field: 'name', headerName: t('construction-name'), width: 210 },
+    {
+      field: 'service_type',
+      headerName: t('service-type'),
+      width: 150,
+      valueGetter: (params) => `${params.row.service_type.name}`
+    },
     {
       field: 'service_id',
       headerName: t('Services'),
@@ -162,15 +168,27 @@ export default function ConstructionsPage() {
     },
     { field: 'address', headerName: t('construction-address'), width: 300 },
     {
-      field: 'service_type',
-      headerName: t('service-type'),
+      field: 'status',
+      headerName: t('Status'),
       width: 150,
-      valueGetter: (params) => `${params.row.service_type.name}`
+      valueGetter: (params) => `${params.row.status.name}`
+    },
+    {
+      field: 'contact',
+      headerName: t('contact'),
+      width: 350,
+      renderCell: (params) => {
+        return (
+          <div>
+            {params.row.representative_mail}/{params.row.representative_tel}/{params.row.representative}
+          </div>
+        );
+      }
     },
     {
       field: 'hanhDong',
       headerName: t('Action'),
-      width: 150,
+      width: 100,
       renderCell: (params) => {
         return (
           <div className={classes.buttonAction}>
