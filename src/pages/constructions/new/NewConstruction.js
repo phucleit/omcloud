@@ -23,7 +23,6 @@ export default function NewConstruction() {
   const [representative, setRepresentative] = useState('');
   const [representative_tel, setRepresentativeTel] = useState('');
   const [representative_mail, setRepresentativeMail] = useState('');
-  const [person_in_charge, setPersonInCharge] = useState('');
 
   const [service, setService] = useState([]);
   const [serviceID, setServiceID] = useState();
@@ -34,6 +33,11 @@ export default function NewConstruction() {
   const [city, setCity] = useState([]);
   const [cityID, setCityID] = useState('');
 
+  const [staffID, setStaffID] = useState('');
+
+  const [status, setStatus] = useState([]);
+  const [statusID, setStatusID] = useState('');
+
   const [user, setUser] = useState([]);
 
   const [permission, setPermission] = useState(false)
@@ -42,6 +46,7 @@ export default function NewConstruction() {
     loadServices();
     loadCity();
     loadUser();
+    loadStatus();
 
     if (localStorage.abilities.includes("construction-create"))
       setPermission(true)
@@ -86,11 +91,22 @@ export default function NewConstruction() {
     setServiceTypeID(e.target.value);
   }
 
+  const loadStatus = async () => {
+    const result = await axios.get('https://backend.omcloud.vn/api/status');
+    setStatus(result.data.data);
+  };
+
+  const Status = status.map(Status => Status);
+
+  const handleStatusChange = (e) => {
+    setStatusID(e.target.value);
+  }
+
   const handleAddConstruction = (e) => {
     e.preventDefault();
 
     if (name === "") {
-      alert("Vui lòng nhập tên dịch vụ");
+      alert("Vui lòng nhập tên công trình");
       return;
     } else if (address === "") {
       alert("Vui lòng nhập địa điểm");
@@ -98,38 +114,36 @@ export default function NewConstruction() {
     } else if (representative === "") {
       alert("Vui lòng nhập họ tên đại diện");
       return;
-    } else if (person_in_charge === "") {
-      alert("Vui lòng nhập nhân sự phụ trách");
-      return;
     } else {
-      // const newConstruction = {
-      //   name: name,
-      //   address: address,
-      //   city_id: cityID,
-      //   representative: representative,
-      //   representative_tel: representative_tel,
-      //   representative_mail: representative_mail,
-      //   person_in_charge: person_in_charge,
-      //   service_id: serviceID,
-      //   service_type_id: serviceTypeID
-      // };
+      const newConstruction = {
+        address: address,
+        city_id: cityID,
+        name: name,
+        representative: representative,
+        representative_tel: representative_tel,
+        representative_mail: representative_mail,
+        service_id: serviceID,
+        service_type_id: serviceTypeID,
+        staffs: [staffID],
+        status: statusID
+      };
 
-      // const config = {
-      //   method: 'post',
-      //   url: 'https://backend.omcloud.vn/api/construction',
-      //   headers: { 
-      //       'Authorization': 'Bearer 10|wrpJyOOlFaGAbvXyOsSvHJQbpYmP0HiPi2KVMck4', 
-      //       'Content-Type': 'application/json'
-      //   },
-      //   data: newConstruction
-      // };
+      const config = {
+        method: 'post',
+        url: 'https://backend.omcloud.vn/api/construction',
+        headers: { 
+            'Authorization': 'Bearer 10|wrpJyOOlFaGAbvXyOsSvHJQbpYmP0HiPi2KVMck4', 
+            'Content-Type': 'application/json'
+        },
+        data: newConstruction
+      };
 
-      // axios(config)
-      //   .then(res => {
-      //     alert('Thêm công trình thành công!');
-      //     history.push('/app/constructions');
-      //   })
-      //   .catch(error => console.log(error));
+      axios(config)
+        .then(res => {
+          alert('Thêm công trình thành công!');
+          history.push('/app/constructions');
+        })
+        .catch(error => console.log(error));
     }
   }
 
@@ -188,33 +202,25 @@ export default function NewConstruction() {
                 <div className="col medium-6 small-12 large-6">
                   <div className={classes.newConstructionItem}>
                     <label className={classes.label}>{t('client-email')}</label>
-                    <Autocomplete 
-                      id="list_complete"
-                      getOptionLabel={(user) => `${user.email}`}
-                      options={user}
-                      isOptionEqualToValue={(option, value) => 
-                        option.email === value.email
-                      }
-                      renderOption={(props, user) => (
-                        <Box component="li" {...props} key={user.id}>{user.email}</Box>
-                      )}
-                      renderInput={(params) => <TextField {...params} label={t('client-email')} />}
-                    />
+                    <input type="email" name="representative_mail" className={classes.inputName} value={representative_mail} onChange={(e) => setRepresentativeMail(e.target.value)} placeholder={t('client-email-enter')} />
                   </div>
                 </div>
                 <div className="col medium-6 small-12 large-6">
                   <div className={classes.newConstructionItem}>
                     <label className={classes.label}>{t('in-charge')}</label>
                     <Autocomplete
-                      multiple
+                      // multiple
                       id="list_complete_2"
+                      onChange={(e) => {
+                        setStaffID(e.target.value);
+                      }}
                       getOptionLabel={(user) => `${user.name}`}
                       options={user}
                       isOptionEqualToValue={(option, value) => 
                         option.name === value.name
                       }
                       renderOption={(props, user) => (
-                        <Box component="li" {...props} key={user.id}>{user.name}</Box>
+                        <Box component="li" {...props} value={user.id} key={user.id}>{user.name}</Box>
                       )}
                       renderInput={(params) => <TextField {...params} label={t('in-charge-enter')} />}
                     />
@@ -222,7 +228,7 @@ export default function NewConstruction() {
                 </div>
               </div>
               <div className="row">
-                <div className="col medium-6 small-12 large-6">
+                <div className="col medium-4 small-12 large-4">
                   <div className={classes.newConstructionItem}>
                     <label className={classes.label}>{t('Services')}</label>
                     <select
@@ -237,7 +243,7 @@ export default function NewConstruction() {
                     </select>
                   </div>
                 </div>
-                <div className="col medium-6 small-12 large-6">
+                <div className="col medium-4 small-12 large-4">
                   <div className={classes.newConstructionItem}>
                     <label className={classes.label}>{t('service-type')}</label>
                     <select
@@ -248,6 +254,21 @@ export default function NewConstruction() {
                       <option>-----</option> 
                       {
                         Type.map((name, key) => <option key={key + 1} value={key + 1}>{name}</option>)
+                      }
+                    </select>
+                  </div>
+                </div>
+                <div className="col medium-4 small-12 large-4">
+                  <div className={classes.newConstructionItem}>
+                    <label className={classes.label}>{t('Status')}</label>
+                    <select
+                      onChange={e => handleStatusChange(e)}
+                      className={classes.newConstructionType}
+                      id="newConstructionType"
+                    >
+                      <option>-----</option> 
+                      {
+                        Status.map((name, key) => <option key={key + 1} value={name.id}>{name.name}</option>)
                       }
                     </select>
                   </div>
