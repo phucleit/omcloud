@@ -27,6 +27,7 @@ import EditService from "../../pages/services/edit";
 import Constructions from "../../pages/constructions/data";
 import NewConstruction from "../../pages/constructions/new";
 import EditConstruction from "../../pages/constructions/edit";
+import DetailConstruction from "../../pages/constructions/detail";
 
 import Status from "../../pages/status/data";
 import NewStatus from "../../pages/status/new";
@@ -70,10 +71,8 @@ function Layout(props) {
             <Route path="/app/edit-service/:id" component={EditService} />
             <Route path="/app/constructions" component={Constructions} />
             <Route path="/app/new-construction" component={NewConstruction} />
-            <Route
-              path="/app/edit-construction/:id"
-              component={EditConstruction}
-            />
+            <Route path="/app/edit-construction/:id" component={EditConstruction} />
+            <Route path="/app/detail-construction/:id" component={DetailConstruction} />
             <Route path="/app/status" component={Status} />
             <Route path="/app/new-status" component={NewStatus} />
             <Route path="/app/report" component={Report} />

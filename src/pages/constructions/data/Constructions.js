@@ -157,7 +157,7 @@ export default function ConstructionsPage() {
     {
       field: 'service_type',
       headerName: t('service-type'),
-      width: 150,
+      width: 130,
       valueGetter: (params) => `${params.row.service_type.name}`
     },
     {
@@ -166,7 +166,12 @@ export default function ConstructionsPage() {
       width: 200,
       valueGetter: (params) => `${params.row.service.name}`
     },
-    { field: 'address', headerName: t('construction-address'), width: 300 },
+    { 
+      field: 'address', 
+      headerName: t('construction-address'), 
+      width: 300,
+      valueGetter: (params) => `${params.row.address}, ${params.row.city.name}`
+    },
     {
       field: 'status',
       headerName: t('Status'),
@@ -176,14 +181,8 @@ export default function ConstructionsPage() {
     {
       field: 'contact',
       headerName: t('contact'),
-      width: 350,
-      renderCell: (params) => {
-        return (
-          <div>
-            {params.row.representative_mail}/{params.row.representative_tel}/{params.row.representative}
-          </div>
-        );
-      }
+      width: 370,
+      valueGetter: (params) => `${params.row.representative_mail} / ${params.row.representative_tel} / ${params.row.representative}`
     },
     {
       field: 'hanhDong',
@@ -192,8 +191,8 @@ export default function ConstructionsPage() {
       renderCell: (params) => {
         return (
           <div className={classes.buttonAction}>
-            <Link to={"/app/edit-construction/" + params.row.id}>
-              <button className={classes.constructionListEdit}>Edit</button>
+            <Link to={"/app/detail-construction/" + params.row.id}>
+              <button className={classes.constructionListEdit}>View</button>
             </Link>
             <DeleteOutline className={classes.constructionListDelete} onClick={() => handleDelete(params.row.id)} />
           </div>
