@@ -4,7 +4,6 @@ import PageTitle from "../../../components/PageTitle/PageTitle";
 import useStyles from "./styles";
 import { useTranslation } from 'react-i18next';
 import TextField from '@mui/material/TextField';
-import Stack from '@mui/material/Stack';
 import Autocomplete from '@mui/material/Autocomplete';
 import { Box } from '@mui/system';
 
@@ -113,6 +112,12 @@ export default function NewConstruction() {
       return;
     } else if (representative === "") {
       alert("Vui lòng nhập họ tên đại diện");
+      return;
+    } else if (representative_tel === "") {
+      alert("Vui lòng nhập số điện thoại");
+      return;
+    } else if (representative_mail === "") {
+      alert("Vui lòng nhập email");
       return;
     } else {
       const newConstruction = {

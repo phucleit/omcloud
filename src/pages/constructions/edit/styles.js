@@ -47,8 +47,8 @@ export default makeStyles(theme => ({
         height: '38px',
     },
     newConstructionType: {
-        height: '38px',
-        marginLeft: '20px',
+        height: '43px',
+        // marginLeft: '20px',
         borderRadius: '5px'
     },
     boxSearch: {

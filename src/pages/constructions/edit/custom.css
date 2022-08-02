@@ -1,3 +1,35 @@
 .tinh-trang {
     margin-bottom: 30px;
 }
+
+#list_complete_3 {
+    padding: 3px !important;
+    border-radius: 5px !important;
+    font-size: 15px !important;
+}
+
+#list_complete_3-label {
+    display: none;
+}
+
+.MuiOutlinedInput-notchedOutline {
+    border-color: gray !important;
+    border-width: 1px !important;
+}
+
+.MuiOutlinedInput-notchedOutline legend {
+    display: none !important;
+}
+
+fieldset.MuiOutlinedInput-notchedOutline {
+    top: 0;
+}
+
+.MuiInputBase-formControl {
+    padding-bottom: 7px;
+}
+
+.MuiInputBase-adornedStart {
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
+}
