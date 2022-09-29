@@ -16,11 +16,12 @@ import { DataGrid } from '@mui/x-data-grid';
 import './custom.css';
 
 const url = `https://backend.omcloud.vn/api/construction/`;
+const url_report = `https://backend.omcloud.vn/api/report`;
 
 export default function DetailConstruction() {
   var classes = useStyles();
   let history = useHistory();
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const paramId = useParams();
   const detailContructionId = paramId.id;
@@ -41,12 +42,15 @@ export default function DetailConstruction() {
   const [service, setService] = useState([]);
   const [serviceType, setServiceType] = useState([]);
 
+  const [report, setReport] = useState([]);
+
   useEffect(() => {
     loadConstruction();
     loadCity();
     loadStatus();
     loadServices();
     loadServicesType();
+    loadReport();
     if (localStorage.abilities.includes("construction-update"))
       setPermission(true)
     else setPermission(false)
@@ -62,6 +66,19 @@ export default function DetailConstruction() {
     setRepresentativeTel(result.data.data.representative_tel);
     setRepresentativeMail(result.data.data.representative_mail);
   };
+
+  const loadReport = async () => {
+    const result = await axios.get(
+      `${url_report}?construction_id=${detailContructionId}`,
+      {
+        headers: { 
+          'Authorization': 'Bearer 10|wrpJyOOlFaGAbvXyOsSvHJQbpYmP0HiPi2KVMck4', 
+          'Content-Type': 'application/json'
+        },
+      }
+    );
+    setReport(result.data.data);
+  }
 
   const loadCity = async () => {
     const result = await axios.get(
@@ -123,24 +140,26 @@ export default function DetailConstruction() {
 
   const ServiceType = serviceType.map(ServiceType => ServiceType)
 
-  const columns_status = [
-    { field: 'period', headerName: t('period'), width: 50 },
-    { field: 'date', headerName: t('date'), width: 100 },
-    { field: 'services', headerName: t('Services'), width: 150 },
-    { field: 'service_type', headerName: t('service-type'), width: 150 },
-    { field: 'status', headerName: t('Status'), width: 150 },
-    { field: 'in_charge_enter', headerName: t('in-charge-enter'), width: 200 },
-    { field: 'action', headerName: t('action-2'), width: 200 },
+  const columns = [
+    { 
+      field: 'name', 
+      headerName: t('status-name'), 
+      width: 250 ,
+      valueGetter: (params) => `${params.row.name}`
+    },
   ];
 
-  const columns_history = [
-    { field: 'date', headerName: t('date'), width: 100 },
-    { field: 'services', headerName: t('Services'), width: 150 },
-    { field: 'service_type', headerName: t('service-type'), width: 150 },
-    { field: 'status', headerName: t('Status'), width: 150 },
-    { field: 'in_charge_enter', headerName: t('in-charge-enter'), width: 200 },
-    { field: 'action', headerName: t('action-2'), width: 200 },
-  ];
+  const search = (rows) => {
+    return rows.filter(
+      (reports) =>
+        reports.name.toLowerCase().indexOf(query) > -1 ||
+        reports.name.indexOf(query) > -1
+    );
+  }
+
+  const handleAddReport = async () => {
+    history.push('/app/new-report?id=' + detailContructionId);
+  }
 
   return (
     <>
@@ -214,16 +233,25 @@ export default function DetailConstruction() {
                         {t("btn-update")}
                     </Button>
                 </Link>
+                    <Button
+                        variant="contained"
+                        size="medium"
+                        color="secondary"
+                        className="btn-update"
+                        onClick={() => handleAddReport()}
+                    >
+                      {t("Add-List-Report")}
+                    </Button>
             </div>
             <div className="tinh-trang">
                 <h5>{t('current-status')}</h5>
                 <DataGrid
-                    rows={''}
-                    columns={columns_status}
-                    pageSize={30}
-                    rowsPerPageOptions={[30]}
-                    disableSelectionOnClick
-                    className={classes.constructionData}
+                  rows={search(report)}
+                  columns={columns}
+                  pageSize={10}
+                  rowsPerPageOptions={[10]}
+                  disableSelectionOnClick
+                  className={classes.constructionData}
                 />
             </div>
 
@@ -232,14 +260,7 @@ export default function DetailConstruction() {
               <>
                 <div className="tinh-trang">
                   <h5>{t('current-history')}</h5>
-                  <DataGrid
-                    rows={''}
-                    columns={columns_history}
-                    pageSize={30}
-                    rowsPerPageOptions={[30]}
-                    disableSelectionOnClick
-                    className={classes.constructionData}
-                  />
+                  
                 </div>
               </> : <div></div>
             }

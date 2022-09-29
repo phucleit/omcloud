@@ -7,6 +7,7 @@ import 'tui-image-editor/dist/tui-image-editor.css';
 import $ from 'jquery';
 import {
 	useHistory,
+	useLocation
 } from "react-router-dom";
 import axios from 'axios';
 import DatePicker from 'react-datepicker';
@@ -99,16 +100,18 @@ function createFormData(formData, key, arr) {
 }
 
 export default function NewReport() {
-
 	var classes = useStyles();
 	let history = useHistory();
 	const { t } = useTranslation();	
+	
+	const location = useLocation();
+	const params = new URLSearchParams(location.search);
+	const contructionId = params.get("id");
 
-	const [construction, setConstruction] = useState([]);
+	const [construction, setConstruction] = useState('');
 
 	const [ name, setName ] = useState('');
 	const [ code, setCode ] = useState('');
-	const [ constructionId, setConstructionId ] = useState('');
 	const [ publishDay,setPublishDay ] = useState(new Date());
 	const [ publishTime, setPublishTime ] = useState('');
 	const [ representativeName, setRepresentativeName ] = useState('');
@@ -120,19 +123,35 @@ export default function NewReport() {
 	const [ rowSupplies, setRowSupplies ] = useState([]);
 	const [ rowMaintenance, setRowMaintenance ] = useState([]);
 
+	// const [status, setStatus] = useState([]);
+  	const [statusID, setStatusID] = useState('');
+
 	const [permission, setPermission] = useState(false)
 	useEffect(() => {
 		if (localStorage.abilities.includes("construction-report"))
 			setPermission(true)
 		else setPermission(false)
 		loadConstruction();
+		// loadStatus();
 	}, []);
 
+	// const loadStatus = async () => {
+	// 	const result = await axios.get('https://backend.omcloud.vn/api/status');
+	// 	setStatus(result.data.data);
+	// };
+	
+	// const Status = status.map(Status => Status);
+	
+	// const handleStatusChange = (e) => {
+	// 	setStatusID(e.target.value);
+	// }
+
 	const loadConstruction = async () => {
-		const result = await axios.get('https://backend.omcloud.vn/api/construction?status=3');
+		const result = await axios.get('https://backend.omcloud.vn/api/construction/' + contructionId);
 		setConstruction(result.data.data);
+		setRepresentativeName(result.data.data.representative);
+		setStatusID(result.data.data.status.id);
 	};
-	const Construction = construction.map(Construction => Construction);
 
 	/* table row bảo trị */
     const addTableRowsMaintenance = () => {
@@ -187,11 +206,6 @@ export default function NewReport() {
 		e.preventDefault();
 		setFrequency(e.target.value);
 	}
-
-	const handleContructionsChange = (e) => {
-		e.preventDefault();
-		setConstructionId(e.target.value);
-	}
 	
 	const handleAddReport = (e) => {
 		e.preventDefault();
@@ -203,9 +217,10 @@ export default function NewReport() {
 		formDataReport.append('publish_time', publishTime);
 		formDataReport.append('representative_name', representativeName);
 		formDataReport.append('address', address);
-		formDataReport.append('construction_id', constructionId);
+		formDataReport.append('construction_id', contructionId);
 		formDataReport.append('frequency', frequency);
 		formDataReport.append('valid_date', validDate);
+		formDataReport.append('status', statusID);
 		formDataReport.append('hicon_comment', hiconComment);
 		formDataReport.append('customer_comment', customerComment);
 
@@ -268,16 +283,7 @@ export default function NewReport() {
 										<div className="col medium-6 small-12 large-6">
 											<div className={classes.newConstructionItem}>
                 								<label className={classes.label}>{t('project')} (*)</label>
-                								<select
-          											onChange={e => handleContructionsChange(e)}
-          											className={classes.newConstructionType}
-          											id="newConstruction"
-          										>
-          											<option>--------</option>
-          											{
-            											Construction.map((name, key) => <option key={key.id} value={name.id}>{name.name}</option>)
-          											}
-        										</select>
+												<input type="text" name="construction_id" className={classes.inputName} value={construction.name} disabled />
               								</div>
 										</div>
 										<div className="col medium-6 small-12 large-6">
@@ -296,19 +302,19 @@ export default function NewReport() {
 										</div>
 									</div>
 									<div className="row">
-										<div className="col medium-4 small-12 large-4">
+										<div className="col medium-4 small-12 large-12">
 											<div className={classes.newConstructionItem}>
 												<label className={classes.label}>{t('timeIssued')}</label>
 												<input type="text" name="publishTime" className={classes.inputName} value={publishTime} onChange={(e) => setPublishTime(e.target.value)} placeholder={t('timeIssued-enter')} />
 											</div>
 										</div>
-										<div className="col medium-4 small-12 large-4">
+										<div className="col medium-4 small-12 large-12">
 											<div className={classes.newConstructionItem}>
 												<label className={classes.label}>{t('client-name')}</label>
-												<input type="text" name="representativeName" className={classes.inputName} value={representativeName} onChange={(e) => setRepresentativeName(e.target.value)} placeholder={t('clientName-enter')} />
+												<input type="text" name="representativeName" className={classes.inputName} value={representativeName} disabled />
 											</div>
 										</div>
-										<div className="col medium-4 small-12 large-4">
+										<div className="col medium-4 small-12 large-12">
 											<div className={classes.newConstructionItem}>
 												<label className={classes.label}>{t('date-test')} (*)</label>
 												<DatePicker 

@@ -89,15 +89,16 @@ function Sidebar({ location }) {
     // { id: 5, label: t("Report-Add"), link: "/app/new-report", icon: <ListAltIcon /> },
     {
       id: 5,
-      label: t("Report-Add"),
+      // label: t("Report-Add"),
+      label: t("List-report"),
       link: "/app/report",
       icon: <ListAltIcon />,
-      children: [
-        // { label: t("List-device"), link: "/app/task" },
-        // { label: t("Add-List-device"), link: "/app/new-task" },
-        { label: t("List-report"), link: "/app/report" },
-        { label: t("Add-List-Report"), link: "/app/new-report" },
-      ],
+      // children: [
+      //   // { label: t("List-device"), link: "/app/task" },
+      //   // { label: t("Add-List-device"), link: "/app/new-task" },
+      //   { label: t("List-report"), link: "/app/report" },
+      //   { label: t("Add-List-Report"), link: "/app/new-report" },
+      // ],
     },
     { id: 6, label: t("System-config"), link: "", icon: <BackupIcon /> },
   ];

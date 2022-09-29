@@ -89,17 +89,19 @@ export default function ServicesPage() {
 
   return (
     <>
-      <PageTitle title={t("List-report")} button={(
-        <Link to="/app/new-report">
-          <Button
-            variant="contained"
-            size="medium"
-            color="secondary"
-          >
-            {t("Add-List-Report")}
-          </Button>
-        </Link>
-      )} />
+      <PageTitle title={t("List-report")} 
+        // button={(
+        // <Link to="/app/new-report">
+        //   <Button
+        //     variant="contained"
+        //     size="medium"
+        //     color="secondary"
+        //   >
+        //     {t("Add-List-Report")}
+        //   </Button>
+        // </Link>
+        // )} 
+      />
       <div className={classes.search}>
         <input type="text" className={classes.searchTerm} placeholder={t('Search-input')} onChange={e => setQuery(e.target.value)} />
         <button type="submit" className={classes.searchButton}>

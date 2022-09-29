@@ -71,7 +71,7 @@ export default function EditConstruction() {
     setServiceTypeID(result.data.data.service_type_id);
     setCityID(result.data.data.city.id);
     setStatusID(result.data.data.status.id);
-    setStaffName(result.data.data.staffs[0].name);
+    setStaffName(result.data.data.staffs[0]);
   };
 
   const loadUser = async () => {
@@ -238,19 +238,16 @@ export default function EditConstruction() {
                   <div className={classes.newConstructionItem}>
                     <label className={classes.label}>{t('in-charge')}</label>
                     <Autocomplete
-                      // multiple
                       id="list_complete_3"
+                      options={user}
+                      getOptionLabel={(option) => option.name ? option.name : ""}
+                      value={staffName}
                       onChange={(e) => {
                         setStaffID(e.target.value);
                       }}
-                      value={staffName}
-                      inputValue={staffName}
-                      getOptionLabel={(user) => `${user.name}`}
-                      options={user}
-                      // isOptionEqualToValue={(option, value) => 
-                      //   option.name === value.name
-                      // }
-                      getOptionSelected={(option, value) => option?.id === value?.id || option?.name.toLowerCase() === value?.name.toLowerCase()}
+                      isOptionEqualToValue={(option, value) => 
+                        option.name === value.name
+                      }
                       renderOption={(props, user) => (
                         <Box component="li" {...props} value={user.id} key={user.id}>{user.name}</Box>
                       )}

@@ -88,23 +88,29 @@ export default function EditService() {
           <>
             <PageTitle title="Cập nhật dịch vụ" />
             <div className={classes.newServiceForm}>
-              <div className={classes.newServiceItem}>
-                <label className={classes.label}>{t('service-name')}</label>
-                <input type="text" name="tendichvu" className={classes.inputName} value={serviceName} onChange={handleServiceNameChange} placeholder={t('service-name-enter')} />
-              </div>
-              <div className={classes.newServiceItem}>
-                <label className={classes.label}>{t('service-type')}</label>
-                <select
-                  onChange={e => handleTypeChange(e)}
-                  className={classes.newServiceType}
-                  id="newServiceType"
-                  value={serviceTypeName}
-                >
-                  <option>-----</option>
-                  {
-                    Type.map((name, key) => <option key={key + 1} value={key + 1}>{name}</option>)
-                  }
-                </select>
+              <div className="row">
+                <div className="col medium-12 small-12 large-12">
+                  <div className={classes.newServiceItem}>
+                    <label className={classes.label}>{t('service-name')}</label>
+                    <input type="text" name="tendichvu" className={classes.inputName} value={serviceName} onChange={handleServiceNameChange} placeholder={t('service-name-enter')} />
+                  </div>
+                </div>
+                <div className="col medium-12 small-12 large-12">
+                  <div className={classes.newServiceItem}>
+                    <label className={classes.label}>{t('service-type')}</label>
+                    <select
+                      onChange={e => handleTypeChange(e)}
+                      className={classes.newServiceType}
+                      id="newServiceType"
+                      value={serviceTypeName}
+                    >
+                      <option>-----</option>
+                      {
+                        Type.map((name, key) => <option key={key + 1} value={key + 1}>{name}</option>)
+                      }
+                    </select>
+                  </div>
+                </div>
               </div>
               <Button
                 variant="contained"

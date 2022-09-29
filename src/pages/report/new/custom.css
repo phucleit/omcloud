@@ -17,3 +17,7 @@
     border-radius: 5px;
     border: 1px solid gray;
 }
+
+.row {
+    display: block;
+}
