@@ -127,5 +127,8 @@
     "period": "Period",
     "date": "Date",
     "action-2": "Action",
-    "current-history": "Current History"
+    "current-history": "Current History",
+    "Surveying": "Surveying",
+    "Processing": "Processing",
+    "Accomplished": "Accomplished"
 }

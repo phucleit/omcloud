@@ -59,7 +59,16 @@ export default function ServicesPage() {
   const columns = [
     { field: 'name', headerName: t('title-name'), width: 350 },
     { field: 'code', headerName: t('code-name'), width: 150 },
-    { field: 'publish_day', headerName: t('dateIssued'), width: 150 },
+    { 
+      field: 'publish_day', 
+      headerName: t('dateIssued'), 
+      width: 150 ,
+      renderCell: (params) => {
+        return(
+          <div>{new Date(params.row.publish_day).toLocaleDateString()}</div>
+        );
+      }
+    },
     { field: 'representative_name', headerName: t('clientName'), width: 350 },
     { field: 'address', headerName: t('address'), width: 350 },
     {
@@ -72,9 +81,10 @@ export default function ServicesPage() {
             <Link to={"/app/export-report/" + params.row.id}>
               <button className={classes.serviceListEdit}>View</button>
             </Link>
-            <DeleteOutline className={classes.serviceListDelete} onClick={() => handleDelete(params.row.id)} />
+            
           </div>
         );
+        // <DeleteOutline className={classes.serviceListDelete} onClick={() => handleDelete(params.row.id)} />
       }
     },
   ];

@@ -28,8 +28,6 @@ export default function DetailConstruction() {
 
   const [ permission, setPermission ] = useState(false);
 
-  const [ statusID, setStatusID ] = useState('');
-
   const [ name, setName ] = useState('');
   const [ address, setAddress ] = useState('');
   const [ cityName, setCityName ] = useState('');
@@ -37,12 +35,13 @@ export default function DetailConstruction() {
   const [ representative_tel, setRepresentativeTel ] = useState('');
   const [ representative_mail, setRepresentativeMail ] = useState('');
 
-  const [city, setCity] = useState([]);
-  const [status, setStatus] = useState([]);
-  const [service, setService] = useState([]);
-  const [serviceType, setServiceType] = useState([]);
+  const [ city, setCity ] = useState([]);
+  const [ status, setStatus ] = useState([]);
+  const [ service, setService ] = useState([]);
+  const [ serviceType, setServiceType ] = useState([]);
 
-  const [report, setReport] = useState([]);
+  const [ report, setReport ] = useState([]);
+  const [ statusID, setStatusID ] = useState('');
 
   useEffect(() => {
     loadConstruction();
@@ -58,7 +57,6 @@ export default function DetailConstruction() {
 
   const loadConstruction = async () => {
     const result = await axios.get(url + detailContructionId);
-    setStatusID(result.data.data.status.id);
     setName(result.data.data.name);
     setAddress(result.data.data.address);
     setCityName(result.data.data.city.name);
@@ -78,6 +76,9 @@ export default function DetailConstruction() {
       }
     );
     setReport(result.data.data);
+    result.data.data.forEach(item => {
+      setStatusID(item.status);
+    });
   }
 
   const loadCity = async () => {
@@ -139,23 +140,6 @@ export default function DetailConstruction() {
   };
 
   const ServiceType = serviceType.map(ServiceType => ServiceType)
-
-  const columns = [
-    { 
-      field: 'name', 
-      headerName: t('status-name'), 
-      width: 250 ,
-      valueGetter: (params) => `${params.row.name}`
-    },
-  ];
-
-  const search = (rows) => {
-    return rows.filter(
-      (reports) =>
-        reports.name.toLowerCase().indexOf(query) > -1 ||
-        reports.name.indexOf(query) > -1
-    );
-  }
 
   const handleAddReport = async () => {
     history.push('/app/new-report?id=' + detailContructionId);
@@ -223,36 +207,57 @@ export default function DetailConstruction() {
                         {t("Add")}
                     </Button>
                 </Link>
-                <Link to={"/app/edit-construction/" + detailContructionId}>
-                    <Button
-                        variant="contained"
-                        size="medium"
-                        color="secondary"
-                        className="btn-update"
-                    >
-                        {t("btn-update")}
-                    </Button>
-                </Link>
-                    <Button
-                        variant="contained"
-                        size="medium"
-                        color="secondary"
-                        className="btn-update"
-                        onClick={() => handleAddReport()}
-                    >
-                      {t("Add-List-Report")}
-                    </Button>
+                <Button
+                    variant="contained"
+                    size="medium"
+                    color="secondary"
+                    className="btn-update"
+                    onClick={() => handleAddReport()}
+                >
+                  {t("Add-List-Report")}
+                </Button>
             </div>
             <div className="tinh-trang">
                 <h5>{t('current-status')}</h5>
-                <DataGrid
-                  rows={search(report)}
-                  columns={columns}
-                  pageSize={10}
-                  rowsPerPageOptions={[10]}
-                  disableSelectionOnClick
-                  className={classes.constructionData}
-                />
+                <tbody>
+                  <tr className="">
+                    <th>{t("date")}</th>
+                    <th>{t("Services")}</th>
+                    <th>{t("service-type")}</th>
+                    <th>{t("Status")}</th>
+                    <th>{t("action-2")}</th>
+                    <th>{t("period")}</th>
+                </tr>
+                {report.map((item, i) =>
+                  <tr key={i}>
+                    <td>{new Date(item.publish_day).toLocaleDateString()}</td>
+                    <td>{item.construction.service.name}</td>
+                    <td>{item.construction.service_type.name}</td>
+                    {
+                      item.status == 5 && <td>{t("Surveying")}</td>
+                    }
+                    {
+                      item.status == 6 && <td>{t("Processing")}</td>
+                    }
+                    {
+                      item.status == 3 && <td>{t("Accomplished")}</td>
+                    }
+                    <td>
+                      <Link to={"/app/edit-construction/" + item.construction.id}>
+                        <Button
+                          variant="contained"
+                          size="small"
+                          color="secondary"
+                          className="btn-update"
+                        >
+                          {t("btn-update")}
+                        </Button>
+                      </Link>
+                    </td>
+                    <td>{item.period}</td>
+                  </tr>
+                )}
+                </tbody>
             </div>
 
             {

@@ -112,6 +112,7 @@ export default function NewReport() {
 
 	const [ name, setName ] = useState('');
 	const [ code, setCode ] = useState('');
+	const [ period, setPeriod ] = useState('');
 	const [ publishDay,setPublishDay ] = useState(new Date());
 	const [ publishTime, setPublishTime ] = useState('');
 	const [ representativeName, setRepresentativeName ] = useState('');
@@ -123,7 +124,7 @@ export default function NewReport() {
 	const [ rowSupplies, setRowSupplies ] = useState([]);
 	const [ rowMaintenance, setRowMaintenance ] = useState([]);
 
-	// const [status, setStatus] = useState([]);
+	const [status, setStatus] = useState([]);
   	const [statusID, setStatusID] = useState('');
 
 	const [permission, setPermission] = useState(false)
@@ -132,19 +133,19 @@ export default function NewReport() {
 			setPermission(true)
 		else setPermission(false)
 		loadConstruction();
-		// loadStatus();
+		loadStatus();
 	}, []);
 
-	// const loadStatus = async () => {
-	// 	const result = await axios.get('https://backend.omcloud.vn/api/status');
-	// 	setStatus(result.data.data);
-	// };
+	const loadStatus = async () => {
+		const result = await axios.get('https://backend.omcloud.vn/api/status');
+		setStatus(result.data.data);
+	};
 	
-	// const Status = status.map(Status => Status);
+	const Status = status.map(Status => Status);
 	
-	// const handleStatusChange = (e) => {
-	// 	setStatusID(e.target.value);
-	// }
+	const handleStatusChange = (e) => {
+		setStatusID(e.target.value);
+	}
 
 	const loadConstruction = async () => {
 		const result = await axios.get('https://backend.omcloud.vn/api/construction/' + contructionId);
@@ -213,6 +214,7 @@ export default function NewReport() {
 		const formDataReport = new FormData();
 		formDataReport.append('name', name);
 		formDataReport.append('code', code);
+		formDataReport.append('period', period);
 		formDataReport.append('publish_day', publishDay);
 		formDataReport.append('publish_time', publishTime);
 		formDataReport.append('representative_name', representativeName);
@@ -280,13 +282,19 @@ export default function NewReport() {
 										</div>
 									</div>
 									<div className="row">
-										<div className="col medium-6 small-12 large-6">
+										<div className="col medium-4 small-12 large-4">
 											<div className={classes.newConstructionItem}>
                 								<label className={classes.label}>{t('project')} (*)</label>
 												<input type="text" name="construction_id" className={classes.inputName} value={construction.name} disabled />
               								</div>
 										</div>
-										<div className="col medium-6 small-12 large-6">
+										<div className="col medium-4 small-12 large-4">
+											<div className={classes.newConstructionItem}>
+                								<label className={classes.label}>{t('period')}</label>
+												<input type="text" name="period" className={classes.inputName} value={period} onChange={(e) => setPeriod(e.target.value)} placeholder={t('period')} />
+              								</div>
+										</div>
+										<div className="col medium-4 small-12 large-4">
 											<div className={classes.newConstructionItem}>
 												<label className={classes.label}>{t('dateIssued')}</label>
 												<DatePicker 
@@ -390,6 +398,21 @@ export default function NewReport() {
                             							<TableSupplies rowsData={rowSupplies} deleteTableRows={deleteTableRowsSupplies} handleChange={handleChangeSupplies} />
                         							</tbody> 
                     							</table>
+											</div>
+										</div>
+										<div className="col medium-12 small-12 large-12">
+											<div className={classes.newConstructionItem}>
+												<label className={classes.label}>{t('Status')}</label>
+												<select
+													onChange={e => handleStatusChange(e)}
+													className={classes.newConstructionType}
+													id="newConstructionType"
+												>
+													<option>-----</option> 
+													{
+														Status.map((name, key) => <option key={key + 1} value={name.id}>{name.name}</option>)
+													}
+												</select>
 											</div>
 										</div>
 									</div>
